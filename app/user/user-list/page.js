@@ -4,14 +4,14 @@ import axiosClient from "@/app/axiosClient";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-    const [businessPosts, setBusinessPosts] = useState([]);
+    const [userList, setuser] = useState([]);
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/business-post/list");
+          const response = await axiosClient.get("/user/get");
           const responseData = response.data; // Rename data variable for clarity
           if (responseData.success === true) {
-            setBusinessPosts(responseData.businessPosts);
+            setuser(responseData.userList);
           }
         } catch (error) {
           console.error('Error fetching business posts:', error);
@@ -30,70 +30,32 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Business Post</h3>
+                <h3 className='title'>User List</h3>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
-                    <form action='#' className='dashboard-form flex-ctr-spb'>
-                        <div className='dashboard-form__fields flex-ctr'>
-                            <div className='dashboard-form__field select-field'>
-                                <select name='category' className='select'>
-                                    <option value='1'>Counter 1</option>
-                                    <option value='2'>Counter 2</option>
-                                </select>
-                            </div>
-                            <div className='dashboard-form__field select-field'>
-                                <select name='category' className='select'>
-                                    <option value='0' hidden>
-                                        Employee
-                                    </option>
-                                    <option value='1'>John Doe</option>
-                                    <option value='2'>John Doe</option>
-                                </select>
-                            </div>
-                            <div className='dashboard-form__field select-field'>
-                                <select
-                                    name='date-range'
-                                    id=''
-                                    className='select'
-                                    defaultValue={"0"}
-                                >
-                                    <option value='0' hidden>
-                                        Date range
-                                    </option>
-                                    <option value='1'>01 - 10</option>
-                                    <option value='2'>11 - 20</option>
-                                    <option value='3'>21 - 31</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type='button' className='db-button'>
-                            Create New
-                        </button>
-                    </form>
                     <div className='dashboard-table-wrap flex-spb'>
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Business Post Name</th>                                
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Created At</th>
+                                    <th>Name</th>                                
+                                    <th>Email</th>
+                                    <th>Package type</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                               {
-                                businessPosts.map( (post)=>{
+                                userList.map( (post,index)=>{
                                   return <tr key={post._id}>
-                                  <td>{post._id}</td>
-                                  <td>{post.business_name}</td>
-                                  <td>{post.address}</td>
-                                  <td>{post.contact_phone}</td>
-                                  <td>{post.createdAt}</td>
-                                  <td className='status'>Active</td>
+                                  <td>{index+1}</td>
+                                  <td>{post.userName}</td>
+                                  <td>{post.email}</td>
+                                  <td>{post.package_type}</td>
+                            
+                                  <td className='status'>{post.status?"active":'inactive'}</td>
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>

@@ -27,11 +27,24 @@ export default function Sidebar() {
                 <ul className='nav__list'>
                     <NavItem title='Dashboard' href='/dashboard' icon={DASHBOARD} />
 
+                    <NavGroup title='User Info' href='/appinfo' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='User List' href='/user/user-list' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+                    <NavGroup title='Industry' href='/appinfo' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='Industry List' href='/industry/list' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
                     <NavGroup title='Category' href='/table' icon={TABLE}>
                         <ul className='nav__sub-list dropdown-body'>
-                            <NavItem title='Table' href='/table' cssClass="nav__sub-link" />
-                            <NavItem title='Table 2' href='/table2' cssClass="nav__sub-link" />
-                            <NavItem title='Table 3' href='/table3' cssClass="nav__sub-link" />
+                            <NavItem title='Category List' href='/business-category/list' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+                    <NavGroup title='SubCategory' href='/table' icon={TABLE}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='SubCategory List' href='/busines-subcategory/list' cssClass="nav__sub-link" />
                         </ul>
                     </NavGroup>
 
@@ -46,10 +59,11 @@ export default function Sidebar() {
                     <NavGroup title='Business Post' href='/business-post/list' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='List' href='/business-post/list' cssClass="nav__sub-link" />
-                            <NavItem title='All Products' href='/products2' cssClass="nav__sub-link" />
-                            <NavItem title='Product Category' href='/products2' cssClass="nav__sub-link" />
+                            <NavItem title='create' href='/business-post/create' cssClass="nav__sub-link" />
                         </ul>
                     </NavGroup>
+
+
 
                     <NavGroup title='Setting' href='/appinfo' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
