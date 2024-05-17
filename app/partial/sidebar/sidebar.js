@@ -51,6 +51,20 @@ export default function Sidebar() {
                         </ul>
                     </NavGroup>
 
+                    <NavGroup title='Setting' href='/appinfo' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='Setting' href='/appInfo' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+
+                    <NavGroup title='Business Post setting' href='/business-post/list' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='setting data' href='/business-post/list' cssClass="nav__sub-link" />
+                            <NavItem title='All Products' href='/products2' cssClass="nav__sub-link" />
+                            <NavItem title='Product Category' href='/products2' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+
                     <NavItem title='Reports' href='/reports' icon={REPORT} />
 
                 </ul>
