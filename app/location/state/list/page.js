@@ -1,24 +1,25 @@
 "use client";
-import { DELETE, EDIT, EYE } from "@/app/assets/icons";
+import { EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-    const [industryList, setindustry] = useState([]);
+    const [stateList, setStateList] = useState([]);
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/job/industry-get");
+          const response = await axiosClient.get("/state/list");
           const responseData = response.data; // Rename data variable for clarity
 
           if (responseData.success === true) {
-            setindustry(responseData.industry);
+            setStateList(responseData.states);
           }
         } catch (error) {
           console.error('Error fetching business posts:', error);
         }
       };
+  
       fetchData();
     }, []); // Empty dependency array means it runs only once on mount
     return (
@@ -31,12 +32,11 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Industry List</h3>
+                <h3 className='title'>State List</h3>
               
-
                 <Link
                                 href={{
-                                    pathname: "/industry/create",
+                                    pathname: "/location/state/create",
                                     
                                 }}
                                 className='db-button'
@@ -50,28 +50,26 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
+                                
                                     <th>ID</th>
-                                    <th>Title</th>                                
-                                    <th>Image</th>
+                                    <th>Country</th>                                
+                                    <th>Name</th>
                                     <th>Status</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                               {
-                                industryList.map( (post,index)=>{
-                                  return <tr key={post._id}>
+                                stateList.map( (state,index)=>{
+                                  return <tr key={state._id}>
                                   <td>{index+1}</td>
-                                  <td>{post.title}</td>
-                                  <td> <img src={post.image}></img></td>
-                                  <td>{post.status==1?'active':"inactive"}</td>
-                            
-                                  <td className='status'>{post.status}</td>
+                                  <td>{state.country.name}</td>
+                                  <td>{state.name}</td>
+                                  <td>{state.status==1?'active':"inactive"}</td>
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>
                                           <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
-                                          <a href='#' className='act-btn act-btn-danger'>{DELETE}</a>
+                                          {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
                                       </div>
                                   </td>
                               </tr>

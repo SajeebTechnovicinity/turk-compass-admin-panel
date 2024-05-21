@@ -2,11 +2,12 @@
 const {main_url}=process.env;
 import axios from "axios";
 // import { useDispatch, useSelector} from "react-redux";
-import {getCookie} from "cookies-next";
+import { getCookie } from "cookies-next";
 const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 const axiosClient = axios.create({
 
     baseURL: `http://103.81.199.182:8080/api/v1`,
+    // baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
 });
 axiosClient.interceptors.request.use((config) => {
      const token =   getCookie('authToken');
@@ -14,7 +15,6 @@ axiosClient.interceptors.request.use((config) => {
     config.headers.Authorization ="Bearer "+token;
     return config;
 });
-
 axiosClient.interceptors.response.use(
     (response) => {
         return response;
