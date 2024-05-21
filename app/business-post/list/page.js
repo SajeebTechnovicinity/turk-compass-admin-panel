@@ -3,6 +3,7 @@
 import { DELETE, EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import { useState,useEffect } from "react";
+import Link from "next/link";
 
 export default function Dashboard() {
     const [businessPosts, setBusinessPosts] = useState([]);
@@ -71,9 +72,17 @@ export default function Dashboard() {
                                 </select>
                             </div>
                         </div>
-                        <a href="/business-post/create" type='button' className='db-button'>
-                            Create New
-                        </a>
+                        <Link
+                                href={{
+                                    pathname: "/business-post/create",
+                                    
+                                }}
+                                className='db-button'
+                            >
+                                {" "}
+                                Create
+                        </Link>
+                       
                     </form>
                     <div className='dashboard-table-wrap flex-spb'>
                         <table className='dashboard-table'>
@@ -101,7 +110,15 @@ export default function Dashboard() {
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>
-                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
+                                        <Link
+                                                href={{
+                                                    pathname: "/business-post/edit",
+                                                    query: { id: post._id },                                               
+                                                }}
+                                                className='act-btn act-btn-succes'
+                                            >
+                                            {EDIT}
+                                        </Link>
                                           <a href='#' className='act-btn act-btn-danger'>{DELETE}</a>
                                       </div>
                                   </td>
