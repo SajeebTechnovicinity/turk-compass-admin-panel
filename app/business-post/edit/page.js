@@ -4,6 +4,8 @@ import "../../form/style.css";
 import { useEffect, useRef, useState } from "react";
 import { set } from "mongoose";
 import Swal from 'sweetalert2';
+import { useRouter, useSearchParams } from "next/navigation";
+import Image from 'next/image';
 
 export default function Form() {
     const [categories, setCategories] = useState([]);
@@ -34,7 +36,13 @@ export default function Form() {
     const [userName, setUserName] = useState('');
     const [selectedCity, setSelectedCity] = useState(null);
     const [imageBase64, setImageBase64] = useState(null);
+    const [previousImage, setPreviousImage] = useState(null);
+    const [previousCoverImage, setPreviousCoverImage] = useState(null);
     const [coverImageBase64, setCoverImageBase64] = useState(null);
+
+    const router = useRouter();
+    const searchParames = useSearchParams();
+    const id = searchParames.get("id");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,6 +67,41 @@ export default function Form() {
 
         fetchData();
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                //const objectId = mongoose.Types.ObjectId(id);
+                const { data } = await axiosClient.get(`business-post/id-wise-details/?id=${id}`);
+                console.log(data.businessProfile);
+                setCategory(data.businessProfile.category);
+                setSubCategory(data.businessProfile.sub_category);
+                setSelectedCity(data.businessProfile.city);
+                setSelectedState(data.businessProfile.state);
+                setSelectedCountry(data.businessProfile.country);
+                setBusinessName(data.businessProfile.business_name);
+                setSpeciality(data.businessProfile.speciality);
+                setDescription(data.businessProfile.description);
+                setAddress(data.businessProfile.address);
+                setContactAddress(data.businessProfile.contact_address);
+                setContactLocatedIn(data.businessProfile.contact_located_in);
+                setContactPhone(data.businessProfile.contact_phone);
+                setContactWebsite(data.businessProfile.contact_website);
+                setContactEmail(data.businessProfile.contact_email);
+                setSelectedCity(data.businessProfile.city)
+                setTags(data.businessProfile.tag);
+                setPreviousImage(data.businessName.image);
+                setPreviousCoverImage(data.businessName.cover_image);
+                // setSelec(data.result.name);
+                // setCategoryArName(data.result.ar_name);
+                // setSlug(data.result.slug);
+            } catch (error) {
+                console.error('Error fetching business post:', error);
+            }
+        };
+    
+        fetchData();
+    }, [id]); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
     useEffect(() => {
         const fetchStates = async () => {
@@ -171,9 +214,6 @@ export default function Form() {
             console.log('coverImageBase64:', coverImageBase64);
 
             const data = {
-                user_name: userName,
-                email: email,
-                password: password,
                 category,
                 sub_category: subCategory,
                 business_name: businessName,
@@ -194,7 +234,7 @@ export default function Form() {
                 is_reservation_available: isReservationAvailable
             };
 
-            const response = await axiosClient.post('/business-post/create/', data);
+            const response = await axiosClient.post(`business-post/${id}`, data);
             console.log("response", response);
             if(response.data.success==false){
                 Swal.fire({
@@ -211,28 +251,6 @@ export default function Form() {
                     icon: 'success',
                     // confirmButtonText: 'Cool'
                 })
-                setSelectedCity('');
-                setSelectedState('');
-                setSelectedCountry('');
-                setBusinessName('');
-                setCategory('');
-                setSubCategory('');
-                setSpeciality('');
-                setDescription('');
-                setAddress('');
-                setContactAddress('');
-                setContactLocatedIn('');
-                setContactPhone('');
-                setContactWebsite('');
-                setImage('');
-                setCoverImage('');
-                setTags('');
-                setEmail('');
-                setPassword('');
-                setUserName('');
-                setIsReservationAvailable(1);
-                setImageBase64(null);
-                setCoverImageBase64(null);
                 // handle success, e.g., redirect or show success message
             }
             else
@@ -259,7 +277,7 @@ export default function Form() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Business Post Create</h3>
+                <h3 className='title'>Business Post Edit</h3>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
@@ -268,6 +286,13 @@ export default function Form() {
                             <div className='card-header'>
                                 <h5 className='mb-0 h6'>Business Information</h5>
                             </div>
+                            <h1>Current Image</h1>
+                            <Image
+                                src={ previousImage } // Path to your image in the public folder
+                                alt="Previous image"
+                                width={500} // Desired width of the image
+                                height={300} // Desired height of the image
+                            />
                             <div className='card-body'>
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
@@ -461,54 +486,7 @@ export default function Form() {
                                 <h5 className='mb-0 h6'>Contact Information</h5>
                             </div>
                             <div className='card-body'>
-                            <div className='form-group row'>
-                                    <label className='col-md-3 col-from-label'>
-                                        Username <span className='text-danger'>*</span>
-                                    </label>
-                                    <div className='col-md-8'>
-                                        <input
-                                            type='text'
-                                            className='form-control'
-                                            name='user_name'
-                                            value={userName}
-                                            onChange={(e) => setUserName(e.target.value)}
-                                            placeholder='Enter your username'
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className='form-group row'>
-                                    <label className='col-md-3 col-from-label'>
-                                        Email <span className='text-danger'>*</span>
-                                    </label>
-                                    <div className='col-md-8'>
-                                        <input
-                                            type='email'
-                                            className='form-control'
-                                            name='email'
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder='Enter your email'
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <div className='form-group row'>
-                                    <label className='col-md-3 col-from-label'>
-                                        Password <span className='text-danger'>*</span>
-                                    </label>
-                                    <div className='col-md-8'>
-                                        <input
-                                            type='password'
-                                            className='form-control'
-                                            name='password'
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            placeholder='Enter your password'
-                                            required
-                                        />
-                                    </div>
-                                </div>
+                          
                            
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
@@ -602,7 +580,7 @@ export default function Form() {
                             <div className='card-body'>
                                 <div className="form-group row">
                                     <label className="col-md-3 col-from-label">
-                                        Image
+                                       New Image
                                     </label>
                                     <div className="col-md-8">
                                         <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
@@ -614,7 +592,7 @@ export default function Form() {
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-md-3 col-from-label">
-                                        Cover Image
+                                      New  Cover Image
                                     </label>
                                     <div className="col-md-8">
                                         <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
