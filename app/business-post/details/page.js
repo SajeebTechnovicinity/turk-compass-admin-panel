@@ -280,7 +280,7 @@ export default function Form() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Business Post Edit</h3>
+                <h3 className='title'>Business Post Details</h3>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
@@ -314,7 +314,7 @@ export default function Form() {
                                             className='form-control'
                                             name='business_name'
                                             placeholder='Enter your business name'
-                                            required
+                                            readOnly
                                             value={businessName}
                                             onChange={(e) => setBusinessName(e.target.value)}
                                         />
@@ -328,7 +328,7 @@ export default function Form() {
                                         <select
                                             className="form-control"
                                             name="category"
-                                            required
+                                            readOnly
                                             value={category}
                                             onChange={(e) => setCategory(e.target.value)}
                                         >
@@ -349,7 +349,7 @@ export default function Form() {
                                         <select
                                             className="form-control"
                                             name="subcategory"
-                                            required
+                                            readOnly
                                             value={subCategory}
                                             onChange={(e) => setSubCategory(e.target.value)}
                                         >
@@ -370,7 +370,7 @@ export default function Form() {
                                         <select
                                             className="form-control"
                                             name="country"
-                                            required
+                                            readOnly
                                             value={selectedCountry}
                                             onChange={(e) => setSelectedCountry(e.target.value)}
                                         >
@@ -391,7 +391,7 @@ export default function Form() {
                                         <select
                                             className="form-control"
                                             name="state"
-                                            required
+                                            readOnly
                                             value={selectedState}
                                             onChange={(e) => setSelectedState(e.target.value)}
                                         >
@@ -409,7 +409,7 @@ export default function Form() {
                                         City <span className='text-danger'>*</span>
                                     </label>
                                     <div className='col-md-8'>
-                                        <select className="form-control" value={selectedCity} name="city" required onChange={(e)=> setSelectedCity(e.target.value)}>
+                                        <select className="form-control" value={selectedCity} name="city" readOnly onChange={(e)=> setSelectedCity(e.target.value)}>
                                             <option value="">Select One</option>
                                             {cities.map((city, index) => (
                                                 <option key={index} value={city._id}>
@@ -432,7 +432,7 @@ export default function Form() {
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder='Enter your address'
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -448,7 +448,7 @@ export default function Form() {
                                             onChange={(e) => setDescription(e.target.value)}
                                             value={description}
                                             placeholder='Enter your description'
-                                            required
+                                            readOnly
                                         />
                                            
                                     </div>
@@ -465,7 +465,7 @@ export default function Form() {
                                             value={speciality}
                                             onChange={(e) => setSpeciality(e.target.value)}
                                             placeholder='Enter your speciality'
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -481,7 +481,7 @@ export default function Form() {
                                             value={tags}
                                             onChange={(e) => setTags(e.target.value)}
                                             placeholder='Type and hit enter to add a tag'
-                                            required
+                                            readOnly
                                         />
                                         <small className='text-muted'>
                                             This is used for search. Input those words by which customers can find this product.
@@ -508,7 +508,7 @@ export default function Form() {
                                             className='form-control'
                                             name='contact_email'
                                             value={contactEmail}
-                                            required
+                                            readOnly
                                             onChange={(e) => setContactEmail(e.target.value)}
                                             placeholder='Enter your contact email'
                                         />
@@ -527,7 +527,7 @@ export default function Form() {
                                             value={contactPhone}
                                             onChange={(e) => setContactPhone(e.target.value)}
                                             placeholder='Enter your phone number'
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -544,7 +544,7 @@ export default function Form() {
                                             value={contactWebsite}
                                             onChange={(e) => setContactWebsite(e.target.value)}
                                             placeholder='Enter your website'
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -560,7 +560,7 @@ export default function Form() {
                                             value={contactLocatedIn}
                                             onChange={(e) => setContactLocatedIn(e.target.value)}
                                             placeholder='Enter your contact located in'
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
@@ -576,47 +576,14 @@ export default function Form() {
                                             value={contactAddress}
                                             onChange={(e) => setContactAddress(e.target.value)}
                                             placeholder='Enter your contact address'
-                                            required
+                                            readOnly
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className='form-card'>
-                            <div className='card-header'>
-                                <h5 className='mb-0 h6'>Photos</h5>
-                            </div>
-                            <div className='card-body'>
-                                <div className="form-group row">
-                                    <label className="col-md-3 col-from-label">
-                                       New Image
-                                    </label>
-                                    <div className="col-md-8">
-                                        <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                           <input type="file" name="image"  className="selected-files"  ref={inputFile}
-                                        onChange={handleImage}/>
-                                        </div>
-                                        <div className="file-preview box sm"></div>
-                                    </div>
-                                </div>
-                                <div className="form-group row">
-                                    <label className="col-md-3 col-from-label">
-                                      New  Cover Image
-                                    </label>
-                                    <div className="col-md-8">
-                                        <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                          <input type="file" name="cover_image"   className="selected-files" ref={inputFile2}
-                                        onChange={handleCoverImage}/>
-                                        </div>
-                                        <div className="file-preview box sm"></div>
-                                    </div>
-                                </div>
-                                <div className="form-group mb-0 text-right">
-                                    <button type="submit" className="btn btn-primary">Update</button>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </form>
                 </div>
             </div>
