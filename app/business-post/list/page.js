@@ -71,9 +71,9 @@ export default function Dashboard() {
                                 </select>
                             </div>
                         </div>
-                        <button type='button' className='db-button'>
+                        <a href="/business-post/create" type='button' className='db-button'>
                             Create New
-                        </button>
+                        </a>
                     </form>
                     <div className='dashboard-table-wrap flex-spb'>
                         <table className='dashboard-table'>
