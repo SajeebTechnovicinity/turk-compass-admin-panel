@@ -32,6 +32,11 @@ export default function Dashboard() {
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>Industry List</h3>
+              
+
+                <a href="/industry/create" type='button' className='db-button'>
+                            Create New
+                </a>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
