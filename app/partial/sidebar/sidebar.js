@@ -47,14 +47,14 @@ export default function Sidebar() {
                             <NavItem title='SubCategory List' href='/busines-subcategory/list' cssClass="nav__sub-link" />
                         </ul>
                     </NavGroup>
-
+{/* 
                     <NavGroup title='SubCategory' href='/form' icon={TABLE}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='Form' href='/form' cssClass="nav__sub-link" />
                             <NavItem title='Form 2' href='/form2' cssClass="nav__sub-link" />
                             <NavItem title='Form 3' href='/form2' cssClass="nav__sub-link" />
                         </ul>
-                    </NavGroup>
+                    </NavGroup> */}
 
                     <NavGroup title='Business Post' href='/business-post/list' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
@@ -71,13 +71,13 @@ export default function Sidebar() {
                         </ul>
                     </NavGroup>
 
-                    <NavGroup title='Business Post setting' href='/business-post/list' icon={PRODUCT}>
+                    {/* <NavGroup title='Business Post setting' href='/business-post/list' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='setting data' href='/business-post/list' cssClass="nav__sub-link" />
                             <NavItem title='All Products' href='/products2' cssClass="nav__sub-link" />
                             <NavItem title='Product Category' href='/products2' cssClass="nav__sub-link" />
                         </ul>
-                    </NavGroup>
+                    </NavGroup> */}
 
                     <NavItem title='Reports' href='/reports' icon={REPORT} />
 

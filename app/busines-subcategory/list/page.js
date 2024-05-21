@@ -1,6 +1,7 @@
 "use client";
 import { DELETE, EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
@@ -32,6 +33,16 @@ export default function Dashboard() {
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>SubCategory List</h3>
+
+                <Link
+                                href={{
+                                    pathname: "/busines-subcategory/create",
+                                    
+                                }}
+                                className='db-button'
+                            >
+                                Create
+                        </Link>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>

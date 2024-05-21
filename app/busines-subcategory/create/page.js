@@ -6,8 +6,10 @@ import "../../form/style.css";
 
 export default function Dashboard() {
     const [industryList, setindustry] = useState([]);
-    const [title, setTitle] = useState([]);
-    const [image, setImage] = useState([]);
+    const [categories, setcategories] = useState([]);
+    const [category, setCategory] = useState();
+    const [title, setTitle] = useState();
+    const [image, setImage] = useState();
     const handleCoverImage = (e) => {
         console.log(e);
         const file = e.target.files[0];
@@ -27,10 +29,11 @@ export default function Dashboard() {
     const submit = async(event) => {
         event.preventDefault();
         var data={
-            "title":title,
-            "icone":image
+            "category":category,
+            "name":title,
+            "image":image
         }
-        const response = await axiosClient.post('/job/industry-create', data);
+        const response = await axiosClient.post('/subcategory/create', data);
         console.log("response", response);
         if(response.data.success==false){
             Swal.fire({
@@ -53,11 +56,10 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosClient.get("/job/industry-get");
+                const response = await axiosClient.get("/category/list");
                 const responseData = response.data; // Rename data variable for clarity
-
                 if (responseData.success === true) {
-                    setindustry(responseData.industry);
+                    setcategories(responseData.categories);
                 }
             } catch (error) {
                 console.error('Error fetching business posts:', error);
@@ -76,7 +78,7 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Industry Create</h3>
+                {/* <h3 className='title'>Industry Create</h3> */}
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
@@ -84,9 +86,30 @@ export default function Dashboard() {
                         <form onSubmit={submit} >
                             <div className='form-card'>
                                 <div className='card-header'>
-                                    <h5 className='mb-0 h6'>Industry Create</h5>
+                                    <h5 className='mb-0 h6'>Subcategory Create</h5>
                                 </div>
                                 <div className='card-body'>
+                                <div className='form-group row'>
+                                    <label className='col-md-3 col-from-label'>
+                                        Category <span className='text-danger'>*</span>
+                                    </label>
+                                    <div className='col-md-8'>
+                                        <select
+                                            className="form-control"
+                                            name="category"
+                                            required
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}
+                                        >
+                                            <option value="">Select One</option>
+                                            {categories && categories.map((category, index) => (
+                                                <option key={index} value={category._id}>
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
                                             Title <span className='text-danger'>*</span>

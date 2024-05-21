@@ -1,6 +1,7 @@
 "use client";
 import { DELETE, EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
@@ -34,9 +35,15 @@ export default function Dashboard() {
                 <h3 className='title'>Industry List</h3>
               
 
-                <a href="/industry/create" type='button' className='db-button'>
-                            Create New
-                </a>
+                <Link
+                                href={{
+                                    pathname: "/industry/create",
+                                    
+                                }}
+                                className='db-button'
+                            >
+                                Create
+                        </Link>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
