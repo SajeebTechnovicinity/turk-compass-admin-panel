@@ -109,7 +109,15 @@ export default function Dashboard() {
                                   <td className='status'>Active</td>
                                   <td>
                                       <div className='act-btns'>
-                                      <a href='#' className='act-btn act-btn-info'>{EYE}</a>
+                                      <Link
+                                                href={{
+                                                    pathname: "/business-post/details",
+                                                    query: { id: post._id },                                               
+                                                }}
+                                                className='act-btn act-btn-succes'
+                                            >
+                                            {EYE}
+                                        </Link>
                                         <Link
                                                 href={{
                                                     pathname: "/business-post/edit",
@@ -119,7 +127,8 @@ export default function Dashboard() {
                                             >
                                             {EDIT}
                                         </Link>
-                                          <a href='#' className='act-btn act-btn-danger'>{DELETE}</a>
+                                        
+                                          <a href='#' className='act-btn act-btn-danger'></a>
                                       </div>
                                   </td>
                               </tr>
