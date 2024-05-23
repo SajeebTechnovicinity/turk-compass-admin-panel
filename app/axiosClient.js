@@ -6,7 +6,7 @@ import { getCookie } from "cookies-next";
 const api_base_url = process.env.NEXT_PUBLIC_API_BASE_URL;
 const axiosClient = axios.create({
 
-    baseURL: `http://103.81.199.182:8080/api/v1`,
+    baseURL: `http://localhost:8080/api/v1`,
     // baseURL: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
 });
 axiosClient.interceptors.request.use((config) => {

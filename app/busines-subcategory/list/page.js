@@ -70,7 +70,13 @@ export default function Dashboard() {
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>
-                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
+                                          {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a> */}
+
+                                          <Link   href={{
+                                    pathname: "/busines-subcategory/edit",
+                                    query: { id:post._id,name:post.name,category:post.category._id},
+                                    
+                                }} className='act-btn act-btn-succes'>{EDIT}</Link>
                                           <a href='#' className='act-btn act-btn-danger'>{DELETE}</a>
                                       </div>
                                   </td>

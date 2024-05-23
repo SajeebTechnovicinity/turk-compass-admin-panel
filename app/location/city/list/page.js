@@ -31,7 +31,6 @@ export default function Dashboard() {
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>City List</h3>
-              
                 <Link
                                 href={{
                                     pathname: "/location/city/create",
@@ -48,7 +47,6 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                
                                     <th>ID</th>
                                     <th>Country</th>                                
                                     <th>State</th>
@@ -61,14 +59,23 @@ export default function Dashboard() {
                                 cityList && cityList.map( (city,index)=>{
                                   return <tr key={city._id}>
                                   <td>{index+1}</td>
-                                  <td>{city.country.name}</td>
-                                  <td>{city.state.name}</td>
+                                  <td>{city.country && city.country.name}</td>
+                                  <td>{city.state && city.state.name}</td>
                                   <td>{city.name}</td>
                                   <td>{city.status==1?'active':"inactive"}</td>
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>
                                           <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
+
+                                          <Link   href={{
+                                    pathname: "/location/city/create",
+                                    query: { id:city._id,name:city.name,country:city.country._id,state:city.state?city.state._id:null},
+                                    
+                                }} className='act-btn act-btn-succes'>{EDIT}</Link>
+
+
+
                                           {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
                                       </div>
                                   </td>

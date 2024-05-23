@@ -1,5 +1,5 @@
 "use client";
-import { DELETE, EDIT, EYE } from "@/app/assets/icons";
+import { EDIT } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -69,9 +69,13 @@ export default function Dashboard() {
                                   <td className='status'>{post.status}</td>
                                   <td>
                                       <div className='act-btns'>
-                                      <a href='#' className='act-btn act-btn-info'>{EYE}</a>
-                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
-                                          <a href='#' className='act-btn act-btn-danger'>{DELETE}</a>
+                                          {/* <a href='#' className='act-btn act-btn-info'>{EYE}</a> */}
+                                          <Link   href={{
+                                    pathname: "/industry/edit",
+                                    query: { id:post._id,name:post.title},
+                                    
+                                }} className='act-btn act-btn-succes'>{EDIT}</Link>
+                                          {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
                                       </div>
                                   </td>
                               </tr>
