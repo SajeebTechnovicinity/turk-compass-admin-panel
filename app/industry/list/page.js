@@ -33,11 +33,9 @@ export default function Dashboard() {
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>Industry List</h3>
               
-
                 <Link
                                 href={{
                                     pathname: "/industry/create",
-                                    
                                 }}
                                 className='db-button'
                             >
@@ -63,7 +61,7 @@ export default function Dashboard() {
                                   return <tr key={post._id}>
                                   <td>{index+1}</td>
                                   <td>{post.title}</td>
-                                  <td> <img src={post.image}></img></td>
+                                  <td> <img style={{"height":"100px"}} src={post.image}></img></td>
                                   <td>{post.status==1?'active':"inactive"}</td>
                             
                                   <td className='status'>{post.status}</td>

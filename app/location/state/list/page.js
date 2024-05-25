@@ -1,11 +1,12 @@
 "use client";
-import { EDIT, EYE } from "@/app/assets/icons";
+import { EDIT } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
     const [stateList, setStateList] = useState([]);
+    
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -67,8 +68,14 @@ export default function Dashboard() {
                                   <td>{state.status==1?'active':"inactive"}</td>
                                   <td>
                                       <div className='act-btns'>
-                                      <a href='#' className='act-btn act-btn-info'>{EYE}</a>
-                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
+                                      {/* <a href='#' className='act-btn act-btn-info'>{EYE}</a>
+                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a> */}
+
+                                          <Link   href={{
+                                    pathname: "/location/state/edit",
+                                    query: { id:state._id,name:state.name,country:state.country?state.country._id:null},
+                                    
+                                }} className='act-btn act-btn-succes'>{EDIT}</Link>
                                           {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
                                       </div>
                                   </td>

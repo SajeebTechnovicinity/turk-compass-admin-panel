@@ -66,10 +66,10 @@ export default function Dashboard() {
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>
-                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
+                                          {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a> */}
 
-                                          <Link   href={{
-                                    pathname: "/location/city/create",
+                                    <Link   href={{
+                                    pathname: "/location/city/edit",
                                     query: { id:city._id,name:city.name,country:city.country._id,state:city.state?city.state._id:null},
                                     
                                 }} className='act-btn act-btn-succes'>{EDIT}</Link>

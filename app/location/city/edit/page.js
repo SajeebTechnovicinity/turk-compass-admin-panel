@@ -15,6 +15,7 @@ export default function Dashboard() {
     const [countryList, setCountryList] = useState();
     const [stateList, setStateList] = useState();
     const [image, setImage] = useState();
+
     const handleCoverImage = (e) => {
         console.log(e);
         const file = e.target.files[0];

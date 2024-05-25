@@ -1,23 +1,43 @@
 "use client";
-import { DELETE, EDIT, EYE } from "@/app/assets/icons";
+import { EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import { useEffect, useState } from "react";
+import Swal from 'sweetalert2';
 
 export default function Dashboard() {
     const [userList, setuser] = useState([]);
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axiosClient.get("/user/get");
-          const responseData = response.data; // Rename data variable for clarity
-          if (responseData.success === true) {
-            setuser(responseData.userList);
-          }
-        } catch (error) {
-          console.error('Error fetching business posts:', error);
-        }
-      };
+    async function deleteaccount(id){
+    const response = await axiosClient.get(`user-profile/general/active-inactive?id=${id}`);
+    fetchData();
   
+    if(response.data.success==false){
+        Swal.fire({
+            title: 'error',
+            text: response.data.message,
+            icon: 'error',
+            // confirmButtonText: 'Cool'
+        })
+    }
+    else if (response.data.success==true) {
+        Swal.fire({
+            title: 'success',
+            text: response.data.message,
+            icon: 'success',
+        })
+    }
+}
+const fetchData = async () => {
+    try {
+      const response = await axiosClient.get("/user/get");
+      const responseData = response.data; // Rename data variable for clarity
+      if (responseData.success === true) {
+        setuser(responseData.userList);
+      }
+    } catch (error) {
+      console.error('Error fetching business posts:', error);
+    }
+  };
+    useEffect(() => {
       fetchData();
     }, []); // Empty dependency array means it runs only once on mount
     return (
@@ -55,12 +75,14 @@ export default function Dashboard() {
                                   <td>{post.email}</td>
                                   <td>{post.package_type}</td>
                             
-                                  <td className='status'>{post.status?"active":'inactive'}</td>
+                                  <td className='status'>{post.is_delete?"inactive":'active'}</td>
                                   <td>
                                       <div className='act-btns'>
                                       <a href='#' className='act-btn act-btn-info'>{EYE}</a>
-                                          <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
-                                          <a href='#' className='act-btn act-btn-danger'>{DELETE}</a>
+                                          {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
+                                          <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
+
+                                          <button className="btn danger" onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ?"Active":"Inactive"}</button>
                                       </div>
                                   </td>
                               </tr>

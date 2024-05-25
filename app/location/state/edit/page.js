@@ -1,13 +1,16 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import "../../../form/style.css";
 
 export default function Dashboard() {
+    const  searchParames=useSearchParams();
+    const id = searchParames.get("id");
     const [industryList, setindustry] = useState([]);
-    const [title, setTitle] = useState();
-    const [country, setCountry] = useState();
+    const [title, setTitle] = useState(searchParames.get("name"));
+    const [country, setCountry] = useState(searchParames.get("country"));
     const [countryList, setCountryList] = useState();
     const [image, setImage] = useState();
     const handleCoverImage = (e) => {
@@ -29,10 +32,11 @@ export default function Dashboard() {
     const submit = async(event) => {
         event.preventDefault();
         var data={
+            "id":id,
             "country":country,
             "name":title
         }
-        const response = await axiosClient.post('/state/create', data);
+        const response = await axiosClient.post('/state/edit', data);
         console.log("response", response);
         if(response.data.success==false){
             Swal.fire({

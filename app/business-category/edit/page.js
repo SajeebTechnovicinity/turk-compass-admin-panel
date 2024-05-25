@@ -1,16 +1,17 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
-import "../../../form/style.css";
+import "../../form/style.css";
 
-export default function city() {
-    const [industryList, setindustry] = useState([]);
-    const [title, setTitle] = useState();
-    const [country, setCountry] = useState();
-    const [state, setState] = useState();
-    const [countryList, setCountryList] = useState();
-    const [stateList, setStateList] = useState();
+export default function Dashboard() {
+    const searchParames = useSearchParams();
+    const id = searchParames.get("id");
+
+
+    const [category, setCategory] = useState();
+    const [title, setTitle] = useState(searchParames.get("name"));
     const [image, setImage] = useState();
     const handleCoverImage = (e) => {
         console.log(e);
@@ -23,7 +24,6 @@ export default function city() {
                 setImage(reader.result);
                 //setImage(reader.result);
             };
-
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
         }
@@ -31,11 +31,11 @@ export default function city() {
     const submit = async(event) => {
         event.preventDefault();
         var data={
+            "id":id,
             "name":title,
-            "country":country,
-            "state":state
-        }        
-        const response = await axiosClient.post('/city/create', data);
+            "image":image
+        }
+        const response = await axiosClient.post('/category/edit',data);
         console.log("response", response);
         if(response.data.success==false){
             Swal.fire({
@@ -52,21 +52,16 @@ export default function city() {
                 icon: 'success',
                 // confirmButtonText: 'Cool'
             })
+
     }
 }
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosClient.get("/country/list");
-                const response2 = await axiosClient.get("/state/list");
+                const response = await axiosClient.get("/category/list");
                 const responseData = response.data; // Rename data variable for clarity
-                const responseData2 = response2.data; // Rename data variable for clarity
                 if (responseData.success === true) {
-                    setCountryList(responseData.countries);
-                }
-                if (responseData2.success === true) {
-                    setStateList(responseData2.states);
+                    setcategories(responseData.categories);
                 }
             } catch (error) {
                 console.error('Error fetching business posts:', error);
@@ -84,61 +79,21 @@ export default function city() {
                     <span className='slice-bottom'></span>
                 </div>
             </div>
-   
+            <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
+                {/* <h3 className='title'>Industry Create</h3> */}
+            </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
                     <div className='dashboard-table-wrap flex-spb'>
                         <form onSubmit={submit} >
                             <div className='form-card'>
                                 <div className='card-header'>
-                                    <h5 className='mb-0 h6'>City Create</h5>
+                                    <h5 className='mb-0 h6'>Category Edit</h5>
                                 </div>
                                 <div className='card-body'>
-                                <div className='form-group row'>
-                                    <label className='col-md-3 col-from-label'>
-                                        Country <span className='text-danger'>*</span>
-                                    </label>
-                                    <div className='col-md-8'>
-                                        <select
-                                            className="form-control"
-                                            name="country"
-                                            required
-                                            value={country}
-                                            onChange={(e) => setCountry(e.target.value)}
-                                        >
-                                            <option value="">Select One</option>
-                                            {countryList && countryList.map((country, index) => (
-                                                <option key={index} value={country._id}>
-                                                    {country.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className='form-group row'>
-                                    <label className='col-md-3 col-from-label'>
-                                    State  <span className='text-danger'>*</span>
-                                    </label>
-                                    <div className='col-md-8'>
-                                        <select
-                                            className="form-control"
-                                            name="country"
-                                            required
-                                            value={state}
-                                            onChange={(e) => setState(e.target.value)}
-                                        >
-                                            <option value="">Select One</option>
-                                            {stateList && stateList.map((state, index) => (
-                                                <option key={index} value={state._id}>
-                                                    {state.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
-                                            State Name <span className='text-danger'>*</span>
+                                            Title <span className='text-danger'>*</span>
                                         </label>
                                         <div className='col-md-8'>
                                             <input
@@ -152,7 +107,18 @@ export default function city() {
                                             />
                                         </div>
                                     </div>
-
+                                    <div className="form-group row">
+                                        <label className="col-md-3 col-from-label">
+                                            Cover Image
+                                        </label>
+                                        <div className="col-md-8">
+                                            <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                                <input type="file" name="cover_image" required className="selected-files"
+                                                    onChange={handleCoverImage} />
+                                            </div>
+                                            <div className="file-preview box sm"></div>
+                                        </div>
+                                    </div>
 
                                     <div className="form-group mb-0 text-right">
                                         <button type="submit" className="btn btn-primary">Save</button>
