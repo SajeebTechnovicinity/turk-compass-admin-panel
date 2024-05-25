@@ -69,6 +69,13 @@ export default function Sidebar() {
                         </ul>
                     </NavGroup>
 
+                    <NavGroup title='Member of Perlament' href='/member-of-perlament/list' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='List' href='/member-of-perlament/list' cssClass="nav__sub-link" />
+                            <NavItem title='create' href='/member-of-perlament/create' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+
 
 
                     <NavGroup title='Setting' href='/appinfo' icon={PRODUCT}>
