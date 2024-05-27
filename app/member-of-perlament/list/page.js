@@ -7,11 +7,33 @@ import Link from "next/link";
 
 export default function Dashboard() {
     const [memberPerlaments, setmemberPerlaments] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const buttonStyle = {
+        padding: '8px 16px',
+        margin: '0 5px',
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease'
+    };
+
+    const infoStyle = {
+        margin: '0 10px',
+        fontSize: '16px'
+    };
+
+    // Pagination click handler
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/member-of-perlamant/list");
+          const response = await axiosClient.get("/member-of-perlamant/list?page=${currentPage}");
           const responseData = response.data; // Rename data variable for clarity
           console.log(responseData);
           if (responseData.success === true) {
@@ -24,7 +46,7 @@ export default function Dashboard() {
       };
   
       fetchData();
-    }, []); // Empty dependency array means it runs only once on mount
+    }, [currentPage]); // Empty dependency array means it runs only once on mount
     return (
         <div className='dashboard-content'>
             <div className='dashboard-content__topbar topbar flex-ctr'>
@@ -235,6 +257,26 @@ export default function Dashboard() {
                             </ul>
                         </div>
                     </div>
+                    <div className="has-pagination">
+
+            <div className="pagination" style={{ textAlign:'center' }}>
+                <button
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    style={buttonStyle}
+                >
+                    Previous
+                </button>
+
+                <button
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    style={buttonStyle}
+                >
+                    Next
+                </button>
+            </div>
+
+        </div>
                 </div>
             </div>
         </div>

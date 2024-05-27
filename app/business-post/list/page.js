@@ -7,11 +7,27 @@ import Link from "next/link";
 
 export default function Dashboard() {
     const [businessPosts, setBusinessPosts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-      const fetchData = async () => {
+    const buttonStyle = {
+        padding: '8px 16px',
+        margin: '0 5px',
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease'
+    };
+
+    const infoStyle = {
+        margin: '0 10px',
+        fontSize: '16px'
+    };
+
+    const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/business-post/list");
+          const response = await axiosClient.get(`/business-post/admin-list?page=${currentPage}`);
           const responseData = response.data; // Rename data variable for clarity
           console.log(responseData);
           if (responseData.success === true) {
@@ -22,9 +38,21 @@ export default function Dashboard() {
           console.error('Error fetching business posts:', error);
         }
       };
+
+    useEffect(() => {
+      
   
       fetchData();
-    }, []); // Empty dependency array means it runs only once on mount
+    }, [currentPage]); // Empty dependency array means it runs only once on mount
+
+        // Pagination click handler
+        const handlePageChange = (pageNumber) => {
+            setCurrentPage(pageNumber);
+        };
+    
+        useEffect(() => {
+            fetchData();
+        }, [currentPage]);
     return (
         <div className='dashboard-content'>
             <div className='dashboard-content__topbar topbar flex-ctr'>
@@ -234,6 +262,23 @@ export default function Dashboard() {
                                 </li>
                             </ul>
                         </div>
+
+                        <div className="pagination" style={{ textAlign:'center' }}>
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        style={buttonStyle}
+                    >
+                        Previous
+                    </button>
+
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        style={buttonStyle}
+                    >
+                        Next
+                    </button>
+            </div>
                     </div>
                 </div>
             </div>
