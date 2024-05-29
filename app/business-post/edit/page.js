@@ -432,7 +432,7 @@ export default function Form() {
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder='Enter your address'
-                                            required
+                                      
                                         />
                                     </div>
                                 </div>
@@ -448,7 +448,7 @@ export default function Form() {
                                             onChange={(e) => setDescription(e.target.value)}
                                             value={description}
                                             placeholder='Enter your description'
-                                            required
+                                   
                                         />
                                            
                                     </div>
@@ -465,7 +465,7 @@ export default function Form() {
                                             value={speciality}
                                             onChange={(e) => setSpeciality(e.target.value)}
                                             placeholder='Enter your speciality'
-                                            required
+                               
                                         />
                                     </div>
                                 </div>
@@ -538,7 +538,7 @@ export default function Form() {
                                     </label>
                                     <div className='col-md-8'>
                                         <input
-                                            type='url'
+                                            type='text'
                                             className='form-control'
                                             name='website'
                                             value={contactWebsite}

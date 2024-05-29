@@ -34,7 +34,7 @@ export default function Sidebar() {
                     </NavGroup>
                     <NavGroup title='Location Setting' href='/appinfo' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
-                            <NavItem title='State List' href='/location/state/list' cssClass="nav__sub-link" />
+                            <NavItem title='Province List' href='/location/state/list' cssClass="nav__sub-link" />
                             <NavItem title='City List' href='/location/city/list' cssClass="nav__sub-link" />
                         </ul>
                     </NavGroup>

@@ -4,10 +4,34 @@ import { DELETE, EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import { useState,useEffect } from "react";
 import Link from "next/link";
+import Swal from 'sweetalert2';
 
 export default function Dashboard() {
     const [memberPerlaments, setmemberPerlaments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+
+
+    
+    async function deleteaccount(id){
+        const response = await axiosClient.get(`member-of-perlamant/delete?id=${id}`);
+            fetchData();
+        
+            if(response.data.success==false){
+                Swal.fire({
+                    title: 'error',
+                    text: response.data.message,
+                    icon: 'error',
+                    // confirmButtonText: 'Cool'
+                })
+            }
+            else if (response.data.success==true) {
+                Swal.fire({
+                    title: 'success',
+                    text: response.data.message,
+                    icon: 'success',
+                })
+            }
+        }
 
     const buttonStyle = {
         padding: '8px 16px',
@@ -30,8 +54,7 @@ export default function Dashboard() {
         setCurrentPage(pageNumber);
     };
 
-    useEffect(() => {
-      const fetchData = async () => {
+    const fetchData = async () => {
         try {
           const response = await axiosClient.get(`/member-of-perlamant/list?page=${currentPage}`);
           const responseData = response.data; // Rename data variable for clarity
@@ -44,6 +67,9 @@ export default function Dashboard() {
           console.error('Error fetching Member of Perlamants:', error);
         }
       };
+
+    useEffect(() => {
+
   
       fetchData();
     }, [currentPage]); // Empty dependency array means it runs only once on mount
@@ -149,8 +175,8 @@ export default function Dashboard() {
                                             >
                                             {EDIT}
                                         </Link>
-                                        
-                                          <a href='#' className='act-btn act-btn-danger'></a>
+                                        <button className='act-btn act-btn-danger' onClick={()=>{deleteaccount(post._id)}}>{DELETE}</button>
+                    
                                       </div>
                                   </td>
                               </tr>

@@ -83,7 +83,7 @@ export default function Dashboard() {
                         <form onSubmit={submit} >
                             <div className='form-card'>
                                 <div className='card-header'>
-                                    <h5 className='mb-0 h6'>State Create</h5>
+                                    <h5 className='mb-0 h6'>Province Create</h5>
                                 </div>
                                 <div className='card-body'>
                                 <div className='form-group row'>

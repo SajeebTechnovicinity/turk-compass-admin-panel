@@ -573,7 +573,7 @@ export default function Form() {
                                     </label>
                                     <div className='col-md-8'>
                                         <input
-                                            type='url'
+                                            type='text'
                                             className='form-control'
                                             name='website'
                                             value={contactWebsite}
