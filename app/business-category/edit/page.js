@@ -113,7 +113,7 @@ export default function Dashboard() {
                                         </label>
                                         <div className="col-md-8">
                                             <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                                <input type="file" name="cover_image" required className="selected-files"
+                                                <input type="file" name="cover_image"  className="selected-files"
                                                     onChange={handleCoverImage} />
                                             </div>
                                             <div className="file-preview box sm"></div>

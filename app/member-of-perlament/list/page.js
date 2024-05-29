@@ -33,7 +33,7 @@ export default function Dashboard() {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/member-of-perlamant/list?page=${currentPage}");
+          const response = await axiosClient.get(`/member-of-perlamant/list?page=${currentPage}`);
           const responseData = response.data; // Rename data variable for clarity
           console.log(responseData);
           if (responseData.success === true) {

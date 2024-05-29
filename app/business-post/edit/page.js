@@ -385,7 +385,7 @@ export default function Form() {
                                 </div>
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
-                                        State <span className='text-danger'>*</span>
+                                        Province <span className='text-danger'>*</span>
                                     </label>
                                     <div className='col-md-8'>
                                         <select
@@ -548,7 +548,7 @@ export default function Form() {
                                         />
                                     </div>
                                 </div>
-                                <div className='form-group row'>
+                                {/* <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Located In
                                     </label>
@@ -563,7 +563,7 @@ export default function Form() {
                                             required
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Address

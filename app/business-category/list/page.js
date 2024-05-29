@@ -63,7 +63,7 @@ export default function Dashboard() {
                                   return <tr key={post._id}>
                                   <td>{index+1}</td>
                                   <td>{post.name}</td>
-                                  <td> <img src={post.image}></img></td>
+                                  <td>  <img src={post.image} style={{ width: '100px' }} alt="Post Image" /></td>
                                   <td>{post.status==1?'active':"inactive"}</td>
                             
                                   {/* <td className='status'>{post.status}</td> */}

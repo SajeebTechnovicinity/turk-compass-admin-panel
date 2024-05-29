@@ -1,7 +1,7 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from 'sweetalert2';
 import "../../form/style.css";
 
@@ -10,7 +10,7 @@ export default function Dashboard() {
     const id = searchParames.get("id");
     const [industryList, setindustry] = useState([]);
     const [title, setTitle] = useState(searchParames.get("name"));
-    const [image, setImage] = useState([]);
+    const [image, setImage] = useState(null);
 
 
     useEffect(()=>{
@@ -31,7 +31,14 @@ export default function Dashboard() {
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
         }
+        else
+        {
+            setImage(null);
+        }
     };
+
+    const inputFile = useRef(null);
+
     const submit = async(event) => {
         event.preventDefault();
         var data={
@@ -117,7 +124,7 @@ export default function Dashboard() {
                                         </label>
                                         <div className="col-md-8">
                                             <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                                <input type="file" name="cover_image"  className="selected-files"
+                                                <input type="file" name="cover_image"  className="selected-files" ref={inputFile}
                                                     onChange={handleCoverImage} />
                                             </div>
                                             <div className="file-preview box sm"></div>

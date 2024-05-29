@@ -264,21 +264,21 @@ export default function Dashboard() {
                         </div>
 
                         <div className="pagination" style={{ textAlign:'center' }}>
-                    <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        style={buttonStyle}
-                    >
-                        Previous
-                    </button>
+                            <button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                style={buttonStyle}
+                            >
+                                Previous
+                            </button>
 
-                    <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        style={buttonStyle}
-                    >
-                        Next
-                    </button>
-            </div>
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                style={buttonStyle}
+                            >
+                                Next
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

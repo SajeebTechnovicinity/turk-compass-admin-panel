@@ -75,19 +75,42 @@ export default function Form() {
         fetchStates();
     }, [selectedCountry]);
 
-    useEffect(() => {
-        const fetchCities = async () => {
-            if (selectedState) {
-                try {
-                    const cityRes = await axiosClient.get(`/city/list/${selectedState}`);
-                    if (cityRes.data.success) setCities(cityRes.data.citys);
-                } catch (error) {
-                    console.error('Error fetching cities:', error);
-                }
+    const fetchSubCategory = async (categoryId) => {
+        console.log('Fetching category', categoryId);
+        if (categoryId) {
+            try {
+                setCategory(categoryId);
+                const cityRes = await axiosClient.get(`/subcategory/list?category=${categoryId}`);
+                console.log(cityRes);
+                if (cityRes.data.success) setSubCategories(cityRes.data.subCategories);
+            } catch (error) {
+                console.error('Error fetching cities:', error);
             }
-        };
+        }
+    };
 
-        fetchCities();
+    useEffect(() => {
+        
+
+    }, [category]);
+
+
+    const fetchCities = async (stateID) => {
+        console.log(stateID);
+        if (selectedState) {
+            try {
+                const cityRes = await axiosClient.get(`/city/list/?state=${stateID}`);
+                if (cityRes.data.success) setCities(cityRes.data.citys);
+            } catch (error) {
+                console.error('Error fetching cities:', error);
+            }
+        }
+    };
+
+
+    useEffect(() => {
+       
+       
     }, [selectedState]);
 
     // const convertToBase64 = (file) => {
@@ -295,7 +318,7 @@ export default function Form() {
                                             name="category"
                                             required
                                             value={category}
-                                            onChange={(e) => setCategory(e.target.value)}
+                                            onChange={(e) => {setCategory(e.target.value); fetchSubCategory(e.target.value)}}
                                         >
                                             <option value="">Select One</option>
                                             {categories.map((category, index) => (
@@ -350,7 +373,7 @@ export default function Form() {
                                 </div>
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
-                                        State <span className='text-danger'>*</span>
+                                        Province <span className='text-danger'>*</span>
                                     </label>
                                     <div className='col-md-8'>
                                         <select
@@ -358,7 +381,7 @@ export default function Form() {
                                             name="state"
                                             required
                                             value={selectedState}
-                                            onChange={(e) => setSelectedState(e.target.value)}
+                                            onChange={(e) => {setSelectedState(e.target.value);  fetchCities(e.target.value);}}
                                         >
                                             <option value="">Select One</option>
                                             {states.map((state, index) => (
@@ -560,7 +583,7 @@ export default function Form() {
                                         />
                                     </div>
                                 </div>
-                                <div className='form-group row'>
+                                {/* <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Located In
                                     </label>
@@ -575,7 +598,7 @@ export default function Form() {
                                             required
                                         />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Address

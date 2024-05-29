@@ -36,7 +36,7 @@ export default function Dashboard() {
             "country":country,
             "name":title
         }
-        const response = await axiosClient.post('/state/edit', data);
+        const response = await axiosClient.post('/state/edit/', data);
         console.log("response", response);
         if(response.data.success==false){
             Swal.fire({
@@ -87,7 +87,7 @@ export default function Dashboard() {
                         <form onSubmit={submit} >
                             <div className='form-card'>
                                 <div className='card-header'>
-                                    <h5 className='mb-0 h6'>State Create</h5>
+                                    <h5 className='mb-0 h6'>State Edit</h5>
                                 </div>
                                 <div className='card-body'>
                                 <div className='form-group row'>
