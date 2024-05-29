@@ -38,6 +38,16 @@ export default function Sidebar() {
                             <NavItem title='City List' href='/location/city/list' cssClass="nav__sub-link" />
                         </ul>
                     </NavGroup>
+                    <NavGroup title='Job List' href='/jobInfo' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='Job List' href='/job/job-list' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
+                    <NavGroup title='Reservation List' href='/reservation' icon={PRODUCT}>
+                        <ul className='nav__sub-list dropdown-body'>
+                            <NavItem title='Reservation List' href='/reservation/list' cssClass="nav__sub-link" />
+                        </ul>
+                    </NavGroup>
                     <NavGroup title='Industry' href='/appinfo' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='Industry List' href='/industry/list' cssClass="nav__sub-link" />
