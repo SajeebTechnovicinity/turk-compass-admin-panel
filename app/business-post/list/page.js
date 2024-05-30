@@ -92,7 +92,7 @@ export default function Dashboard() {
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
                     <form action='#' className='dashboard-form flex-ctr-spb'>
-                        <div className='dashboard-form__fields flex-ctr'>
+                        {/* <div className='dashboard-form__fields flex-ctr'>
                             <div className='dashboard-form__field select-field'>
                                 <select name='category' className='select'>
                                     <option value='1'>Counter 1</option>
@@ -123,7 +123,7 @@ export default function Dashboard() {
                                     <option value='3'>21 - 31</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> */}
                         <Link
                                 href={{
                                     pathname: "/business-post/create",
@@ -208,6 +208,7 @@ export default function Dashboard() {
                                 Next
                             </button>
                         </div>
+
                     </div>
                 </div>
             </div>

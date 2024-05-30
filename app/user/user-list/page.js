@@ -3,6 +3,7 @@ import { EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
+import Link from "next/link";
 
 export default function Dashboard() {
     const [userList, setuser] = useState([]);
@@ -100,7 +101,15 @@ const fetchData = async () => {
                                   <td className='status'>{post.is_delete?"inactive":'active'}</td>
                                   <td>
                                       <div className='act-btns'>
-                                      <a href='#' className='act-btn act-btn-info'>{EYE}</a>
+                                      <Link
+                                                href={{
+                                                    pathname: "/user/user-list/details",
+                                                    query: { id: post._id },                                               
+                                                }}
+                                                className='act-btn act-btn-succes'
+                                            >
+                                            {EYE}
+                                        </Link>
                                           {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
                                           <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
 

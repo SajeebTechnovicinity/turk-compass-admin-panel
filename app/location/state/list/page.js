@@ -110,7 +110,7 @@ export default function Dashboard() {
                             </tbody>
                         </table>
 
-                        <div className="pagination" style={{ textAlign:'center' }}>
+                        {/* <div className="pagination" style={{ textAlign:'center' }}>
                             <button
                                 onClick={() => handlePageChange(currentPage - 1)}
                                 disabled={currentPage === 1}
@@ -125,7 +125,7 @@ export default function Dashboard() {
                             >
                                 Next
                             </button>
-                        </div>
+                        </div> */}
 
 
                     </div>

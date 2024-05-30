@@ -18,17 +18,16 @@ export async function middleware(request: NextRequest) {
     if (is_admin) {
         const key = await request.cookies.get('authToken');
         if (key == undefined) {
-            return NextResponse.redirect(new URL('/login', request.nextUrl))
         } else {
             try {
                 let info = await jose.jwtVerify(key.value, srcky);
                 let userType = info ? info.payload.user_type : "";
                 if (userType != 'admin') {
-                    //return NextResponse.redirect(new URL('/login', request.nextUrl))
+                    return NextResponse.redirect(new URL('/login', request.nextUrl))
                 }
 
             }catch (error){
-                //return NextResponse.redirect(new URL('/login', request.nextUrl))
+                return NextResponse.redirect(new URL('/login', request.nextUrl))
             }
 
 
