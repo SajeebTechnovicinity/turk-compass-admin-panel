@@ -325,7 +325,7 @@ export default function Dashboard() {
                                                         type='text'
                                                         className='form-control'
                                                         name='address'
-                                                        value={businessProfile && businessProfile.address}
+                                                        value={businessProfile && businessProfile.contact_address}
                                                        
                                                         readOnly
                                                     />
@@ -372,7 +372,7 @@ export default function Dashboard() {
                                                         type='text'
                                                         className='form-control aiz-tag-input'
                                                         name='tags'
-                                                        value={businessProfile && businessProfile.tags}
+                                                        value={businessProfile && businessProfile.tag}
                                                    
                                                         
                                                         readOnly
