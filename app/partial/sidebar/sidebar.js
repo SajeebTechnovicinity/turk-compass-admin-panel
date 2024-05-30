@@ -88,7 +88,7 @@ export default function Sidebar() {
 
 
 
-                    <NavGroup title='Setting' href='/appinfo' icon={PRODUCT}>
+                    <NavGroup title='Settings' href='/appinfo' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='Setting' href='/appInfo' cssClass="nav__sub-link" />
                         </ul>
@@ -102,7 +102,7 @@ export default function Sidebar() {
                         </ul>
                     </NavGroup> */}
 
-                    <NavItem title='Reports' href='/reports' icon={REPORT} />
+                    {/* <NavItem title='Reports' href='/reports' icon={REPORT} /> */}
 
                 </ul>
                 <NavLogout />

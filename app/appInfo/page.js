@@ -18,7 +18,7 @@ export default function appInfo() {
             "about_us": aboutUs,
             "terms_condition": condition,
             "privacy_policy": privacy
-        }
+        };
      
 
         const response = await axiosClient.post('/app-info/create-update', data);
