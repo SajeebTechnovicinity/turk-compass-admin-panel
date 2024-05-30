@@ -1,11 +1,9 @@
 "use client";
+import axiosClient from "@/app/axiosClient"; // Ensure this path is correct based on your setup
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
-import Link from "next/link";
 import "../../../form/style.css";
-import axiosClient from "@/app/axiosClient"; // Ensure this path is correct based on your setup
-import { EYE } from "@/app/assets/icons"; // Ensure this path is correct based on your setup
-import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState("tab1");
@@ -25,6 +23,7 @@ export default function Dashboard() {
             .then(response => {
                 setGeneralProfile(response.data.generalProfile);
                 setJobProfile(response.data.jobProfile);
+                console.log(response.data.jobProfile);
                 setBusinessProfile(response.data.businessProfile);
                 
                 console.log(response.data.businessProfile);
@@ -488,9 +487,166 @@ export default function Dashboard() {
 
                 </div>;
             case "tab3":
-                return <div>Content for Tab 3: </div>;
-            default:
-                return <div>Select a tab to see content.</div>;
+                        return <div className='dashboard-content'>
+
+                        <div className='dashboard-content__topbar topbar flex-ctr'>
+                            <div className='drawer-open'>
+                                <span className='slice-top'></span>
+                                <span className='slice-middle'></span>
+                                <span className='slice-bottom'></span>
+                            </div>
+                        </div>
+                        <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
+                            <h3 className='title'>Job Profile</h3>
+                        </div>
+                        <div className='dashboard-main-content-wrap'>
+                            <div className='dashboard-main-content'>
+                                <form >
+                                    <div className='form-card'>
+                                        <div className='card-header'>
+                                            <h5 className='mb-0 h6'>Job Profile Information</h5>
+                                        </div>
+
+                                        
+                                        
+                                        <div className='card-body'>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                   Address  <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                 Country: {jobProfile?jobProfile.country && jobProfile.country.name:''}  <br></br> <br></br>
+                                                 City: {jobProfile?jobProfile.city && jobProfile.city.name:''}  <br></br> <br></br>
+                                                 State: {jobProfile?jobProfile.state && jobProfile.state.name:''} <br></br> <br></br>
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Phone <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                {jobProfile?jobProfile.phone && jobProfile.phone:''} 
+                                                {jobProfile?jobProfile.name && jobProfile.name:''} 
+                                                {jobProfile?jobProfile.email && jobProfile.email:''} 
+                                                {jobProfile?jobProfile.summary && jobProfile.summary:''} 
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Name <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                    
+                                                {jobProfile?jobProfile.name && jobProfile.name:''} 
+
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Phone <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                {jobProfile?jobProfile.phone && jobProfile.phone:''} 
+                                      
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Email <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                {jobProfile?jobProfile.email && jobProfile.email:''} 
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Expart <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                {jobProfile?jobProfile.expart && jobProfile.expart:''} 
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Summary <span className='text-danger'></span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                {jobProfile?jobProfile.summary && jobProfile.summary:''} 
+                                                </div>
+                                            </div>
+
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Education <span className='text-danger'>*</span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                    {jobProfile.education && jobProfile.education.map(value=>{
+                                                        return <div>
+                                                            <h6>Degree:{value.degree}</h6>
+                                                            <h6>Institute name:{value.institute_name}</h6>
+                                                            <h6>Start Date:{value.start_date}</h6>
+                                                            <h6>End Date:{value.end_date}</h6>
+                                                           <br></br>
+                                                        </div>
+
+                                                    })}
+
+                                                </div>
+                                            </div>
+
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                 Skill <span className='text-danger'>*</span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                    {jobProfile.skill && jobProfile.skill.map((value,key)=>{
+                                                        return <div>
+                                                            <h6>{key+1} : {value}</h6>
+                                                    
+                                                        </div>
+
+                                                    })}
+
+                                                </div>
+                                            </div>
+                                            <div className='form-group row'>
+                                                <label className='col-md-3 col-from-label'>
+                                                Work History <span className='text-danger'>*</span>
+                                                </label>
+                                                <div className='col-md-8'>
+                                                    {jobProfile.work_history && jobProfile.work_history.map((value,key)=>{
+                                                        return <div>
+                                                            <h6>Designation : {value.designation}</h6>
+                                                            <h6>Company : {value.company}</h6>
+                                                            <h6>Responsibility : {value.responsibility}</h6>
+                                                            <h6>Start Date : {value.start_date}</h6>
+                                                            <h6>End Date : {value.end_date}</h6>
+                                                            <br></br>
+                                                    
+                                                        </div>
+
+                                                    })}
+
+                                                </div>
+                                            </div>
+
+                                           
+                                        
+                                        </div>
+                                    </div>
+
+                                 
+
+                                    
+                                </form>
+                            </div>
+                        </div>
+          
+
+
+
+
+                </div>;
         }
     };
 
