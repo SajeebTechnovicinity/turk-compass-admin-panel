@@ -1,6 +1,6 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Swal from 'sweetalert2';
 import "../../form/style.css";
 
@@ -10,6 +10,8 @@ export default function Dashboard() {
     const [category, setCategory] = useState();
     const [title, setTitle] = useState();
     const [image, setImage] = useState();
+    const fileInputRef = useRef(null); 
+
     const handleCoverImage = (e) => {
         console.log(e);
         const file = e.target.files[0];
@@ -44,6 +46,12 @@ export default function Dashboard() {
             })
         }
         else if (response.data.success==true) {
+            setCategory('');
+            setTitle('');
+            setImage('');
+            if (fileInputRef.current) {
+                fileInputRef.current.value = ''; // Reset the file input field
+            }
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
@@ -119,7 +127,7 @@ export default function Dashboard() {
                                                 type='text'
                                                 className='form-control'
                                                 name='business_name'
-                                                placeholder='Enter your business name'
+                                                placeholder='Enter your subcategory name'
                                                 required
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
@@ -132,7 +140,7 @@ export default function Dashboard() {
                                         </label>
                                         <div className="col-md-8">
                                             <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                                <input type="file" name="cover_image" required className="selected-files"
+                                                <input type="file" name="cover_image"  ref={fileInputRef} required className="selected-files"
                                                     onChange={handleCoverImage} />
                                             </div>
                                             <div className="file-preview box sm"></div>

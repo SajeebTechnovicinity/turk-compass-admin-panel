@@ -46,6 +46,9 @@ export default function city() {
             })
         }
         else if (response.data.success==true) {
+            setCountry('');
+            setTitle('');
+            setState('');
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
@@ -138,14 +141,14 @@ export default function city() {
                                 </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
-                                            State Name <span className='text-danger'>*</span>
+                                            City Name <span className='text-danger'>*</span>
                                         </label>
                                         <div className='col-md-8'>
                                             <input
                                                 type='text'
                                                 className='form-control'
                                                 name='business_name'
-                                                placeholder='Enter your business name'
+                                                placeholder='Enter your city name'
                                                 required
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
