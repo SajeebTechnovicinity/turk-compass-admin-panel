@@ -5,88 +5,78 @@ import axiosClient from "../axiosClient";
 import "../form/style.css";
 
 export default function AppInfo() {
-  const [aboutUs, setAboutUs] = useState('');
+  const [consulateDetails, setConsulateDetails] = useState('');
   const [condition, setCondition] = useState('');
   const [privacy, setPrivacy] = useState('');
   const [image, setImage] = useState('');
-  const [opening, setOpening] = useState([]);
   const [addressList, setAddressList] = useState([]);
-
-  const incrementOpeningInfo =async (addressIndex,index) =>{
-    var addressListdata=addressList;
-    addressListdata[addressIndex].OpenTimeList= await [...addressListdata[addressIndex].OpenTimeList,{index,info:""}];
-    setOpening(pre=>addressListdata)
-
-
-
-    // setOpening([...opening, [{index,info: ''}]]);
+  const incrementOpeningInfo = (addressIndex) => {
+    setAddressList(prevState => {
+      const updatedAddresses = [...prevState];
+      updatedAddresses[addressIndex].opening_info.push({ opening_info: "" });
+      return updatedAddresses;
+    });
   };
 
-  
   const incrementAddressInfo = () => {
-    setAddressList([...addressList, { branchName: '', address: '', phone: '', fax: '', email: '', OpenTimeList: [{info:""}]}]);
+    setAddressList(prevState => [
+      ...prevState,
+      { title:'',address: '', phone: '', fax: '', email: '', opening_info: [{ opening_info: "" }] }
+    ]);
   };
 
   const handleCoverImage = (e) => {
-
-    console.log(opening)
-    // const file = e.target.files[0];
-    // if (file) {
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => {
-    //     setImage(reader.result);
-    //   };
-    //   reader.readAsDataURL(file);
-    // }
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
-
   const handleAddressChange = (index, field, value) => {
-    const updatedAddresses = addressList.map((address, i) => 
-      i === index ? { ...address, [field]: value } : address
-    );
-    setAddressList(updatedAddresses);
+    setAddressList(prevState => {
+      const updatedAddresses = [...prevState];
+      updatedAddresses[index][field] = value;
+      return updatedAddresses;
+    });
   };
 
   const handleOpeningChange = (addressIndex, openingIndex, value) => {
-
-
-
-    opening
-
-
-    console.log(addressIndex)
-    console.log(openingIndex)
-
-
-
-    // const updatedOpening = opening.map((info, i) =>
-    //   i === openingIndex && info.addressIndex === addressIndex
-    //     ? { ...info, info: value }
-    //     : info
-    // );
-    // setOpening(updatedOpening);
+    setAddressList(prevState => {
+      const updatedAddresses = [...prevState];
+      updatedAddresses[addressIndex].opening_info[openingIndex].opening_info= value;
+      return updatedAddresses;
+    });
   };
 
   const submit = async (event) => {
     event.preventDefault();
+    let data = {
+        consulate_info:consulateDetails,
+        consulate_img:image,
+        branch_info:addressList
+  }
 
-    console.log(addressList)
-    console.log(opening)
-  
+    // const data = {
+    //   about_us: aboutUs,
+    //   terms_condition: condition,
+    //   privacy_policy: privacy,
+    //   cover_image: image,
+    //   addresses: addressList
+    // };
+
+    const response = await axiosClient.post("/consultate/consultate-create", data);
+    if (response.data.success) {
+      alert("Success: " + response.data.message);
+    } else {
+      alert("Error: " + response.data.message);
+    }
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const appinfo = await axiosClient.get("/app-info/get");
-      const data = appinfo.data.appinfo || {};
-      setAboutUs(data.about_us || '');
-      setCondition(data.terms_condition || '');
-      setPrivacy(data.privacy_policy || '');
-      // Assuming API provides addresses and opening info in the required format
-      setAddressList(data.addresses || []);
-      setOpening(data.opening_info || []);
-    };
-    fetchData();
+
   }, []);
 
   return (
@@ -111,12 +101,11 @@ export default function AppInfo() {
                   <div className="col-md-12">
                     <textarea
                       name="meta_description"
-                      onChange={(e) => setAboutUs(e.target.value)}
+                      onChange={(e) => setConsulateDetails(e.target.value)}
                       rows="8"
                       className="form-control"
-                      value={aboutUs}
+                      value={consulateDetails}
                     ></textarea>
-                    <small className="text-muted">About Us</small>
                   </div>
                 </div>
                 <div className="form-group row">
@@ -143,7 +132,7 @@ export default function AppInfo() {
                     <br />
                     <hr />
                     <div className="form-group row bg-info">
-                      {['branchName', 'address', 'phone', 'fax', 'email'].map((field, idx) => (
+                      {['title','address', 'phone', 'fax', 'email'].map((field, idx) => (
                         <div key={idx} className="col-md-4">
                           <label className="col-md-12 col-from-label">
                             {field.charAt(0).toUpperCase() + field.slice(1)} <span className="text-danger">*</span>
@@ -163,10 +152,10 @@ export default function AppInfo() {
                       ))}
                       <div className="col-md-4">
                         <label className="col-md-12 col-from-label">
-                          Opening Info <span className="text-danger">*</span> 
+                          Opening Info <span className="text-danger">*</span>
                           <span onClick={() => incrementOpeningInfo(addressIndex)}>Create</span>
                         </label>
-                        {addressList[addressIndex].OpenTimeList.map((info, openingIndex) => (
+                        {address.opening_info.map((info, openingIndex) => (
                           <div key={openingIndex} className="col-md-12">
                             <br />
                             <input
@@ -174,7 +163,7 @@ export default function AppInfo() {
                               className="form-control"
                               name="opening_info"
                               placeholder="Opening Info"
-                              onChange={(e) => handleOpeningChange(addressIndex,openingIndex,e.target.value)}
+                              onChange={(e) => handleOpeningChange(addressIndex, openingIndex, e.target.value)}
                               value={info.info}
                             />
                           </div>
