@@ -43,6 +43,8 @@ export default function Dashboard() {
             })
         }
         else if (response.data.success==true) {
+            setCountry('');
+            setTitle('');
             Swal.fire({
                 title: 'success',
                 text: response.data.message,

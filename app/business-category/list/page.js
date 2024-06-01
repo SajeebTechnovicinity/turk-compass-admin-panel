@@ -34,7 +34,7 @@ export default function Dashboard() {
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>Category List</h3>
 
-                <Link
+                {/* <Link
                                 href={{
                                     pathname: "/business-category/create",
                                     
@@ -42,7 +42,7 @@ export default function Dashboard() {
                                 className='db-button'
                             >
                                 Create
-                        </Link>
+                        </Link> */}
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>

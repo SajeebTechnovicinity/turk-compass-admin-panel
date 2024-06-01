@@ -220,6 +220,12 @@ export default function Form() {
                 setContactEmail('');
                 setImageBase64(null);
                 setCoverImageBase64(null);
+                if (inputFile.current) {
+                    inputFile.current.value = ''; // Reset the file input field
+                }
+                if (inputFile2.current) {
+                    inputFile2.current.value = ''; // Reset the file input field
+                }
                 // handle success, e.g., redirect or show success message
             }
             else

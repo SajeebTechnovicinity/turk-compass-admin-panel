@@ -215,6 +215,7 @@ export default function Form() {
                 contact_phone: contactPhone,
                 contact_website: contactWebsite,
                 is_reservation_available: isReservationAvailable
+               
             };
 
             const response = await axiosClient.post('/business-post/create/', data);
@@ -246,6 +247,7 @@ export default function Form() {
                 setContactAddress('');
                 setContactLocatedIn('');
                 setContactPhone('');
+                setContactEmail('');
                 setContactWebsite('');
                 setImage('');
                 setCoverImage('');
@@ -256,6 +258,12 @@ export default function Form() {
                 setIsReservationAvailable(1);
                 setImageBase64(null);
                 setCoverImageBase64(null);
+                if (inputFile.current) {
+                    inputFile.current.value = ''; // Reset the file input field
+                }
+                if (inputFile2.current) {
+                    inputFile2.current.value = ''; // Reset the file input field
+                }
                 // handle success, e.g., redirect or show success message
             }
             else
