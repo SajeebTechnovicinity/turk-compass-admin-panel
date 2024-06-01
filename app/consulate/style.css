@@ -1,0 +1,37 @@
+.file-wrap{
+	border: 1px solid #dddddd;
+	padding: 10px;
+	border-radius: 6px;
+}
+
+.address-btn-wrap span{
+	background-color: var(--bran-color);
+	cursor: pointer;
+	color: #ffffff;
+	display: inline-flex;
+	padding: 8px 15px;
+	border-radius: 4px;
+}
+
+.address-btn-wrap{
+	text-align: right;
+}
+
+.address-form-items hr{
+	border-top: 1px solid #dddddd;
+}
+
+.op-info{
+	display: flex;
+	justify-content: space-between;
+}
+
+.btn-mini{
+	background-color: var(--bran-color);
+	padding: 3px 7px 5px;
+	border-radius: 3px;
+	display: inline-flex;
+	color: #ffffff;
+	font-size: 13px;
+	cursor: pointer;
+}
