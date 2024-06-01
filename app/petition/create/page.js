@@ -1,6 +1,6 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import "../../form/style.css";
 
@@ -47,6 +47,9 @@ export default function Dashboard() {
         // confirmButtonText: 'Cool'
       });
     } else if (response.data.success == true) {
+      setUrl("");
+      setTitle("");
+      setImage("");
       Swal.fire({
         title: "success",
         text: response.data.message,
@@ -55,26 +58,6 @@ export default function Dashboard() {
       });
     }
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosClient.get("/app-info/get");
-        const responseData = response.data; // Rename data variable for clarity
-
-        if (responseData.success === true) {
-          setBanner(responseData.appinfo.home_banner);
-          let data = responseData.appinfo.home_banner;
-          setTitle(data.title);
-          // setOfferTitle(data.offer_name);
-          setUrl(data.link);
-          setImage(data.image);
-        }
-      } catch (error) {
-        console.error("Error fetching business posts:", error);
-      }
-    };
-    fetchData();
-  }, []); // Empty dependency array means it runs only once on mount
   return (
     <div className="dashboard-content">
       <div className="dashboard-content__topbar topbar flex-ctr">
@@ -110,7 +93,6 @@ export default function Dashboard() {
                       />
                     </div>
                   </div>
-
                   <div className="form-group row">
                     <label className="col-md-3 col-from-label">
                       Url Link <span className="text-danger">*</span>
@@ -119,7 +101,7 @@ export default function Dashboard() {
                       <input
                         type="text"
                         className="form-control"
-                        name="business_name"
+                        name="url_name"
                         placeholder="Url"
                         required
                         value={url}

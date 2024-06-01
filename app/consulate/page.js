@@ -1,57 +1,94 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import axiosClient from "../axiosClient";
 import "../form/style.css";
-export default function appInfo() {
-  const [apping, setAppinfo] = useState([]);
 
-  const [aboutUs, setAboutUs] = useState();
-  const [condition, setCondition] = useState();
-  const [privacy, setPrivacy] = useState();
+export default function AppInfo() {
+  const [aboutUs, setAboutUs] = useState('');
+  const [condition, setCondition] = useState('');
+  const [privacy, setPrivacy] = useState('');
+  const [image, setImage] = useState('');
+  const [opening, setOpening] = useState([]);
+  const [addressList, setAddressList] = useState([]);
+
+  const incrementOpeningInfo =async (addressIndex,index) =>{
+    var addressListdata=addressList;
+    addressListdata[addressIndex].OpenTimeList= await [...addressListdata[addressIndex].OpenTimeList,{index,info:""}];
+    setOpening(pre=>addressListdata)
+
+
+
+    // setOpening([...opening, [{index,info: ''}]]);
+  };
+
+  
+  const incrementAddressInfo = () => {
+    setAddressList([...addressList, { branchName: '', address: '', phone: '', fax: '', email: '', OpenTimeList: [{info:""}]}]);
+  };
+
+  const handleCoverImage = (e) => {
+
+    console.log(opening)
+    // const file = e.target.files[0];
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.onloadend = () => {
+    //     setImage(reader.result);
+    //   };
+    //   reader.readAsDataURL(file);
+    // }
+  };
+
+  const handleAddressChange = (index, field, value) => {
+    const updatedAddresses = addressList.map((address, i) => 
+      i === index ? { ...address, [field]: value } : address
+    );
+    setAddressList(updatedAddresses);
+  };
+
+  const handleOpeningChange = (addressIndex, openingIndex, value) => {
+
+
+
+    opening
+
+
+    console.log(addressIndex)
+    console.log(openingIndex)
+
+
+
+    // const updatedOpening = opening.map((info, i) =>
+    //   i === openingIndex && info.addressIndex === addressIndex
+    //     ? { ...info, info: value }
+    //     : info
+    // );
+    // setOpening(updatedOpening);
+  };
 
   const submit = async (event) => {
     event.preventDefault();
-    var data = {
-      about_us: aboutUs,
-      terms_condition: condition,
-      privacy_policy: privacy,
-    };
 
-    const response = await axiosClient.post("/app-info/create-update", data);
-    console.log("response", response);
-    if (response.data.success == false) {
-      Swal.fire({
-        title: "error",
-        text: response.data.message,
-        icon: "error",
-        // confirmButtonText: 'Cool'
-      });
-    } else if (response.data.success == true) {
-      Swal.fire({
-        title: "success",
-        text: response.data.message,
-        icon: "success",
-        // confirmButtonText: 'Cool'
-      });
-    }
+    console.log(addressList)
+    console.log(opening)
+  
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch data from an API or other source
       const appinfo = await axiosClient.get("/app-info/get");
-      console.log(appinfo.data.appinfo);
-      var data = appinfo.data.appinfo;
-
-      setAppinfo(data ? data : []);
-      setAboutUs(data ? data.about_us : "");
-      setCondition(data ? data.terms_condition : "");
-      setPrivacy(data ? data.privacy_policy : "");
+      const data = appinfo.data.appinfo || {};
+      setAboutUs(data.about_us || '');
+      setCondition(data.terms_condition || '');
+      setPrivacy(data.privacy_policy || '');
+      // Assuming API provides addresses and opening info in the required format
+      setAddressList(data.addresses || []);
+      setOpening(data.opening_info || []);
     };
     fetchData();
   }, []);
+
   return (
     <div className="dashboard-content">
       <div className="dashboard-content__topbar topbar flex-ctr">
@@ -65,55 +102,88 @@ export default function appInfo() {
         <div className="dashboard-main-content">
           <div className="form-card">
             <div className="card-header">
-              <h5 className="mb-0 h6">App Info</h5>
+              <h5 className="mb-0 h6">Consulate Info</h5>
             </div>
             <form onSubmit={submit}>
               <div className="card-body">
                 <div className="form-group row">
-                  <label className="col-md-3 col-from-label">About Us</label>
-                  <div className="col-md-8">
+                  <label className="col-md-12 col-from-label">Consulate Description</label>
+                  <div className="col-md-12">
                     <textarea
                       name="meta_description"
                       onChange={(e) => setAboutUs(e.target.value)}
                       rows="8"
                       className="form-control"
-                      value={aboutUs ? aboutUs : ""}
+                      value={aboutUs}
                     ></textarea>
                     <small className="text-muted">About Us</small>
                   </div>
                 </div>
-
                 <div className="form-group row">
-                  <label className="col-md-3 col-from-label">
-                    Terms and conditions
-                  </label>
+                  <label className="col-md-3 col-from-label">Image</label>
                   <div className="col-md-8">
-                    <textarea
-                      name="meta_description"
-                      rows="8"
-                      onChange={(e) => setCondition(e.target.value)}
-                      className="form-control"
-                      value={condition ? condition : ""}
-                    ></textarea>
-                    <small className="text-muted">Terms and conditions</small>
+                    <input
+                      type="file"
+                      name="cover_image"
+                      required
+                      className="selected-files"
+                      onChange={handleCoverImage}
+                    />
                   </div>
                 </div>
+                <br />
                 <div className="form-group row">
-                  <label className="col-md-3 col-from-label">
-                    Privacy policy
-                  </label>
+                  <label className="col-md-3 col-from-label">Add Address</label>
                   <div className="col-md-8">
-                    <textarea
-                      name="meta_description"
-                      rows="8"
-                      onChange={(e) => setPrivacy(e.target.value)}
-                      value={privacy ? privacy : ""}
-                      className="form-control"
-                    ></textarea>
-                    <small className="text-muted"></small>
+                    <span onClick={incrementAddressInfo}>Add Address</span>
                   </div>
                 </div>
-
+                {addressList.map((address, addressIndex) => (
+                  <div key={addressIndex}>
+                    <br />
+                    <hr />
+                    <div className="form-group row bg-info">
+                      {['branchName', 'address', 'phone', 'fax', 'email'].map((field, idx) => (
+                        <div key={idx} className="col-md-4">
+                          <label className="col-md-12 col-from-label">
+                            {field.charAt(0).toUpperCase() + field.slice(1)} <span className="text-danger">*</span>
+                          </label>
+                          <div className="col-md-12">
+                            <input
+                              type="text"
+                              className="form-control"
+                              name={field}
+                              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                              required
+                              onChange={(e) => handleAddressChange(addressIndex, field, e.target.value)}
+                              value={address[field]}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                      <div className="col-md-4">
+                        <label className="col-md-12 col-from-label">
+                          Opening Info <span className="text-danger">*</span> 
+                          <span onClick={() => incrementOpeningInfo(addressIndex)}>Create</span>
+                        </label>
+                        {addressList[addressIndex].OpenTimeList.map((info, openingIndex) => (
+                          <div key={openingIndex} className="col-md-12">
+                            <br />
+                            <input
+                              type="text"
+                              className="form-control"
+                              name="opening_info"
+                              placeholder="Opening Info"
+                              onChange={(e) => handleOpeningChange(addressIndex,openingIndex,e.target.value)}
+                              value={info.info}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <hr />
+                  </div>
+                ))}
                 <div className="form-group mb-0 text-right">
                   <button type="submit" className="btn btn-primary">
                     Save
