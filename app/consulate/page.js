@@ -28,6 +28,36 @@ export default function AppInfo() {
         });
     };
 
+    let deleteItem = (addressIndex) => {
+        setAddressList((prevState) => {
+            return prevState.filter((address, index) => {
+                // If index matches addressIndex, do not include this address in the new list
+                if (index === addressIndex) {
+                    return false;
+                }
+                // Otherwise, return true to keep the address in the new list
+                return true;
+            });
+        });
+    };
+
+    let deleteOpeningItem = (addressIndex, openingIndexData) => {
+        setAddressList((prevState) => {
+            return prevState.map((address, index) => {
+                if (index === addressIndex) {
+                    return {
+                        ...address,
+                        opening_info: address.opening_info.filter(
+                            (opening, openingIndex) => openingIndex !== openingIndexData
+                        ),
+                    };
+                }
+                return address; // Return the address as is if index does not match addressIndex
+            });
+        });
+    };
+
+
     const incrementAddressInfo = () => {
         setAddressList((prevState) => [
             ...prevState,
@@ -78,14 +108,6 @@ export default function AppInfo() {
             branch_info: addressList,
         };
 
-        // const data = {
-        //   about_us: aboutUs,
-        //   terms_condition: condition,
-        //   privacy_policy: privacy,
-        //   cover_image: image,
-        //   addresses: addressList
-        // };
-
         const response = await axiosClient.post(
             "/consultate/consultate-create",
             data
@@ -97,7 +119,21 @@ export default function AppInfo() {
         }
     };
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+
+
+
+        let getinfo = async () => {
+            const response = await axiosClient.get("/consultate/get-consultate");
+            setAddressList(response.data.branchList)
+            setConsulateDetails(response.data.consultatInfo.consulate_info)
+        
+
+        }
+        getinfo();
+
+
+    }, []);
 
     return (
         <div className='dashboard-content'>
@@ -128,7 +164,6 @@ export default function AppInfo() {
                                                     e.target.value
                                                 )
                                             }
-
                                             rows='8'
                                             className='form-control'
                                             value={consulateDetails}
@@ -144,7 +179,6 @@ export default function AppInfo() {
                                             <input
                                                 type='file'
                                                 name='cover_image'
-                                                required
                                                 className='selected-files'
                                                 onChange={handleCoverImage}
                                             />
@@ -181,9 +215,6 @@ export default function AppInfo() {
                                                             .charAt(0)
                                                             .toUpperCase() +
                                                             field.slice(1)}{" "}
-                                                        <span className='text-danger'>
-                                                            *
-                                                        </span>
                                                     </label>
                                                     <div className='col-md-12'>
                                                         <input
@@ -197,7 +228,6 @@ export default function AppInfo() {
                                                                 field.slice(1)
                                                             }
 
-                                                            required
                                                             onChange={(e) =>
                                                                 handleAddressChange(
                                                                     addressIndex,
@@ -213,14 +243,12 @@ export default function AppInfo() {
 
                                                         />
                                                     </div>
+                                                    
                                                 </div>
                                             ))}
                                             <div className='col-md-4'>
                                                 <label className='col-md-12 col-from-label op-info'>
-                                                    <span>Opening Info{" "}
-                                                    <span className='text-danger'>
-                                                        *
-                                                    </span></span>
+                                                    <span>Opening Info{" "}</span>
                                                     <span
                                                         className="btn-mini"
                                                         onClick={() =>
@@ -228,37 +256,47 @@ export default function AppInfo() {
                                                                 addressIndex
                                                             )
                                                         }
-
                                                     >
                                                         Create
                                                     </span>
                                                 </label>
                                                 {address.opening_info.map(
                                                     (info, openingIndex) => (
-                                                        <div
-                                                            key={openingIndex}
-                                                            className='form-group col-md-12'
-                                                        >
-                                                            <input
-                                                                type='text'
-                                                                className='form-control'
-                                                                name='opening_info'
-                                                                placeholder='Opening Info'
-                                                                onChange={(e) =>
-                                                                    handleOpeningChange(
-                                                                        addressIndex,
-                                                                        openingIndex,
-                                                                        e.target
-                                                                            .value
+                                                        <>
+                                                            <div
+                                                                key={openingIndex}
+                                                                className='form-group col-md-12'
+                                                            >
+                                                                <input
+                                                                    type='text'
+                                                                    className='form-control'
+                                                                    name='opening_info'
+                                                                    placeholder='Opening Info'
+                                                                    onChange={(e) =>
+                                                                        handleOpeningChange(
+                                                                            addressIndex,
+                                                                            openingIndex,
+                                                                            e.target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                    value={
+                                                                        info.opening_info
+                                                                    }
+                                                                />
+                                                            </div>
+                                                            <span
+                                                                className="btn-mini"
+                                                                onClick={() =>
+                                                                    deleteOpeningItem(
+                                                                        addressIndex, openingIndex
                                                                     )
                                                                 }
+                                                            >
+                                                                Delete
+                                                            </span></>
 
-                                                                value={
-                                                                    info.info
-                                                                }
 
-                                                            />
-                                                        </div>
                                                     )
                                                 )}
                                             </div>
@@ -267,7 +305,7 @@ export default function AppInfo() {
                                     </div>
                                 ))}
                                 <div className='row'>
-                                    <div className='col-md-6 btn-submit' style={{padding: '25px 0 10px'}}>
+                                    <div className='col-md-6 btn-submit' style={{ padding: '25px 0 10px' }}>
                                         <button
                                             type='submit'
                                             className='btn btn-primary'
