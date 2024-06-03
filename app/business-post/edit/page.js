@@ -13,6 +13,7 @@ export default function Form() {
     const [countries, setCountries] = useState([]);
     const [states, setStates] = useState([]);
     const [cities, setCities] = useState([]);
+    const [tagList, setTagList] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedState, setSelectedState] = useState(null);
 
@@ -47,12 +48,13 @@ export default function Form() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const [categoryRes, subCategoryRes, countryRes, stateRes, cityRes] = await Promise.all([
-                    axiosClient.get("/category/list"),
+                const [categoryRes, subCategoryRes, countryRes, stateRes, cityRes,tagRes] = await Promise.all([
+                    axiosClient.get("/category/list?type=business"),
                     axiosClient.get("/subcategory/list/"),
                     axiosClient.get("/country/list/"),
                     axiosClient.get("/state/list/"),
-                    axiosClient.get("/city/list/")
+                    axiosClient.get("/city/list/"),
+                    axiosClient.get("/tag/list/")
                 ]);
 
                 if (categoryRes.data.success) setCategories(categoryRes.data.categories);
@@ -60,6 +62,7 @@ export default function Form() {
                 if (countryRes.data.success) setCountries(countryRes.data.countries);
                 if (stateRes.data.success) setStates(stateRes.data.states);
                 if (cityRes.data.success) setCities(cityRes.data.citys);
+                if (tagRes.data.success) setTagList(tagRes.data.tags);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -97,6 +100,17 @@ export default function Form() {
         } catch (error) {
             console.error('Error fetching business post:', error);
         }
+    };
+
+    const handleTagChange = (e) => {
+        const options = e.target.options;
+        const selectedTags = [];
+        for (const option of options) {
+            if (option.selected) {
+                selectedTags.push(option.value);
+            }
+        }
+        setTags(selectedTags);
     };
 
     useEffect(() => {
@@ -473,19 +487,23 @@ export default function Form() {
                                     <label className='col-md-3 col-from-label'>
                                         Tags <span className='text-danger'>*</span>
                                     </label>
-                                    <div className='col-md-8'>
-                                        <input
-                                            type='text'
-                                            className='form-control aiz-tag-input'
+                                    <div className='col-md-30'>
+                                        <select
+                                            multiple
+                                            className='form-select'
+                                            id='tags'
                                             name='tags'
                                             value={tags}
-                                            onChange={(e) => setTags(e.target.value)}
-                                            placeholder='Type and hit enter to add a tag'
+                                            onChange={handleTagChange}
+                                            aria-label='Default select example'
                                             required
-                                        />
-                                        <small className='text-muted'>
-                                            This is used for search. Input those words by which customers can find this product.
-                                        </small>
+                                        >
+                                            {tagList.map((tag) => (
+                                                <option key={tag.id} value={tag._id}>
+                                                    {tag.name}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
                             </div>
