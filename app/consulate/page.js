@@ -198,6 +198,16 @@ export default function AppInfo() {
                                     >
                                         <br />
                                         <hr />
+                                        <span
+                                                                className="btn-mini"
+                                                                onClick={() =>
+                                                                    deleteItem(
+                                                                        addressIndex
+                                                                    )
+                                                                }
+                                                            >
+                                                                Delete
+                                                            </span>
                                         <div className='row bg-info'>
                                             {[
                                                 "title",
@@ -263,6 +273,7 @@ export default function AppInfo() {
                                                 {address.opening_info.map(
                                                     (info, openingIndex) => (
                                                         <>
+                                                             
                                                             <div
                                                                 key={openingIndex}
                                                                 className='form-group col-md-12'
@@ -294,7 +305,10 @@ export default function AppInfo() {
                                                                 }
                                                             >
                                                                 Delete
-                                                            </span></>
+                                                            </span>
+                                                      
+                                                            
+                                                            </>
 
 
                                                     )
