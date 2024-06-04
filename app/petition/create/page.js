@@ -10,6 +10,7 @@ export default function Dashboard() {
   const [url, setUrl] = useState("");
   const [homeBanner, setBanner] = useState("");
   const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleCoverImage = (e) => {
     const file = e.target.files[0];
@@ -31,6 +32,7 @@ export default function Dashboard() {
       petition: {
         title: title,
         image: image,
+        description: description,
         link: url,
       },
     };
@@ -90,6 +92,21 @@ export default function Dashboard() {
                         required
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group row">
+                    <label className="col-md-3 col-from-label">
+                    Description 
+                    </label>
+                    <div className="col-md-8">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="business_name"
+                        placeholder="Desctiption"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                       />
                     </div>
                   </div>

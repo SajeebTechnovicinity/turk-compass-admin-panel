@@ -72,6 +72,7 @@ export default function Dashboard() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Title</th>                                
+                                    <th>Description</th>                                
                                     <th>Image</th>
                                     <th>Link</th>
                                     <th>Status</th>
@@ -84,6 +85,7 @@ export default function Dashboard() {
                                   return <tr key={post._id}>
                                   <td>{index+1}</td>
                                   <td>{post.title}</td>
+                                  <td>{post.description}</td>
                                   <td> <img style={{"height":"100px"}} src={post.image}></img></td>
                                   <td>{post.link}</td>
                                   <td>{post.status==1?'active':"inactive"}</td>

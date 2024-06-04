@@ -10,6 +10,7 @@ export default function AppInfo() {
     const [condition, setCondition] = useState("");
     const [privacy, setPrivacy] = useState("");
     const [image, setImage] = useState("");
+    const [consulate_cover_img, setConsulateCoverImg] = useState("");
     const [addressList, setAddressList] = useState([]);
     const incrementOpeningInfo = (addressIndex) => {
         setAddressList((prevState) => {
@@ -72,12 +73,23 @@ export default function AppInfo() {
         ]);
     };
 
-    const handleCoverImage = (e) => {
+    const handleLogoImage = (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleCoverImage = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setConsulateCoverImg(reader.result);
             };
             reader.readAsDataURL(file);
         }
@@ -105,7 +117,9 @@ export default function AppInfo() {
         let data = {
             consulate_info: consulateDetails,
             consulate_img: image,
+            consulate_cover_img:consulate_cover_img,
             branch_info: addressList,
+           
         };
 
         const response = await axiosClient.post(
@@ -120,18 +134,14 @@ export default function AppInfo() {
     };
 
     useEffect(() => {
-
-
-
         let getinfo = async () => {
             const response = await axiosClient.get("/consultate/get-consultate");
             setAddressList(response.data.branchList)
-            setConsulateDetails(response.data.consultatInfo.consulate_info)
-        
-
+            if(response.data.consultatInfo){
+                setConsulateDetails(response.data.consultatInfo.consulate_info)
+            }
         }
         getinfo();
-
 
     }, []);
 
@@ -172,7 +182,23 @@ export default function AppInfo() {
                                 </div>
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
-                                        Image
+                                        Logo
+                                    </label>
+                                    <div className='col-md-9'>
+                                        <div className='file-wrap'>
+                                            <input
+                                                type='file'
+                                                name='cover_image'
+                                                className='selected-files'
+                                                onChange={handleLogoImage}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='form-group row'>
+                                    <label className='col-md-3 col-from-label'>
+                                        Cover Image
                                     </label>
                                     <div className='col-md-9'>
                                         <div className='file-wrap'>
@@ -307,10 +333,7 @@ export default function AppInfo() {
                                                                 Delete
                                                             </span>
                                                       
-                                                            
                                                             </>
-
-
                                                     )
                                                 )}
                                             </div>
