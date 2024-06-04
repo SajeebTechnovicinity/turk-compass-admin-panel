@@ -4,14 +4,15 @@ import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 import "../../../form/style.css";
 
-export default function city() {
-    const [industryList, setindustry] = useState([]);
+export default function City() {  // Changed 'city' to 'City'
+    const [industryList, setIndustry] = useState([]);  // Changed 'setindustry' to 'setIndustry' for consistency
     const [title, setTitle] = useState();
     const [country, setCountry] = useState();
     const [state, setState] = useState();
     const [countryList, setCountryList] = useState();
     const [stateList, setStateList] = useState();
     const [image, setImage] = useState();
+    
     const handleCoverImage = (e) => {
         console.log(e);
         const file = e.target.files[0];

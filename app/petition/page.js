@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axiosClient from "../axiosClient";
 import "../form/style.css";
-export default function appInfo() {
-  const [apping, setAppinfo] = useState([]);
 
+export default function AppInfo() {  // Changed 'appInfo' to 'AppInfo'
+  const [apping, setAppinfo] = useState([]);
   const [aboutUs, setAboutUs] = useState();
   const [condition, setCondition] = useState();
   const [privacy, setPrivacy] = useState();

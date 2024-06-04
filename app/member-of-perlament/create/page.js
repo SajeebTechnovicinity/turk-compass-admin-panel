@@ -315,7 +315,7 @@ export default function Form() {
                                         City <span className='text-danger'>*</span>
                                     </label>
                                     <div className='col-md-8'>
-                                        <select className="form-control" name="city" required onChange={(e)=> setSelectedCity(e.target.value)} required>
+                                        <select className="form-control" name="city" required onChange={(e)=> setSelectedCity(e.target.value)} >
                                             <option value="">Select One</option>
                                             {cities.map((city, index) => (
                                                 <option key={index} value={city._id}>

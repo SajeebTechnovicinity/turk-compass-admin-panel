@@ -580,8 +580,8 @@ export default function Dashboard() {
                                                  Education <span className='text-danger'>*</span>
                                                 </label>
                                                 <div className='col-md-8'>
-                                                    {jobProfile.education && jobProfile.education.map(value=>{
-                                                        return <div>
+                                                    {jobProfile.education && jobProfile.education.map((value,index)=>{
+                                                        return <div key={index}>
                                                             <h6>Degree:{value.degree}</h6>
                                                             <h6>Institute name:{value.institute_name}</h6>
                                                             <h6>Start Date:{value.start_date}</h6>
@@ -600,7 +600,7 @@ export default function Dashboard() {
                                                 </label>
                                                 <div className='col-md-8'>
                                                     {jobProfile.skill && jobProfile.skill.map((value,key)=>{
-                                                        return <div>
+                                                        return <div key={key}>
                                                             <h6>{key+1} : {value}</h6>
                                                     
                                                         </div>
@@ -615,7 +615,7 @@ export default function Dashboard() {
                                                 </label>
                                                 <div className='col-md-8'>
                                                     {jobProfile.work_history && jobProfile.work_history.map((value,key)=>{
-                                                        return <div>
+                                                        return <div key={key}>
                                                             <h6>Designation : {value.designation}</h6>
                                                             <h6>Company : {value.company}</h6>
                                                             <h6>Responsibility : {value.responsibility}</h6>
