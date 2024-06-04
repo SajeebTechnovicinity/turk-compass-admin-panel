@@ -95,8 +95,17 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          {/* 
-                    <NavGroup title='SubCategory' href='/form' icon={TABLE}>
+          <NavGroup title="Tag" href="/table" icon={TABLE}>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Tag List"
+                href="/tag/list"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
+          
+                    {/* <NavGroup title='SubCategory' href='/form' icon={TABLE}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='Form' href='/form' cssClass="nav__sub-link" />
                             <NavItem title='Form 2' href='/form2' cssClass="nav__sub-link" />

@@ -5,18 +5,18 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-    const [categoryList, setCategory] = useState([]);
+    const [tagList, setTag] = useState([]);
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/category/list?type=business");
+          const response = await axiosClient.get("/tag/list");
           const responseData = response.data; // Rename data variable for clarity
 
           if (responseData.success === true) {
-            setCategory(responseData.categories);
+            setTag(responseData.tags);
           }
         } catch (error) {
-          console.error('Error fetching business posts:', error);
+          console.error('Error fetching tags:', error);
         }
       };
   
@@ -32,17 +32,17 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Category List</h3>
+                <h3 className='title'>Tag List</h3>
 
-                {/* <Link
+                <Link
                                 href={{
-                                    pathname: "/business-category/create",
+                                    pathname: "/tag/create",
                                     
                                 }}
                                 className='db-button'
                             >
                                 Create
-                        </Link> */}
+                        </Link>
             </div>
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
@@ -52,19 +52,15 @@ export default function Dashboard() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>                                
-                                    <th>Image</th>
-                                    <th>Status</th>
-                                    {/* <th>Action</th> */}
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                               {
-                                categoryList.map( (post,index)=>{
+                                tagList.map( (post,index)=>{
                                   return <tr key={post._id}>
                                   <td>{index+1}</td>
                                   <td>{post.name}</td>
-                                  <td>  <img src={post.image} style={{ width: '100px' }} alt="Post Image" /></td>
-                                  <td>{post.status==1?'active':"inactive"}</td>
                             
                                   {/* <td className='status'>{post.status}</td> */}
                                   <td>
@@ -73,8 +69,8 @@ export default function Dashboard() {
                                           <a href='#' className='act-btn act-btn-succes'>{EDIT}</a> */}
 
                                           <Link   href={{
-                                    pathname: "/business-category/edit",
-                                    query: { id:post._id,name:post.name},
+                                    pathname: "/tag/edit",
+                                    query: { id:post._id, name:post.name},
                                     
                                 }} className='act-btn act-btn-succes'>{EDIT}</Link>
                                           {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
