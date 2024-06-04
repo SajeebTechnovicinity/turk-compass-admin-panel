@@ -1,9 +1,9 @@
 "use client";
 import { EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
-import Link from "next/link";
 
 export default function Dashboard() {
     const [userList, setuser] = useState([]);
@@ -12,7 +12,7 @@ export default function Dashboard() {
     async function deleteaccount(id){
     const response = await axiosClient.get(`user-profile/general/active-inactive?id=${id}`);
         fetchData();
-    
+
         if(response.data.success==false){
             Swal.fire({
                 title: 'error',
@@ -36,7 +36,7 @@ export default function Dashboard() {
     const buttonStyle = {
         padding: '8px 16px',
         margin: '0 5px',
-        backgroundColor: '#4CAF50',
+        backgroundColor: 'var(--primary-color)',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -82,7 +82,7 @@ const fetchData = async () => {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Name</th>                                
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Package type</th>
                                     <th>Status</th>
@@ -97,14 +97,14 @@ const fetchData = async () => {
                                   <td>{post.userName}</td>
                                   <td>{post.email}</td>
                                   <td>{post.package_type}</td>
-                            
+
                                   <td className='status'>{post.is_delete?"inactive":'active'}</td>
                                   <td>
                                       <div className='act-btns'>
                                       <Link
                                                 href={{
                                                     pathname: "/user/user-list/details",
-                                                    query: { id: post._id },                                               
+                                                    query: { id: post._id },
                                                 }}
                                                 className='act-btn act-btn-succes'
                                             >
@@ -123,7 +123,7 @@ const fetchData = async () => {
                             </tbody>
                         </table>
 
-                
+
 
 
                         <div className="has-pagination">

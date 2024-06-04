@@ -97,7 +97,7 @@ export default function Dashboard() {
                   </div>
                   <div className="form-group row">
                     <label className="col-md-3 col-from-label">
-                    Description 
+                    Description
                     </label>
                     <div className="col-md-8">
                       <input
@@ -132,10 +132,7 @@ export default function Dashboard() {
                     </label>
                     <div className="col-md-8">
                       <div
-                        className="input-group"
-                        data-toggle="aizuploader"
-                        data-type="image"
-                        data-multiple="true"
+                        className="file-wrap"
                       >
                         <input
                           type="file"
@@ -148,7 +145,7 @@ export default function Dashboard() {
                       <div className="file-preview box sm"></div>
                     </div>
                   </div>
-                  <div className="form-group mb-0 text-right">
+                  <div className="btn-submit mt-40">
                     <button type="submit" className="btn btn-primary">
                       Save
                     </button>

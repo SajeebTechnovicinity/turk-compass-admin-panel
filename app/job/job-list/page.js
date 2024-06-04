@@ -9,7 +9,7 @@ export default function Dashboard() {
     const buttonStyle = {
         padding: "8px 16px",
         margin: "0 5px",
-        backgroundColor: "#4CAF50",
+        backgroundColor: "var(--primary-color)",
         color: "white",
         border: "none",
         borderRadius: "4px",

@@ -32,6 +32,7 @@ export default function Dashboard() {
             "country":country,
             "name":title
         }
+
         const response = await axiosClient.post('/state/create', data);
         console.log("response", response);
         if(response.data.success==false){
@@ -41,8 +42,7 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             setCountry('');
             setTitle('');
             Swal.fire({
@@ -51,9 +51,9 @@ export default function Dashboard() {
                 icon: 'success',
                 // confirmButtonText: 'Cool'
             })
-
     }
 }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -78,7 +78,7 @@ export default function Dashboard() {
                     <span className='slice-bottom'></span>
                 </div>
             </div>
-   
+
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
                     <div className='dashboard-table-wrap flex-spb'>
@@ -126,15 +126,12 @@ export default function Dashboard() {
                                         </div>
                                     </div>
 
-
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 
                                 </div>
                             </div>
-
-
 
                         </form>
                     </div>

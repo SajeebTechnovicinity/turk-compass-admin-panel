@@ -2,8 +2,8 @@
 "use client";
 import { DELETE, EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
-import { useState,useEffect } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 
 export default function Dashboard() {
@@ -11,11 +11,11 @@ export default function Dashboard() {
     const [currentPage, setCurrentPage] = useState(1);
 
 
-    
+
     async function deleteaccount(id){
         const response = await axiosClient.get(`member-of-perlamant/delete?id=${id}`);
             fetchData();
-        
+
             if(response.data.success==false){
                 Swal.fire({
                     title: 'error',
@@ -36,7 +36,7 @@ export default function Dashboard() {
     const buttonStyle = {
         padding: '8px 16px',
         margin: '0 5px',
-        backgroundColor: '#4CAF50',
+        backgroundColor: 'var(--primary-color)',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -70,7 +70,7 @@ export default function Dashboard() {
 
     useEffect(() => {
 
-  
+
       fetchData();
     }, [currentPage]); // Empty dependency array means it runs only once on mount
     return (
@@ -88,25 +88,25 @@ export default function Dashboard() {
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
                     <form action='#' className='dashboard-form flex-ctr-spb'>
-                        
+
                         <Link
                                 href={{
                                     pathname: "/member-of-perlament/create",
-                                    
+
                                 }}
                                 className='db-button'
                             >
                                 {" "}
                                 Create
                         </Link>
-                       
+
                     </form>
                     <div className='dashboard-table-wrap flex-spb'>
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Member of Perlamant Name</th>                                
+                                    <th>Member of Perlamant Name</th>
                                     <th>Political Affiliation</th>
                                     <th>Constituency</th>
                                     <th>Created At</th>
@@ -129,7 +129,7 @@ export default function Dashboard() {
                                       <Link
                                                 href={{
                                                     pathname: "/member-of-perlament/details",
-                                                    query: { id: post._id },                                               
+                                                    query: { id: post._id },
                                                 }}
                                                 className='act-btn act-btn-succes'
                                             >
@@ -138,14 +138,14 @@ export default function Dashboard() {
                                         <Link
                                                 href={{
                                                     pathname: "/member-of-perlament/edit",
-                                                    query: { id: post._id },                                               
+                                                    query: { id: post._id },
                                                 }}
                                                 className='act-btn act-btn-succes'
                                             >
                                             {EDIT}
                                         </Link>
                                         <button className='act-btn act-btn-danger' onClick={()=>{deleteaccount(post._id)}}>{DELETE}</button>
-                    
+
                                       </div>
                                   </td>
                               </tr>
@@ -155,7 +155,7 @@ export default function Dashboard() {
                             </tbody>
                         </table>
 
-                       
+
                     </div>
                     <div className="has-pagination">
 

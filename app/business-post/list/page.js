@@ -1,9 +1,9 @@
 
 "use client";
-import { DELETE, EDIT, EYE } from "@/app/assets/icons";
+import { EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
-import { useState,useEffect } from "react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import Swal from 'sweetalert2';
 
 export default function Dashboard() {
@@ -14,7 +14,7 @@ export default function Dashboard() {
     async function deleteaccount(id){
         const response = await axiosClient.get(`user-profile/business/active-inactive?id=${id}`);
             fetchData();
-        
+
             if(response.data.success==false){
                 Swal.fire({
                     title: 'error',
@@ -31,12 +31,12 @@ export default function Dashboard() {
                 })
             }
         }
-    
+
 
     const buttonStyle = {
         padding: '8px 16px',
         margin: '0 5px',
-        backgroundColor: '#4CAF50',
+        backgroundColor: 'var(--primary-color)',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -64,8 +64,8 @@ export default function Dashboard() {
       };
 
     useEffect(() => {
-      
-  
+
+
       fetchData();
     }, [currentPage]); // Empty dependency array means it runs only once on mount
 
@@ -73,7 +73,7 @@ export default function Dashboard() {
         const handlePageChange = (pageNumber) => {
             setCurrentPage(pageNumber);
         };
-    
+
         useEffect(() => {
             fetchData();
         }, [currentPage]);
@@ -127,21 +127,21 @@ export default function Dashboard() {
                         <Link
                                 href={{
                                     pathname: "/business-post/create",
-                                    
+
                                 }}
                                 className='db-button'
                             >
                                 {" "}
                                 Create
                         </Link>
-                       
+
                     </form>
                     <div className='dashboard-table-wrap flex-spb'>
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Business Post Name</th>                                
+                                    <th>Business Post Name</th>
                                     <th>Address</th>
                                     <th>Phone</th>
                                     <th>Created At</th>
@@ -164,7 +164,7 @@ export default function Dashboard() {
                                       <Link
                                                 href={{
                                                     pathname: "/business-post/details",
-                                                    query: { id: post._id },                                               
+                                                    query: { id: post._id },
                                                 }}
                                                 className='act-btn act-btn-succes'
                                             >
@@ -173,14 +173,14 @@ export default function Dashboard() {
                                         <Link
                                                 href={{
                                                     pathname: "/business-post/edit",
-                                                    query: { id: post._id },                                               
+                                                    query: { id: post._id },
                                                 }}
                                                 className='act-btn act-btn-succes'
                                             >
                                             {EDIT}
                                         </Link>
                                         <button className="btn danger" onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ?"Active":"Inactive"}</button>
-                                    
+
                                       </div>
                                   </td>
                               </tr>
@@ -190,7 +190,7 @@ export default function Dashboard() {
                             </tbody>
                         </table>
 
-                  
+
 
                         <div className="pagination" style={{ textAlign:'center' }}>
                             <button

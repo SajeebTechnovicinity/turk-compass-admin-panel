@@ -36,6 +36,7 @@ export default function AppInfo() {
                 if (index === addressIndex) {
                     return false;
                 }
+
                 // Otherwise, return true to keep the address in the new list
                 return true;
             });
@@ -53,11 +54,11 @@ export default function AppInfo() {
                         ),
                     };
                 }
+
                 return address; // Return the address as is if index does not match addressIndex
             });
         });
     };
-
 
     const incrementAddressInfo = () => {
         setAddressList((prevState) => [
@@ -119,7 +120,6 @@ export default function AppInfo() {
             consulate_img: image,
             consulate_cover_img:consulate_cover_img,
             branch_info: addressList,
-           
         };
 
         const response = await axiosClient.post(
@@ -141,8 +141,8 @@ export default function AppInfo() {
                 setConsulateDetails(response.data.consultatInfo.consulate_info)
             }
         }
-        getinfo();
 
+        getinfo();
     }, []);
 
     return (
@@ -174,6 +174,7 @@ export default function AppInfo() {
                                                     e.target.value
                                                 )
                                             }
+
                                             rows='8'
                                             className='form-control'
                                             value={consulateDetails}
@@ -217,7 +218,7 @@ export default function AppInfo() {
                                         Addresses
                                     </h4>
                                 </div>
-                                {addressList.map((address, addressIndex) => (
+                                {addressList && addressList.map((address, addressIndex) => (
                                     <div
                                         className='address-form-items'
                                         key={addressIndex}
@@ -231,6 +232,7 @@ export default function AppInfo() {
                                                                         addressIndex
                                                                     )
                                                                 }
+
                                                             >
                                                                 Delete
                                                             </span>
@@ -279,7 +281,7 @@ export default function AppInfo() {
 
                                                         />
                                                     </div>
-                                                    
+
                                                 </div>
                                             ))}
                                             <div className='col-md-4'>
@@ -292,6 +294,7 @@ export default function AppInfo() {
                                                                 addressIndex
                                                             )
                                                         }
+
                                                     >
                                                         Create
                                                     </span>
@@ -299,7 +302,7 @@ export default function AppInfo() {
                                                 {address.opening_info.map(
                                                     (info, openingIndex) => (
                                                         <>
-                                                             
+
                                                             <div
                                                                 key={openingIndex}
                                                                 className='form-group col-md-12'
@@ -317,9 +320,11 @@ export default function AppInfo() {
                                                                                 .value
                                                                         )
                                                                     }
+
                                                                     value={
                                                                         info.opening_info
                                                                     }
+
                                                                 />
                                                             </div>
                                                             <span
@@ -329,10 +334,11 @@ export default function AppInfo() {
                                                                         addressIndex, openingIndex
                                                                     )
                                                                 }
+
                                                             >
                                                                 Delete
                                                             </span>
-                                                      
+
                                                             </>
                                                     )
                                                 )}

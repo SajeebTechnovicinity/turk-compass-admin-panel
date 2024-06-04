@@ -10,7 +10,7 @@ export default function Dashboard() {
     const [category, setCategory] = useState();
     const [title, setTitle] = useState();
     const [image, setImage] = useState();
-    const fileInputRef = useRef(null); 
+    const fileInputRef = useRef(null);
 
     const handleCoverImage = (e) => {
         console.log(e);
@@ -35,6 +35,7 @@ export default function Dashboard() {
             "name":title,
             "image":image
         }
+
         const response = await axiosClient.post('/subcategory/create', data);
         console.log("response", response);
         if(response.data.success==false){
@@ -44,23 +45,23 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             setCategory('');
             setTitle('');
             setImage('');
             if (fileInputRef.current) {
                 fileInputRef.current.value = ''; // Reset the file input field
             }
+
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
                 icon: 'success',
                 // confirmButtonText: 'Cool'
             })
-
     }
 }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -139,22 +140,19 @@ export default function Dashboard() {
                                             Cover Image
                                         </label>
                                         <div className="col-md-8">
-                                            <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                            <div className="file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                                 <input type="file" name="cover_image"  ref={fileInputRef} required className="selected-files"
                                                     onChange={handleCoverImage} />
                                             </div>
-                                            <div className="file-preview box sm"></div>
                                         </div>
                                     </div>
 
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 
                                 </div>
                             </div>
-
-
 
                         </form>
                     </div>

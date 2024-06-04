@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 export default function Dashboard() {
     const [stateList, setStateList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -21,14 +21,14 @@ export default function Dashboard() {
           console.error('Error fetching business posts:', error);
         }
       };
-  
+
       fetchData();
     }, [currentPage]); // Empty dependency array means it runs only once on mount
-    
+
     const buttonStyle = {
         padding: '8px 16px',
         margin: '0 5px',
-        backgroundColor: '#4CAF50',
+        backgroundColor: 'var(--primary-color)',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -46,7 +46,7 @@ export default function Dashboard() {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-    
+
     return (
         <div className='dashboard-content'>
             <div className='dashboard-content__topbar topbar flex-ctr'>
@@ -58,11 +58,11 @@ export default function Dashboard() {
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>Province List</h3>
-              
+
                 <Link
                                 href={{
                                     pathname: "/location/state/create",
-                                    
+
                                 }}
                                 className='db-button'
                             >
@@ -75,9 +75,9 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                
+
                                     <th>ID</th>
-                                    <th>Country</th>                                
+                                    <th>Country</th>
                                     <th>Name</th>
                                     <th>Status</th>
                                 </tr>
@@ -98,7 +98,7 @@ export default function Dashboard() {
                                           <Link   href={{
                                     pathname: "/location/state/edit",
                                     query: { id:state._id,name:state.name,country:state.country?state.country._id:null},
-                                    
+
                                 }} className='act-btn act-btn-succes'>{EDIT}</Link>
                                           {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
                                       </div>

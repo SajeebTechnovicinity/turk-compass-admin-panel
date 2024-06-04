@@ -34,7 +34,8 @@ export default function city() {
             "name":title,
             "country":country,
             "state":state
-        }        
+        }
+
         const response = await axiosClient.post('/city/create', data);
         console.log("response", response);
         if(response.data.success==false){
@@ -44,8 +45,7 @@ export default function city() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             setCountry('');
             setTitle('');
             setState('');
@@ -68,6 +68,7 @@ export default function city() {
                 if (responseData.success === true) {
                     setCountryList(responseData.countries);
                 }
+
                 if (responseData2.success === true) {
                     setStateList(responseData2.states);
                 }
@@ -87,7 +88,7 @@ export default function city() {
                     <span className='slice-bottom'></span>
                 </div>
             </div>
-   
+
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
                     <div className='dashboard-table-wrap flex-spb'>
@@ -156,15 +157,12 @@ export default function city() {
                                         </div>
                                     </div>
 
-
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 
                                 </div>
                             </div>
-
-
 
                         </form>
                     </div>

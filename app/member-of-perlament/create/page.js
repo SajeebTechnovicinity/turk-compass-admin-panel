@@ -1,9 +1,8 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
-import "../../form/style.css";
 import { useEffect, useRef, useState } from "react";
-import { set } from "mongoose";
 import Swal from 'sweetalert2';
+import "../../form/style.css";
 
 export default function Form() {
     const [countries, setCountries] = useState([]);
@@ -89,13 +88,10 @@ export default function Form() {
     //         reader.onload = () => resolve(reader.result);
     //         reader.onerror = error => reject(error);
     //     });
-        
+
     // };
 
-
-
     const handleImage = (e) => {
-  
         console.log(e);
         const file = e.target.files[0];
         if (file) {
@@ -106,16 +102,13 @@ export default function Form() {
             setImageBase64(reader.result);
             //setImage(reader.result);
             };
-    
+
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
         }
-        
-        
       };
 
       const handleCoverImage = (e) => {
-  
         console.log(e);
         const file = e.target.files[0];
         if (file) {
@@ -126,14 +119,12 @@ export default function Form() {
             setCoverImageBase64(reader.result);
             //setImage(reader.result);
             };
-    
+
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
         }
-        
-        
       };
-    
+
       const inputFile = useRef(null);
       const inputFile2 = useRef(null);
 
@@ -192,8 +183,7 @@ export default function Form() {
                     icon: 'error',
                     // confirmButtonText: 'Cool'
                 })
-            }
-            else if (response.data.success==true) {
+            } else if (response.data.success==true) {
                 Swal.fire({
                     title: 'success',
                     text: response.data.message,
@@ -223,13 +213,13 @@ export default function Form() {
                 if (inputFile.current) {
                     inputFile.current.value = ''; // Reset the file input field
                 }
+
                 if (inputFile2.current) {
                     inputFile2.current.value = ''; // Reset the file input field
                 }
+
                 // handle success, e.g., redirect or show success message
-            }
-            else
-            {
+            } else {
                 Swal.fire({
                     title: 'error',
                     text: "Something went wrong",
@@ -382,7 +372,7 @@ export default function Form() {
                                             placeholder='Enter constituency'
                                             required
                                         />
-                                       
+
                                     </div>
                                 </div>
                                 <div className='form-group row'>
@@ -399,7 +389,7 @@ export default function Form() {
                                             placeholder='Enter perferred_language'
                                             required
                                         />
-                                       
+
                                     </div>
                                 </div>
                             </div>
@@ -410,7 +400,7 @@ export default function Form() {
                                 <h5 className='mb-0 h6'>Contact Information</h5>
                             </div>
                             <div className='card-body'>
-                           
+
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Email
@@ -427,7 +417,7 @@ export default function Form() {
                                         />
                                     </div>
                                 </div>
-                               
+
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Website
@@ -546,7 +536,7 @@ export default function Form() {
                                         />
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
 
@@ -560,11 +550,10 @@ export default function Form() {
                                         Image
                                     </label>
                                     <div className="col-md-8">
-                                        <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                        <div className="file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                            <input type="file" name="image"  required className="selected-files"  ref={inputFile}
                                         onChange={handleImage}/>
                                         </div>
-                                        <div className="file-preview box sm"></div>
                                     </div>
                                 </div>
                                 <div className="form-group row">
@@ -572,14 +561,13 @@ export default function Form() {
                                         Cover Image
                                     </label>
                                     <div className="col-md-8">
-                                        <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                        <div className="file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                           <input type="file" name="cover_image"  required className="selected-files" ref={inputFile2}
                                         onChange={handleCoverImage}/>
                                         </div>
-                                        <div className="file-preview box sm"></div>
                                     </div>
                                 </div>
-                                <div className="form-group mb-0 text-right">
+                                <div className="btn-submit mt-40">
                                     <button type="submit" className="btn btn-primary">Save</button>
                                 </div>
                             </div>

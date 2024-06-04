@@ -1,5 +1,5 @@
 "use client";
-import { EDIT, EYE } from "@/app/assets/icons";
+import { EDIT } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ export default function Dashboard() {
     const buttonStyle = {
         padding: '8px 16px',
         margin: '0 5px',
-        backgroundColor: '#4CAF50',
+        backgroundColor: 'var(--primary-color)',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
@@ -23,7 +23,6 @@ export default function Dashboard() {
         margin: '0 10px',
         fontSize: '16px'
     };
-
 
     // Pagination click handler
     const handlePageChange = (pageNumber) => {
@@ -58,7 +57,6 @@ export default function Dashboard() {
                 <Link
                                 href={{
                                     pathname: "/location/city/create",
-                                    
                                 }}
                                 className='db-button'
                             >
@@ -72,7 +70,7 @@ export default function Dashboard() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Country</th>                                
+                                    <th>Country</th>
                                     <th>State</th>
                                     <th>Name</th>
                                     <th>Status</th>
@@ -95,10 +93,7 @@ export default function Dashboard() {
                                     <Link   href={{
                                     pathname: "/location/city/edit",
                                     query: { id:city._id,name:city.name,country:city.country._id,state:city.state?city.state._id:null},
-                                    
                                 }} className='act-btn act-btn-succes'>{EDIT}</Link>
-
-
 
                                           {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
                                       </div>
@@ -127,8 +122,6 @@ export default function Dashboard() {
                             </button>
                         </div>
 
-
-                        
                     </div>
                 </div>
             </div>
