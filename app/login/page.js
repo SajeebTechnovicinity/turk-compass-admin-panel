@@ -49,7 +49,10 @@ function Login() {
                         <div style={{ fontFamily: 'sans-serif', WebkitFontSmoothing: 'antialiased', backgroundColor: '#f3f4f6' }}>
                             <div style={{ width: '100%', backgroundColor: '#f3f4f6', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '4rem' }}>
                                 <div style={{ maxWidth: '400px', width: '100%' }}>
+                                    
                                     <div style={{ backgroundColor: '#fff', borderRadius: '0.375rem', boxShadow: '0 0 30px rgba(0, 0, 0, 0.1)', padding: '2rem' }}>
+                                    <img src='https://res.cloudinary.com/daqxhckof/image/upload/v1717578539/turk-compass/turks_pgmiqi.png' alt='Login Background' style={{  }} />
+
                                         <h2 style={{ fontSize: '24px', textAlign: 'center', color: '#374151', marginBottom: '1.25rem' }}>
                                             Login
                                         </h2>
