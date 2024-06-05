@@ -4,15 +4,16 @@ import { useRouter } from 'next/navigation';
 import Header from "../partial/header/header";
 import Sidebar from "../partial/sidebar/sidebar";
 import Login from "../login/page";
+import { getCookie } from "cookies-next";
 
 export default function Main({ children }) {
     const pathname = usePathname();
     const router = useRouter(); // Initialize the router
 
-    const token = sessionStorage.getItem("authToken");
+    const token = getCookie("authToken");
 
     if (pathname !== "/login") {
-        if (token) {
+        // if (token) {
             return (
                 <>
                     <Header />
@@ -22,11 +23,11 @@ export default function Main({ children }) {
                     </section>
                 </>
             );
-        } else {
-            // Redirect to login page
-            router.push("/login");
-            return null; // Return null while redirecting
-        }
+        // } else {
+        //     // Redirect to login page
+        //     router.push("/login");
+        //     return null; // Return null while redirecting
+        // }
     } else {
         // Render only children components for unauthenticated users or on the login page
         return <>{children}</>;
