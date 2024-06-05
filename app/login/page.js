@@ -1,8 +1,8 @@
-// Login.js
-"use client"
+"use client";
+
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import axiosClient from "../axiosClient";
 
 function Login() {
@@ -12,7 +12,7 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const submitForm = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault();
         setErrorMessage('');
 
         const info = {
@@ -22,13 +22,15 @@ function Login() {
         };
 
         try {
-            // Mocking login response
             const responseData = await axiosClient.post("/auth/login", info);
-            //console.log(responseData.data.info.user_info.usertype);
+
             if (responseData.data.success === false) {
                 setErrorMessage('Invalid Credentials');
             } else if (responseData.data.info.user_info.usertype === "admin") {
-                setCookie('authToken', responseData.data.info.user_info.token);
+                setCookie('authToken', responseData.data.info.token, { maxAge: 60 * 60 * 24 });
+                sessionStorage.setItem("authToken", responseData.data.info.token);
+                const authToken = getCookie('authToken');
+                console.log("token", authToken);
                 router.push('/dashboard', { scroll: false });
             } else {
                 setErrorMessage('Invalid Credentials');
@@ -58,7 +60,7 @@ function Login() {
                                         )}
                                         <form onSubmit={submitForm}>
                                             <div style={{ marginBottom: '1rem' }}>
-                                                <label htmlFor='email-address' style={{ display: 'block', color: '#4b5563', fontSize: '0.875rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+                                                <label htmlFor='email' style={{ display: 'block', color: '#4b5563', fontSize: '0.875rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
                                                     Email Address
                                                 </label>
                                                 <input

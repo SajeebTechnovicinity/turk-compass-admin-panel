@@ -22,6 +22,7 @@ export default function Form() {
     const [subCategory, setSubCategory] = useState('');
     const [speciality, setSpeciality] = useState('');
     const [description, setDescription] = useState('');
+    const [exempt, setExempt] = useState('');
     const [address, setAddress] = useState('');
     const [contactAddress, setContactAddress] = useState('');
     const [contactEmail, setContactEmail] = useState('');
@@ -93,6 +94,9 @@ export default function Form() {
             setPreviousImage(data.businessProfile.image);
             setPreviousCoverImage(data.businessProfile.cover_image);
             setSelectedCity(data.businessProfile.city);
+            setExempt(data.businessProfile.is_exempt);
+            console.log("Exempt");
+            console.log(data.businessProfile.is_exempt);
             console.log(data.businessProfile.city);
             // setSelec(data.result.name);
             // setCategoryArName(data.result.ar_name);
@@ -247,7 +251,8 @@ export default function Form() {
                 contact_located_in: contactLocatedIn,
                 contact_phone: contactPhone,
                 contact_website: contactWebsite,
-                is_reservation_available: isReservationAvailable
+                is_reservation_available: isReservationAvailable,
+                is_exempt: exempt,
             };
 
             const response = await axiosClient.post(`business-post/edit?id=${id}`, data);
@@ -628,6 +633,24 @@ export default function Form() {
                                         onChange={handleCoverImage}/>
                                         </div>
                                         <div className="file-preview box sm"></div>
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label className="col-md-3 col-from-label">
+                                        Is Exempt
+                                    </label>
+                                    <div className='col-md-8'>
+                                        <select 
+                                            className="form-control" 
+                                            name="is_exempt" 
+                                            required 
+                                            onChange={(e) => setExempt(e.target.value === 'true')}
+                                            value={exempt === '' ? '' : exempt.toString()}
+                                        >
+                                            <option value="">Select One</option>
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="form-group mb-0 text-right">

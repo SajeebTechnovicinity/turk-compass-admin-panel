@@ -1,64 +1,33 @@
-import {NextResponse} from 'next/server'
-import type {NextRequest} from 'next/server'
-import *as jose from "jose"
-import jwt from 'jsonwebtoken'
-import {setCookie} from 'cookies-next';
-import {getCookie} from 'cookies-next';
-import {url} from "inspector";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { getCookie } from 'cookies-next';
+import * as jose from 'jose';
 
-// This function can be marked `async` if using `await` inside
+// Middleware function
 export async function middleware(request: NextRequest) {
-    const bearerToken = request.headers.get("authorization") as string;
-    //const key = await process.env.JWT_SECRET
-    const key="productDB";
-    const srcky = await new TextEncoder().encode(key)
+    const authToken = getCookie('authToken');
 
-    const pathName = request.nextUrl.pathname;
-    const is_admin = pathName.substring(0, 7) === '/admin/';
-    if (is_admin) {
-        const key = await request.cookies.get('authToken');
-        if (key == undefined) {
-        } else {
-            try {
-                let info = await jose.jwtVerify(key.value, srcky);
-                let userType = info ? info.payload.user_type : "";
-                if (userType != 'admin') {
-                    return NextResponse.redirect(new URL('/login', request.nextUrl))
-                }
+    console.log("Middleware: authToken =", authToken);
 
-            }catch (error){
-                return NextResponse.redirect(new URL('/login', request.nextUrl))
-            }
+    if (!authToken) {
+        return NextResponse.json({ error: 'Bearer Token Not Defined',authToken:authToken }, { status: 401 });
+    }
 
+    const key = 'productDB'; // Your secret key
+    const srcky = new TextEncoder().encode(key);
 
-        }
-
-    } else {
-        if (!bearerToken) {
-            return new NextResponse(JSON.stringify({error: "Bearer Token Not Defined"}))
-        }
-        const token = bearerToken.split(' ')[1];
-        try {
-            await jose.jwtVerify(token, srcky)
-        } catch (error) {
-            return new NextResponse(JSON.stringify({error: "Bearer Token Not incorrect"}))
-        }
-
+    try {
+        const { payload } = await jose.jwtVerify(authToken, srcky);
+        request.user = payload; // Attach user info to request object
+        return NextResponse.next();
+    } catch (error) {
+        return NextResponse.json({ error: 'Invalid or Expired Token',authToken:authToken }, { status: 401 });
     }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        // '/about/:path*',
-        // '/api/loginuser',
-        // '/api/products/',
-        // '/api/chat',
-        // '/api/chatRoom',
-        // '/api/chatUnseenCount',
-        // '/api/notification',
-        // '/api/notification-clear',
-        // '/api/product-review',
-        // '/admin/:path*',
+        // '/user/user-list'
     ]
-}
+};
