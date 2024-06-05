@@ -1071,6 +1071,7 @@ div .db-button:hover{
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  border: 0;
 }
 
 .act-btns .act-btn.act-btn-succes{

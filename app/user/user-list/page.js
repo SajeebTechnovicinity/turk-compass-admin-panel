@@ -1,5 +1,5 @@
 "use client";
-import { EYE } from "@/app/assets/icons";
+import { CHECKMARK, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -20,8 +20,7 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
@@ -29,6 +28,7 @@ export default function Dashboard() {
             })
         }
     }
+
      // Pagination click handler
      const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -113,7 +113,7 @@ const fetchData = async () => {
                                           {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
                                           <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
 
-                                          <button className="btn danger" onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ?"Active":"Inactive"}</button>
+                                          <button title={post.is_delete ?"Active":"Inactive"} className='act-btn act-btn-info' onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ? CHECKMARK :"Inactive"}</button>
                                       </div>
                                   </td>
                               </tr>
@@ -122,9 +122,6 @@ const fetchData = async () => {
 
                             </tbody>
                         </table>
-
-
-
 
                         <div className="has-pagination">
 
