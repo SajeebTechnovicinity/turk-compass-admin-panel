@@ -1,7 +1,7 @@
 "use client";
 
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axiosClient from "../axiosClient";
@@ -79,14 +79,14 @@ export default function AppInfo() {
                                         About Us
                                     </label>
                                     <div className='col-md-8'>
-                                        <CKEditor
+                                        {/* <CKEditor
                                             editor={ClassicEditor}
                                             data={aboutUs ? aboutUs : ""}
                                             onChange={(event, editor) => {
                                                 const data = editor.getData();
                                                 setAboutUs(data);
                                             }}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
 
@@ -95,14 +95,14 @@ export default function AppInfo() {
                                         Terms and conditions
                                     </label>
                                     <div className='col-md-8'>
-                                        <CKEditor
+                                        {/* <CKEditor
                                             editor={ClassicEditor}
                                             data={condition ? condition : ""}
                                             onChange={(event, editor) => {
                                                 const data = editor.getData();
                                                 setCondition(data);
                                             }}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                                 <div className='form-group row'>
@@ -110,14 +110,14 @@ export default function AppInfo() {
                                         Privacy policy
                                     </label>
                                     <div className='col-md-8'>
-                                        <CKEditor
+                                        {/* <CKEditor
                                             editor={ClassicEditor}
                                             data={privacy ? privacy : ""}
                                             onChange={(event, editor) => {
                                                 const data = editor.getData();
                                                 setPrivacy(data);
                                             }}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
 
