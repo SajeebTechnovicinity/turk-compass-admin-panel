@@ -15,6 +15,7 @@ export default function Form() {
     const [selectedState, setSelectedState] = useState(null);
 
     const [businessName, setBusinessName] = useState('');
+    const [exempt, setExempt] = useState('');
     const [category, setCategory] = useState('');
     const [subCategory, setSubCategory] = useState('');
     const [speciality, setSpeciality] = useState('');
@@ -214,7 +215,8 @@ export default function Form() {
                 contact_located_in: contactLocatedIn,
                 contact_phone: contactPhone,
                 contact_website: contactWebsite,
-                is_reservation_available: isReservationAvailable
+                is_reservation_available: isReservationAvailable,
+                is_exempt:exempt,
             };
 
             const response = await axiosClient.post('/business-post/create/', data);
@@ -653,6 +655,18 @@ export default function Form() {
                                           <input type="file" name="cover_image"  required className="selected-files" ref={inputFile2}
                                         onChange={handleCoverImage}/>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className='form-group row'>
+                                    <label className='col-md-3 col-from-label'>
+                                        Already Exempt <span className='text-danger'>*</span>
+                                    </label>
+                                    <div className='col-md-8'>
+                                        <select className="form-control" name="is_exempt" required onChange={(e)=> setExempt(e.target.value)} >
+                                            <option value="">Select One</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="btn-submit mt-40">
