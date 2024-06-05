@@ -1,4 +1,4 @@
-import { DASHBOARD, PRODUCT, REPORT, TABLE } from "@/app/assets/icons";
+import { DASHBOARD, PRODUCT, TABLE } from "@/app/assets/icons";
 import NavGroup from "./navGroup";
 import NavItem from "./navItem";
 import NavLogout from "./navLogout";
@@ -181,7 +181,7 @@ export default function Sidebar() {
           <NavGroup title="Petition" href="/appinfo" icon={PRODUCT}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
-                title="Petition"
+                title="Create"
                 href="/petition/create"
                 cssClass="nav__sub-link"
               />

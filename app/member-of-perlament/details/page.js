@@ -47,6 +47,7 @@ export default function Form() {
             setSelectedState(data.memberPerlamants.state);
             setSelectedCountry(data.memberPerlamants.country);
             setSelectedCity(data.memberPerlamants.city);
+            console.log(data.memberPerlamants.city);
             setName(data.memberPerlamants.name);
             setZip(data.memberPerlamants.zip);
             setHill_office_fax(data.memberPerlamants.hill_office_fax);
@@ -114,20 +115,20 @@ export default function Form() {
         fetchStates();
     }, [selectedCountry]);
 
-    useEffect(() => {
-        const fetchCities = async () => {
-            if (selectedState) {
-                try {
-                    const cityRes = await axiosClient.get(`/city/list/${selectedState}`);
-                    if (cityRes.data.success) setCities(cityRes.data.citys);
-                } catch (error) {
-                    console.error('Error fetching cities:', error);
-                }
-            }
-        };
+    // useEffect(() => {
+    //     const fetchCities = async () => {
+    //         if (selectedState) {
+    //             try {
+    //                 const cityRes = await axiosClient.get(`/city/list/${selectedState}`);
+    //                 if (cityRes.data.success) setCities(cityRes.data.citys);
+    //             } catch (error) {
+    //                 console.error('Error fetching cities:', error);
+    //             }
+    //         }
+    //     };
 
-        fetchCities();
-    }, [selectedState]);
+    //     fetchCities();
+    // }, [selectedState]);
 
     // const convertToBase64 = (file) => {
     //     return new Promise((resolve, reject) => {
@@ -359,7 +360,7 @@ export default function Form() {
                                         City <span className='text-danger'>*</span>
                                     </label>
                                     <div className='col-md-8'>
-                                        <select className="form-control" name="city" readonly onChange={(e)=> setSelectedCity(e.target.value)} >
+                                        <select className="form-control" name="city" readonly value={selectedCity} onChange={(e)=> setSelectedCity(e.target.value)} >
                                             <option value="">Select One</option>
                                             {cities.map((city, index) => (
                                                 <option key={index} value={city._id}>

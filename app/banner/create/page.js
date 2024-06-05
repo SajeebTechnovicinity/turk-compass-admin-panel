@@ -36,7 +36,6 @@ export default function Dashboard() {
             "link":url,
            }
         }
-
         const response = await axiosClient.post('/app-info/create-update', data);
         console.log("response", response);
         if(response.data.success==false){
