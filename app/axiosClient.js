@@ -15,8 +15,8 @@ axiosClient.interceptors.request.use((config) => {
 
 
   //const token = getCookie("authToken");
-  const token = sessionStorage.getItem("authToken");
-//const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InVzZXIgMTQiLCJlbWFpbCI6ImxpcGFuLmR1dHRhKzE0QGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6ImNsaWVudCIsInBhY2thZ2VfdHlwZSI6InByZW1pdW1fZW1wbG95ZXIiLCJpZCI6IjY2NWYxZjQ3ZmQ5Njk0YTcwZjA0YmVlOSIsImlzX211bHRpcGxlX3Jlc2VydmF0aW9uX2F2YWlsYWJsZSI6ZmFsc2UsInNsb3RfZHVyYXRpb24iOjAsImlzX3Jlc2VydmF0aW9uX2F2YWlsYWJsZSI6ZmFsc2UsImlhdCI6MTcxNzU2ODkyOSwiZXhwIjoxNzE3NTcyNTI5fQ.waocf83pZepfbIdLauha506r9764EyOe_WFKSp7i61I";
+  //const token = sessionStorage.getItem("authToken");
+const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkxpcGFuIER1dHRhIiwiZW1haWwiOiJhZG1pbkB0ZWNobm92aWNpbml0eS5jb20iLCJ1c2VyX3R5cGUiOiJhZG1pbiIsInBhY2thZ2VfdHlwZSI6bnVsbCwiaWQiOiI2NjVlZTE3YTYyNmM1MDI0YjJmODRkYzkiLCJpc19tdWx0aXBsZV9yZXNlcnZhdGlvbl9hdmFpbGFibGUiOmZhbHNlLCJzbG90X2R1cmF0aW9uIjowLCJpc19yZXNlcnZhdGlvbl9hdmFpbGFibGUiOmZhbHNlLCJpYXQiOjE3MTc1ODM5NDN9.jvwQFlEfhEC2YS2b2gGcO40Ns3IUWz0OynBlZzBhpSY";
   config.headers.Authorization = "Bearer " + token;
   return config;
 });

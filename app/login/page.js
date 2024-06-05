@@ -28,7 +28,7 @@ function Login() {
                 setErrorMessage('Invalid Credentials');
             } else if (responseData.data.info.user_info.usertype === "admin") {
                 setCookie('authToken', responseData.data.info.token, { maxAge: 60 * 60 * 24 });
-                sessionStorage.setItem("authToken", responseData.data.info.token);
+                // sessionStorage.setItem("authToken", responseData.data.info.token);
                 const authToken = getCookie('authToken');
                 console.log("token", authToken);
                 router.push('/dashboard', { scroll: false });
