@@ -57,7 +57,7 @@ export default function Dashboard() {
               
                 <Link
                                 href={{
-                                    pathname: "/industry/create",
+                                    pathname: "/petition/create",
                                 }}
                                 className='db-button'
                             >
