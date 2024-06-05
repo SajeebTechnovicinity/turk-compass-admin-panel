@@ -4,9 +4,10 @@ const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 async function fetchWithAuth(url, options) {
   const authToken = getCookie('authToken');
+  console.log(`AuthToken ${authToken}`);
   const headers = {
-    Authorization: `Bearer ${authToken}`,
-	"Content-Type": "application/json",
+      Authorization: `Bearer ${authToken}`,
+	    "Content-Type": "application/json",
   };
 
   try {

@@ -1,3 +1,4 @@
+"use client";
 const { main_url } = process.env;
 import axios from "axios";
 // import { useDispatch, useSelector} from "react-redux";
@@ -8,8 +9,14 @@ const axiosClient = axios.create({
   baseURL:`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1`,
 });
 axiosClient.interceptors.request.use((config) => {
-  const token = getCookie("authToken");
-  // const token =   "kazi";
+
+
+
+
+
+  //const token = getCookie("authToken");
+  const token = sessionStorage.getItem("authToken");
+//const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6InVzZXIgMTQiLCJlbWFpbCI6ImxpcGFuLmR1dHRhKzE0QGdtYWlsLmNvbSIsInVzZXJfdHlwZSI6ImNsaWVudCIsInBhY2thZ2VfdHlwZSI6InByZW1pdW1fZW1wbG95ZXIiLCJpZCI6IjY2NWYxZjQ3ZmQ5Njk0YTcwZjA0YmVlOSIsImlzX211bHRpcGxlX3Jlc2VydmF0aW9uX2F2YWlsYWJsZSI6ZmFsc2UsInNsb3RfZHVyYXRpb24iOjAsImlzX3Jlc2VydmF0aW9uX2F2YWlsYWJsZSI6ZmFsc2UsImlhdCI6MTcxNzU2ODkyOSwiZXhwIjoxNzE3NTcyNTI5fQ.waocf83pZepfbIdLauha506r9764EyOe_WFKSp7i61I";
   config.headers.Authorization = "Bearer " + token;
   return config;
 });
