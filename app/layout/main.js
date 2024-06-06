@@ -1,10 +1,8 @@
 "use client";
-import { usePathname } from "next/navigation";
-import { useRouter } from 'next/navigation';
+import { getCookie } from "cookies-next";
+import { usePathname, useRouter } from "next/navigation";
 import Header from "../partial/header/header";
 import Sidebar from "../partial/sidebar/sidebar";
-import Login from "../login/page";
-import { getCookie } from "cookies-next";
 
 export default function Main({ children }) {
     const pathname = usePathname();
@@ -12,7 +10,7 @@ export default function Main({ children }) {
 
     const token = getCookie("authToken");
 
-    if (pathname !== "/login") {
+    if (pathname !== "/login" && pathname !== "/app_info/privicy" && pathname !== "/app_info/terms") {
         //if (token) {
             return (
                 <>
