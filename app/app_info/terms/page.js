@@ -70,13 +70,13 @@ export default function AppInfo() {
                 <div className='dashboard-main-content'>
                     <div className='form-card'>
                         <div className='card-header'>
-                            <h5 className='mb-0 h6'>App Info</h5>
+                            <h5 className='mb-0 h6'>Terms and Conditions</h5>
                         </div>
           
                             <div className='card-body'>
                                 <div className='form-group row'>
 
-                                <div dangerouslySetInnerHTML={{ __html: privacy }} />
+                                <div dangerouslySetInnerHTML={{ __html: condition }} />
                                     </div>
                                
                                  
