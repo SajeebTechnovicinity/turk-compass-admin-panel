@@ -1,10 +1,11 @@
 "use client";
 
+//import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+//import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 import axiosClient from "../axiosClient";
 import "./style.css";
-
 export default function AppInfo() {
     const [apping, setAppinfo] = useState([]);
 
@@ -15,44 +16,44 @@ export default function AppInfo() {
     const submit = async (event) => {
         event.preventDefault();
         var data = {
-            "about_us": aboutUs,
-            "terms_condition": condition,
-            "privacy_policy": privacy
+            about_us: aboutUs,
+            terms_condition: condition,
+            privacy_policy: privacy,
         };
-     
 
-        const response = await axiosClient.post('/app-info/create-update', data);
+        const response = await axiosClient.post(
+            "/app-info/create-update",
+            data
+        );
         console.log("response", response);
         if (response.data.success == false) {
             Swal.fire({
-                title: 'error',
+                title: "error",
                 text: response.data.message,
-                icon: 'error',
+                icon: "error",
                 // confirmButtonText: 'Cool'
-            })
-        }
-        else if (response.data.success == true) {
+            });
+        } else if (response.data.success == true) {
             Swal.fire({
-                title: 'success',
+                title: "success",
                 text: response.data.message,
-                icon: 'success',
+                icon: "success",
                 // confirmButtonText: 'Cool'
-            })
+            });
         }
-
-    }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
             // Fetch data from an API or other source
             const appinfo = await axiosClient.get("/app-info/get");
             console.log(appinfo.data.appinfo);
-            var data=appinfo.data.appinfo;
+            var data = appinfo.data.appinfo;
 
-            setAppinfo(data?data:[]);
-            setAboutUs(data?data.about_us:"")
-            setCondition(data?data.terms_condition:"")
-            setPrivacy(data?data.privacy_policy:"")
+            setAppinfo(data ? data : []);
+            setAboutUs(data ? data.about_us : "");
+            setCondition(data ? data.terms_condition : "");
+            setPrivacy(data ? data.privacy_policy : "");
         };
         fetchData();
     }, []);
@@ -73,16 +74,19 @@ export default function AppInfo() {
                         </div>
                         <form onSubmit={submit}>
                             <div className='card-body'>
-
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         About Us
                                     </label>
                                     <div className='col-md-8'>
-                                        <textarea name="meta_description" onChange={(e) => setAboutUs(e.target.value)} rows="8" className="form-control" value={aboutUs ? aboutUs : ''}></textarea>
-                                        <small className='text-muted'>
-                                            About Us
-                                        </small>
+                                        {/* <CKEditor
+                                            editor={ClassicEditor}
+                                            data={aboutUs ? aboutUs : ""}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                setAboutUs(data);
+                                            }}
+                                        /> */}
                                     </div>
                                 </div>
 
@@ -91,10 +95,14 @@ export default function AppInfo() {
                                         Terms and conditions
                                     </label>
                                     <div className='col-md-8'>
-                                        <textarea name="meta_description" rows="8" onChange={(e) => setCondition(e.target.value)} className="form-control" value={condition ? condition : ''}></textarea>
-                                        <small className='text-muted'>
-                                            Terms and conditions
-                                        </small>
+                                        {/* <CKEditor
+                                            editor={ClassicEditor}
+                                            data={condition ? condition : ""}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                setCondition(data);
+                                            }}
+                                        /> */}
                                     </div>
                                 </div>
                                 <div className='form-group row'>
@@ -102,20 +110,28 @@ export default function AppInfo() {
                                         Privacy policy
                                     </label>
                                     <div className='col-md-8'>
-                                        <textarea name="meta_description" rows="8" onChange={(e) => setPrivacy(e.target.value)} value={privacy ? privacy : ''} className="form-control"></textarea>
-                                        <small className='text-muted'>
-                                        </small>
+                                        {/* <CKEditor
+                                            editor={ClassicEditor}
+                                            data={privacy ? privacy : ""}
+                                            onChange={(event, editor) => {
+                                                const data = editor.getData();
+                                                setPrivacy(data);
+                                            }}
+                                        /> */}
                                     </div>
                                 </div>
 
-                                <div className="form-group mb-0 text-right">
-                                    <button type="submit" className="btn btn-primary">Save</button>
+                                <div className='btn-submit mt-40'>
+                                    <button
+                                        type='submit'
+                                        className='btn btn-primary'
+                                    >
+                                        Save
+                                    </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-
-
                 </div>
             </div>
         </div>

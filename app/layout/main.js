@@ -13,7 +13,7 @@ export default function Main({ children }) {
     const token = getCookie("authToken");
 
     if (pathname !== "/login") {
-        // if (token) {
+        //if (token) {
             return (
                 <>
                     <Header />

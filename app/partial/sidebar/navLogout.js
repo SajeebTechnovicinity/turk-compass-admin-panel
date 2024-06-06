@@ -1,11 +1,10 @@
-import { setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 import Link from "next/link";
 
 export default function NavLogout() {
 
     const handleLogout = () => {
-        setCookie('authToken', null); // Clear the authToken cookie
-        sessionStorage.setItem("authToken", null); // Clear the authToken from session storage
+        deleteCookie('authToken'); // Clear the authToken cookie
     };
 
     return (

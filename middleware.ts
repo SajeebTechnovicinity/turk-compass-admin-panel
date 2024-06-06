@@ -5,29 +5,57 @@ import * as jose from 'jose';
 
 // Middleware function
 export async function middleware(request: NextRequest) {
-    const authToken = getCookie('authToken');
+    const authToken = await request.cookies.get('authToken');
 
     console.log("Middleware: authToken =", authToken);
 
-    if (!authToken) {
-        return NextResponse.json({ error: 'Bearer Token Not Defined',authToken:authToken }, { status: 401 });
-    }
-
-    const key = 'productDB'; // Your secret key
-    const srcky = new TextEncoder().encode(key);
-
-    try {
-        const { payload } = await jose.jwtVerify(authToken, srcky);
-        request.user = payload; // Attach user info to request object
-        return NextResponse.next();
-    } catch (error) {
-        return NextResponse.json({ error: 'Invalid or Expired Token',authToken:authToken }, { status: 401 });
+    if (authToken === undefined || authToken === null) {
+        return NextResponse.redirect(new URL('/login', request.nextUrl))
+        //return NextResponse.json({ error: 'Bearer Token Not Defined',authToken:authToken }, { status: 401 });
     }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        // '/user/user-list'
+        '/appInfo',
+        '/banner/create',
+        '/business-subcategory/create',
+        '/business-subcategory/edit',
+        '/business-subcategory/list',
+        '/business-category/create',
+        '/business-category/edit',
+        '/business-category/list',
+        '/business-post/list',
+        '/business-post/create',
+        '/business-post/edit',
+        '/business-post/details',
+        '/consulate',
+        '/dashboard',
+        '/industry/create',
+        '/industry/edit',
+        '/industry/list',
+        '/job/job-list',
+        '/location/city/create',
+        '/location/city/edit',
+        '/location/city/list',
+        '/location/state/create',
+        '/location/state/edit',
+        '/location/state/list',
+        '/member-of-parliament/create',
+        '/member-of-parliament/edit',
+        '/member-of-parliament/list',
+        '/member-of-parliament/details',
+        '/petition/create',
+        '/petition/edit',
+        '/petition/list',
+        '/reservation/list',
+        '/tag/create',
+        '/tag/edit',
+        '/tag/list',
+        '/user',
+        '/user/user-list',
+        '/user/user-list/details',
+        '/'
     ]
 };
