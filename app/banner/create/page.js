@@ -21,11 +21,11 @@ export default function Dashboard() {
                 setImage(reader.result);
                 //setImage(reader.result);
             };
-
             // Read the file as a data URL (base64)
             console.log(reader.readAsDataURL(file))
         }
     };
+
     const submit = async(event) => {
         event.preventDefault();
         var data={
@@ -36,6 +36,7 @@ export default function Dashboard() {
             "link":url,
            }
         }
+        
         const response = await axiosClient.post('/app-info/create-update', data);
         console.log("response", response);
         if(response.data.success==false){
