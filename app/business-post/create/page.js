@@ -659,7 +659,7 @@ export default function Form() {
                                 </div>
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
-                                        Already Exempt <span className='text-danger'>*</span>
+                                        Exempt <span className='text-danger'>*</span>
                                     </label>
                                     <div className='col-md-8'>
                                         <select className="form-control" name="is_exempt" required onChange={(e)=> setExempt(e.target.value)} >
