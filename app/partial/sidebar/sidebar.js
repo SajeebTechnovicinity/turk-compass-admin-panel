@@ -1,4 +1,4 @@
-import { DASHBOARD, PRODUCT, TABLE } from "@/app/assets/icons";
+import { BUILDING, DASHBOARD, FILE, IMAGE, LIST, LIST_TABLE, PRODUCT, SETTINGS, SQUIRE_BOX, TAGS, USER, USER_ALT } from "@/app/assets/icons";
 import NavGroup from "./navGroup";
 import NavItem from "./navItem";
 import NavLogout from "./navLogout";
@@ -27,7 +27,7 @@ export default function Sidebar() {
         <ul className="nav__list">
           <NavItem title="Dashboard" href="/dashboard" icon={DASHBOARD} />
 
-          <NavGroup title="User Info" href="/appinfo" icon={PRODUCT}>
+          <NavGroup title="User Info" href="/appinfo" icon={USER}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="User List"
@@ -36,7 +36,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Location Setting" href="/appinfo" icon={PRODUCT}>
+          <NavGroup title="Location Setting" href="/appinfo" icon={SETTINGS}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Province List"
@@ -59,7 +59,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Reservation List" href="/reservation" icon={PRODUCT}>
+          <NavGroup title="Reservation List" href="/reservation" icon={LIST_TABLE}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Reservation List"
@@ -68,7 +68,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Industry" href="/appinfo" icon={PRODUCT}>
+          <NavGroup title="Industry" href="/appinfo" icon={BUILDING}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Industry List"
@@ -77,7 +77,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Category" href="/table" icon={TABLE}>
+          <NavGroup title="Category" href="/table" icon={LIST}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Category List"
@@ -86,7 +86,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="SubCategory" href="/table" icon={TABLE}>
+          <NavGroup title="SubCategory" href="/table" icon={LIST}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="SubCategory List"
@@ -95,7 +95,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Tag" href="/table" icon={TABLE}>
+          <NavGroup title="Tag" href="/table" icon={TAGS}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Tag List"
@@ -104,7 +104,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          
+
                     {/* <NavGroup title='SubCategory' href='/form' icon={TABLE}>
                         <ul className='nav__sub-list dropdown-body'>
                             <NavItem title='Form' href='/form' cssClass="nav__sub-link" />
@@ -116,7 +116,7 @@ export default function Sidebar() {
           <NavGroup
             title="Business Post"
             href="/business-post/list"
-            icon={PRODUCT}
+            icon={SQUIRE_BOX}
           >
             <ul className="nav__sub-list dropdown-body">
               <NavItem
@@ -135,7 +135,7 @@ export default function Sidebar() {
           <NavGroup
             title="Member of Perlament"
             href="/member-of-perlament/list"
-            icon={PRODUCT}
+            icon={USER_ALT}
           >
             <ul className="nav__sub-list dropdown-body">
               <NavItem
@@ -151,7 +151,7 @@ export default function Sidebar() {
             </ul>
           </NavGroup>
 
-          <NavGroup title="Settings" href="/appinfo" icon={PRODUCT}>
+          <NavGroup title="Settings" href="/appinfo" icon={SETTINGS}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Setting"
@@ -160,7 +160,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Banner" href="/appinfo" icon={PRODUCT}>
+          <NavGroup title="Banner" href="/appinfo" icon={IMAGE}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Banner"
@@ -178,7 +178,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
-          <NavGroup title="Petition" href="/appinfo" icon={PRODUCT}>
+          <NavGroup title="Petition" href="/appinfo" icon={FILE}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
                 title="Create"
