@@ -22,6 +22,7 @@ export default function AppInfo() {
     const [aboutUs, setAboutUs] = useState();
     const [condition, setCondition] = useState();
     const [privacy, setPrivacy] = useState();
+    const [is_google_email, setIs_google_email] = useState();
 
     const submit = async (event) => {
         event.preventDefault();
@@ -29,6 +30,7 @@ export default function AppInfo() {
             about_us: aboutUs,
             terms_condition: condition,
             privacy_policy: privacy,
+            is_google_email:is_google_email
         };
 
         const response = await axiosClient.post(
@@ -64,6 +66,7 @@ export default function AppInfo() {
             setAboutUs(data ? data.about_us : "");
             setCondition(data ? data.terms_condition : "");
             setPrivacy(data ? data.privacy_policy : "");
+            setIs_google_email(data? data.is_google_email : "");
         };
         fetchData();
     }, []);
@@ -128,6 +131,19 @@ export default function AppInfo() {
                                                 setPrivacy(data);
                                             }}
                                         /> : "Loading ..."}
+                                    </div>
+                                </div>
+
+                                <div className='form-group row'>
+                                    <label className='col-md-3 col-from-label'>
+                                        Is Google Email <span className='text-danger'>*</span>
+                                    </label>
+                                    <div className='col-md-8'>
+                                        <select className="form-control" name="is_google_email" required onChange={(e)=> setIs_google_email(e.target.value)}  value={is_google_email}>            
+                                            <option value="">Select One</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
                                     </div>
                                 </div>
 
