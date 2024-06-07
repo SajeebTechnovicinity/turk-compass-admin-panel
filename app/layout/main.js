@@ -10,7 +10,7 @@ export default function Main({ children }) {
 
     const token = getCookie("authToken");
 
-    if (pathname !== "/login" && pathname !== "/app_info/privicy" && pathname !== "/app_info/terms") {
+    if (pathname !== "/login" && pathname !== "/app_info/privacy-policy" && pathname !== "/app_info/terms-and-condition") {
         //if (token) {
             return (
                 <>
