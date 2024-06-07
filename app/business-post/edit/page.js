@@ -1,11 +1,9 @@
 "use client";
 import axiosClient from "@/app/axiosClient";
-import "../../form/style.css";
-import { useEffect, useRef, useState } from "react";
-import { set } from "mongoose";
-import Swal from 'sweetalert2';
 import { useRouter, useSearchParams } from "next/navigation";
-import Image from 'next/image';
+import { useEffect, useRef, useState } from "react";
+import Swal from 'sweetalert2';
+import "../../form/style.css";
 
 export default function Form() {
     const [categories, setCategories] = useState([]);
@@ -114,12 +112,11 @@ export default function Form() {
                 selectedTags.push(option.value);
             }
         }
+
         setTags(selectedTags);
     };
 
     useEffect(() => {
-        
-    
         fetchData();
     }, [id]); // Empty dependency array means this effect runs only once, similar to componentDidMount
 
@@ -160,13 +157,10 @@ export default function Form() {
     //         reader.onload = () => resolve(reader.result);
     //         reader.onerror = error => reject(error);
     //     });
-        
+
     // };
 
-
-
     const handleImage = (e) => {
-  
         console.log(e);
         const file = e.target.files[0];
         if (file) {
@@ -177,16 +171,13 @@ export default function Form() {
             setImageBase64(reader.result);
             //setImage(reader.result);
             };
-    
+
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
         }
-        
-        
       };
 
       const handleCoverImage = (e) => {
-  
         console.log(e);
         const file = e.target.files[0];
         if (file) {
@@ -197,14 +188,12 @@ export default function Form() {
             setCoverImageBase64(reader.result);
             //setImage(reader.result);
             };
-    
+
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
         }
-        
-        
       };
-    
+
       const inputFile = useRef(null);
       const inputFile2 = useRef(null);
 
@@ -264,8 +253,7 @@ export default function Form() {
                     icon: 'error',
                     // confirmButtonText: 'Cool'
                 })
-            }
-            else if (response.data.success==true) {
+            } else if (response.data.success==true) {
                 Swal.fire({
                     title: 'success',
                     text: response.data.message,
@@ -274,9 +262,7 @@ export default function Form() {
                 })
                 fetchData();
                 // handle success, e.g., redirect or show success message
-            }
-            else
-            {
+            } else {
                 Swal.fire({
                     title: 'error',
                     text: "Something went wrong",
@@ -320,8 +306,7 @@ export default function Form() {
                                     <img src={previousCoverImage} style={{ height: '200px', width: '300px' }}></img>
                                 </div>
                             </div>
-                            
-                            
+
                             <div className='card-body'>
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
@@ -451,7 +436,7 @@ export default function Form() {
                                             value={address}
                                             onChange={(e) => setAddress(e.target.value)}
                                             placeholder='Enter your address'
-                                      
+
                                         />
                                     </div>
                                 </div>
@@ -467,9 +452,9 @@ export default function Form() {
                                             onChange={(e) => setDescription(e.target.value)}
                                             value={description}
                                             placeholder='Enter your description'
-                                   
+
                                         />
-                                           
+
                                     </div>
                                 </div>
                                 <div className='form-group row'>
@@ -484,7 +469,7 @@ export default function Form() {
                                             value={speciality}
                                             onChange={(e) => setSpeciality(e.target.value)}
                                             placeholder='Enter your speciality'
-                               
+
                                         />
                                     </div>
                                 </div>
@@ -519,8 +504,7 @@ export default function Form() {
                                 <h5 className='mb-0 h6'>Contact Information</h5>
                             </div>
                             <div className='card-body'>
-                          
-                           
+
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Email
@@ -537,7 +521,7 @@ export default function Form() {
                                         />
                                     </div>
                                 </div>
-                         
+
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Phone<span className='text-danger'>*</span>
@@ -554,7 +538,7 @@ export default function Form() {
                                         />
                                     </div>
                                 </div>
-                               
+
                                 <div className='form-group row'>
                                     <label className='col-md-3 col-from-label'>
                                         Contact Website
@@ -616,7 +600,7 @@ export default function Form() {
                                        New Image
                                     </label>
                                     <div className="col-md-8">
-                                        <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                        <div className="input-group file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                            <input type="file" name="image"  className="selected-files"  ref={inputFile}
                                         onChange={handleImage}/>
                                         </div>
@@ -628,11 +612,10 @@ export default function Form() {
                                       New  Cover Image
                                     </label>
                                     <div className="col-md-8">
-                                        <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                        <div className="input-group file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                           <input type="file" name="cover_image"   className="selected-files" ref={inputFile2}
                                         onChange={handleCoverImage}/>
                                         </div>
-                                        <div className="file-preview box sm"></div>
                                     </div>
                                 </div>
                                 <div className="form-group row">
@@ -640,10 +623,10 @@ export default function Form() {
                                         Is Exempt
                                     </label>
                                     <div className='col-md-8'>
-                                        <select 
-                                            className="form-control" 
-                                            name="is_exempt" 
-                                            required 
+                                        <select
+                                            className="form-control"
+                                            name="is_exempt"
+                                            required
                                             onChange={(e) => setExempt(e.target.value === 'true')}
                                             value={exempt === '' ? '' : exempt.toString()}
                                         >
@@ -653,7 +636,7 @@ export default function Form() {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="form-group mb-0 text-right">
+                                <div className="btn-submit mt-40">
                                     <button type="submit" className="btn btn-primary">Update</button>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 "use client";
-import { CHECKMARK, EYE } from "@/app/assets/icons";
+import { BLOCK, CHECKMARK, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -113,7 +113,7 @@ const fetchData = async () => {
                                           {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
                                           <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
 
-                                          <button title={post.is_delete ?"Active":"Inactive"} className='act-btn act-btn-info' onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ? CHECKMARK :"Inactive"}</button>
+                                          <button title={post.is_delete ?"Active":"Inactive"} className='act-btn act-btn-info' onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ? CHECKMARK : BLOCK}</button>
                                       </div>
                                   </td>
                               </tr>

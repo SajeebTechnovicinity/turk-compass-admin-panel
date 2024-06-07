@@ -1,4 +1,5 @@
 "use client";
+import { DELETE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -18,7 +19,7 @@ export default function Dashboard() {
                     // confirmButtonText: 'Cool'
                 })
             }
-            
+
             else if (response.data.success==true) {
                 Swal.fire({
                     title: 'success',
@@ -32,7 +33,7 @@ export default function Dashboard() {
             try {
               const response = await axiosClient.get("/app-info/petition/petitionList");
               const responseData = response.data; // Rename data variable for clarity
-    
+
               if (responseData.success === true) {
                 setindustry(responseData.info);
               }
@@ -54,7 +55,7 @@ export default function Dashboard() {
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
                 <h3 className='title'>Petition List</h3>
-              
+
                 <Link
                                 href={{
                                     pathname: "/petition/create",
@@ -71,8 +72,8 @@ export default function Dashboard() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title</th>                                
-                                    <th>Description</th>                                
+                                    <th>Title</th>
+                                    <th>Description</th>
                                     <th>Image</th>
                                     <th>Link</th>
                                     <th>Status</th>
@@ -90,17 +91,17 @@ export default function Dashboard() {
                                   <td>{post.link}</td>
                                   <td>{post.status==1?'active':"inactive"}</td>
                                   <td>
-                               
-                                  <button className="btn danger" onClick={()=>{deleteaccount(post._id)}}>Delete</button>
+                                    <div className="act-btns">
+                                    <button className="act-btn-danger act-btn" onClick={()=>{deleteaccount(post._id)}}>{DELETE}</button>
+                                    </div>
                                   </td>
                               </tr>
                                 })
                               }
 
                             </tbody>
-                        </table>    
+                        </table>
 
-                        
                     </div>
                 </div>
             </div>
