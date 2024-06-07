@@ -637,7 +637,7 @@ export default function Form() {
                                 </div>
                                 <div className="form-group row">
                                     <label className="col-md-3 col-from-label">
-                                        Is Exempt
+                                        Exempt
                                     </label>
                                     <div className='col-md-8'>
                                         <select 
