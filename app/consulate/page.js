@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DELETE } from "../assets/icons";
 import axiosClient from "../axiosClient";
 import "../form/style.css";
 import "./style.css";
@@ -18,7 +19,10 @@ export default function AppInfo() {
                 if (index === addressIndex) {
                     return {
                         ...address,
-                        opening_info: [...address.opening_info, { opening_info: "" }],
+                        opening_info: [
+                            ...address.opening_info,
+                            { opening_info: "" },
+                        ],
                     };
                 }
 
@@ -50,7 +54,8 @@ export default function AppInfo() {
                     return {
                         ...address,
                         opening_info: address.opening_info.filter(
-                            (opening, openingIndex) => openingIndex !== openingIndexData
+                            (opening, openingIndex) =>
+                                openingIndex !== openingIndexData
                         ),
                     };
                 }
@@ -118,7 +123,7 @@ export default function AppInfo() {
         let data = {
             consulate_info: consulateDetails,
             consulate_img: image,
-            consulate_cover_img:consulate_cover_img,
+            consulate_cover_img: consulate_cover_img,
             branch_info: addressList,
         };
 
@@ -135,12 +140,14 @@ export default function AppInfo() {
 
     useEffect(() => {
         let getinfo = async () => {
-            const response = await axiosClient.get("/consultate/get-consultate");
-            setAddressList(response.data.branchList)
-            if(response.data.consultatInfo){
-                setConsulateDetails(response.data.consultatInfo.consulate_info)
+            const response = await axiosClient.get(
+                "/consultate/get-consultate"
+            );
+            setAddressList(response.data.branchList);
+            if (response.data.consultatInfo) {
+                setConsulateDetails(response.data.consultatInfo.consulate_info);
             }
-        }
+        };
 
         getinfo();
     }, []);
@@ -218,137 +225,158 @@ export default function AppInfo() {
                                         Addresses
                                     </h4>
                                 </div>
-                                {addressList && addressList.map((address, addressIndex) => (
-                                    <div
-                                        className='address-form-items'
-                                        key={addressIndex}
-                                    >
-                                        <br />
-                                        <hr />
-                                        <span
-                                                                className="btn-mini"
-                                                                onClick={() =>
-                                                                    deleteItem(
-                                                                        addressIndex
+                                {addressList &&
+                                    addressList.map((address, addressIndex) => (
+                                        <div
+                                            className='address-form-items'
+                                            key={addressIndex}
+                                        >
+                                            <br />
+                                            <hr />
+                                            <div style={{'textAlign' : 'right'}}>
+                                                <span
+                                                    className='btn-mini'
+                                                    onClick={() =>
+                                                        deleteItem(addressIndex)
+                                                    }
+
+                                                >
+                                                    Delete
+                                                </span>
+                                            </div>
+                                            <div className='row bg-info'>
+                                                {[
+                                                    "title",
+                                                    "address",
+                                                    "phone",
+                                                    "fax",
+                                                    "email",
+                                                ].map((field, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        className='col-md-4 form-group '
+                                                    >
+                                                        <label className='col-md-12 col-from-label'>
+                                                            {field
+                                                                .charAt(0)
+                                                                .toUpperCase() +
+                                                                field.slice(
+                                                                    1
+                                                                )}{" "}
+                                                        </label>
+                                                        <div className='col-md-12'>
+                                                            <input
+                                                                type='text'
+                                                                className='form-control'
+                                                                name={field}
+                                                                placeholder={
+                                                                    field
+                                                                        .charAt(
+                                                                            0
+                                                                        )
+                                                                        .toUpperCase() +
+                                                                    field.slice(
+                                                                        1
                                                                     )
                                                                 }
 
-                                                            >
-                                                                Delete
-                                                            </span>
-                                        <div className='row bg-info'>
-                                            {[
-                                                "title",
-                                                "address",
-                                                "phone",
-                                                "fax",
-                                                "email",
-                                            ].map((field, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    className='col-md-4 form-group '
-                                                >
-                                                    <label className='col-md-12 col-from-label'>
-                                                        {field
-                                                            .charAt(0)
-                                                            .toUpperCase() +
-                                                            field.slice(1)}{" "}
-                                                    </label>
-                                                    <div className='col-md-12'>
-                                                        <input
-                                                            type='text'
-                                                            className='form-control'
-                                                            name={field}
-                                                            placeholder={
-                                                                field
-                                                                    .charAt(0)
-                                                                    .toUpperCase() +
-                                                                field.slice(1)
-                                                            }
+                                                                onChange={(e) =>
+                                                                    handleAddressChange(
+                                                                        addressIndex,
+                                                                        field,
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
 
-                                                            onChange={(e) =>
-                                                                handleAddressChange(
-                                                                    addressIndex,
-                                                                    field,
-                                                                    e.target
-                                                                        .value
+                                                                value={
+                                                                    address[
+                                                                        field
+                                                                    ]
+                                                                }
+
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                                <div className='col-md-4'>
+                                                    <label className='col-md-12 col-from-label op-info'>
+                                                        <span>
+                                                            Opening Info{" "}
+                                                        </span>
+                                                        <span
+                                                            className='btn-mini'
+                                                            onClick={() =>
+                                                                incrementOpeningInfo(
+                                                                    addressIndex
                                                                 )
                                                             }
 
-                                                            value={
-                                                                address[field]
-                                                            }
-
-                                                        />
-                                                    </div>
-
-                                                </div>
-                                            ))}
-                                            <div className='col-md-4'>
-                                                <label className='col-md-12 col-from-label op-info'>
-                                                    <span>Opening Info{" "}</span>
-                                                    <span
-                                                        className="btn-mini"
-                                                        onClick={() =>
-                                                            incrementOpeningInfo(
-                                                                addressIndex
-                                                            )
-                                                        }
-
-                                                    >
-                                                        Create
-                                                    </span>
-                                                </label>
-                                                {address.opening_info.map(
-                                                    (info, openingIndex) => (
-                                                        <>
-
-                                                            <div
-                                                                key={openingIndex}
-                                                                className='form-group col-md-12'
-                                                            >
-                                                                <input
-                                                                    type='text'
-                                                                    className='form-control'
-                                                                    name='opening_info'
-                                                                    placeholder='Opening Info'
-                                                                    onChange={(e) =>
-                                                                        handleOpeningChange(
-                                                                            addressIndex,
-                                                                            openingIndex,
-                                                                            e.target
-                                                                                .value
-                                                                        )
+                                                        >
+                                                            Create
+                                                        </span>
+                                                    </label>
+                                                    {address.opening_info.map(
+                                                        (
+                                                            info,
+                                                            openingIndex
+                                                        ) => (
+                                                            <>
+                                                                <div
+                                                                    key={
+                                                                        openingIndex
                                                                     }
 
-                                                                    value={
-                                                                        info.opening_info
-                                                                    }
+                                                                    className='form-group col-md-12 has-del'
+                                                                >
+                                                                    <input
+                                                                        type='text'
+                                                                        className='form-control'
+                                                                        name='opening_info'
+                                                                        placeholder='Opening Info'
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleOpeningChange(
+                                                                                addressIndex,
+                                                                                openingIndex,
+                                                                                e
+                                                                                    .target
+                                                                                    .value
+                                                                            )
+                                                                        }
 
-                                                                />
-                                                            </div>
-                                                            <span
-                                                                className="btn-mini"
-                                                                onClick={() =>
-                                                                    deleteOpeningItem(
-                                                                        addressIndex, openingIndex
-                                                                    )
-                                                                }
+                                                                        value={
+                                                                            info.opening_info
+                                                                        }
 
-                                                            >
-                                                                Delete
-                                                            </span>
+                                                                    />
+                                                                    <span
+                                                                        className='btn-del'
+                                                                        onClick={() =>
+                                                                            deleteOpeningItem(
+                                                                                addressIndex,
+                                                                                openingIndex
+                                                                            )
+                                                                        }
 
+                                                                    >
+                                                                        {DELETE}
+                                                                    </span>
+                                                                </div>
                                                             </>
-                                                    )
-                                                )}
+                                                        )
+                                                    )}
+                                                </div>
                                             </div>
+                                            <hr />
                                         </div>
-                                        <hr />
-                                    </div>
-                                ))}
+                                    ))}
                                 <div className='row'>
-                                    <div className='col-md-6 btn-submit' style={{ padding: '25px 0 10px' }}>
+                                    <div
+                                        className='col-md-6 btn-submit'
+                                        style={{ padding: "25px 0 10px" }}
+                                    >
                                         <button
                                             type='submit'
                                             className='btn btn-primary'
