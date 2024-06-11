@@ -38,6 +38,7 @@ export default function Dashboard() {
             "image":image,
             "id":id,
         }
+
         const response = await axiosClient.post('/subcategory/edit', data);
         console.log("response", response);
         if(response.data.success==false){
@@ -47,8 +48,7 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
@@ -57,6 +57,7 @@ export default function Dashboard() {
             })
     }
 }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -135,7 +136,7 @@ export default function Dashboard() {
                                             Cover Image
                                         </label>
                                         <div className="col-md-8">
-                                            <div className="input-group" data-toggle="aizuploader" data-type="image" data-multiple="true">
+                                            <div className="input-group file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
                                                 <input type="file" name="cover_image"  className="selected-files"
                                                     onChange={handleCoverImage} />
                                             </div>
@@ -143,7 +144,7 @@ export default function Dashboard() {
                                         </div>
                                     </div>
 
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 

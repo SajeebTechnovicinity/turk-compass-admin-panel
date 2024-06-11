@@ -507,8 +507,8 @@ export default function Dashboard() {
                                             <h5 className='mb-0 h6'>Job Profile Information</h5>
                                         </div>
 
-                                        
-                                        
+                                        {jobProfile && (
+                                       <>
                                         <div className='card-body'>
                                             <div className='form-group row'>
                                                 <label className='col-md-3 col-from-label'>
@@ -633,6 +633,9 @@ export default function Dashboard() {
                                            
                                         
                                         </div>
+                                        </>)
+                                                
+        }
                                     </div>
 
                                  

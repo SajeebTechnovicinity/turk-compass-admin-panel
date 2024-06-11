@@ -9,7 +9,6 @@ export default function Dashboard() {
     const searchParames = useSearchParams();
     const id = searchParames.get("id");
 
-
     const [category, setCategory] = useState();
     const [title, setTitle] = useState(searchParames.get("name"));
     const [image, setImage] = useState();
@@ -35,6 +34,7 @@ export default function Dashboard() {
             "name":title,
             "image":image
         }
+
         const response = await axiosClient.post('/tag/edit',data);
         console.log("response", response);
         if(response.data.success==false){
@@ -44,17 +44,16 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
                 icon: 'success',
                 // confirmButtonText: 'Cool'
             })
-
     }
 }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -120,14 +119,12 @@ export default function Dashboard() {
                                         </div>
                                     </div> */}
 
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 
                                 </div>
                             </div>
-
-
 
                         </form>
                     </div>

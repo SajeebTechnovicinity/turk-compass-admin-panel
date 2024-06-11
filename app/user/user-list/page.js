@@ -1,40 +1,48 @@
 "use client";
-import { CHECKMARK, EYE } from "@/app/assets/icons";
+import { BLOCK, CHECKMARK, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Dashboard() {
-  const [userList, setuser] = useState([]);
+  const [userList, setUserList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  async function deleteaccount(id) {
-    const response = await axiosClient.get(
-      `user-profile/general/active-inactive?id=${id}`
-    );
-    fetchData();
+  async function deleteAccount(id) {
+    try {
+      const response = await axiosClient.get(
+        `user-profile/general/active-inactive?id=${id}`
+      );
+      fetchData(); // Fetch updated data after account status change
 
-    if (response.data.success == false) {
+      if (response.data.success === false) {
+        Swal.fire({
+          title: "Error",
+          text: response.data.message,
+          icon: "error",
+        });
+      } else if (response.data.success === true) {
+        Swal.fire({
+          title: "Success",
+          text: response.data.message,
+          icon: "success",
+        });
+      }
+    } catch (error) {
       Swal.fire({
-        title: "error",
-        text: response.data.message,
+        title: "Error",
+        text: "Something went wrong!",
         icon: "error",
-        // confirmButtonText: 'Cool'
       });
-    } else if (response.data.success == true) {
-      Swal.fire({
-        title: "success",
-        text: response.data.message,
-        icon: "success",
-      });
+      console.error("Error deleting account:", error);
     }
   }
 
-  // Pagination click handler
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
   const buttonStyle = {
     padding: "8px 16px",
     margin: "0 5px",
@@ -46,25 +54,22 @@ export default function Dashboard() {
     transition: "background-color 0.3s ease",
   };
 
-  const infoStyle = {
-    margin: "0 10px",
-    fontSize: "16px",
-  };
-
   const fetchData = async () => {
     try {
       const response = await axiosClient.get(`/user/get?page=${currentPage}`);
-      const responseData = response.data; // Rename data variable for clarity
+      const responseData = response.data;
       if (responseData.success === true) {
-        setuser(responseData.userList);
+        setUserList(responseData.userList);
       }
     } catch (error) {
-      console.error("Error fetching business posts:", error);
+      console.error("Error fetching user list:", error);
     }
   };
+
   useEffect(() => {
     fetchData();
-  }, [currentPage]); // Empty dependency array means it runs only once on mount
+  }, [currentPage]); // Fetch data whenever the current page changes
+
   return (
     <div className="dashboard-content">
       <div className="dashboard-content__topbar topbar flex-ctr">
@@ -76,15 +81,9 @@ export default function Dashboard() {
       </div>
       <div className="dashboard-content__title-bar title-bar flex-ctr-spb">
         <h3 className="title">User List</h3>
-        <Link
-        href={{
-          pathname: "/user/user-list/create",
-        }}
-        className="db-button"
-      >
-        {" "}
-        Create
-      </Link>
+        <Link href="/user/user-list/create" className="db-button">
+          Create
+        </Link>
       </div>
 
       <div className="dashboard-main-content-wrap">
@@ -96,51 +95,43 @@ export default function Dashboard() {
                   <th>ID</th>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Package type</th>
+                  <th>Package Type</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {userList.map((post, index) => {
-                  return (
-                    <tr key={post._id}>
-                      <td>{index + 1}</td>
-                      <td>{post.userName}</td>
-                      <td>{post.email}</td>
-                      <td>{post.package_type}</td>
-
-                      <td className="status">
-                        {post.is_delete ? "inactive" : "active"}
-                      </td>
-                      <td>
-                        <div className="act-btns">
-                          <Link
-                            href={{
-                              pathname: "/user/user-list/details",
-                              query: { id: post._id },
-                            }}
-                            className="act-btn act-btn-succes"
-                          >
-                            {EYE}
-                          </Link>
-                          {/* <a href='#' className='act-btn act-btn-succes'>{EDIT}</a>
-                                          <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}
-
-                          <button
-                            title={post.is_delete ? "Active" : "Inactive"}
-                            className="act-btn act-btn-info"
-                            onClick={() => {
-                              deleteaccount(post._id);
-                            }}
-                          >
-                            {post.is_delete ? CHECKMARK : "Inactive"}
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {userList.map((user, index) => (
+                  <tr key={user._id}>
+                    <td>{index + 1}</td>
+                    <td>{user.userName}</td>
+                    <td>{user.email}</td>
+                    <td>{user.package_type}</td>
+                    <td className="status">
+                      {user.is_delete ? "inactive" : "active"}
+                    </td>
+                    <td>
+                      <div className="act-btns">
+                        <Link
+                          href={{
+                            pathname: "/user/user-list/details",
+                            query: { id: user._id },
+                          }}
+                          className="act-btn act-btn-succes"
+                        >
+                          {EYE}
+                        </Link>
+                        <button
+                          title={user.is_delete ? "Activate" : "Deactivate"}
+                          className="act-btn act-btn-info"
+                          onClick={() => deleteAccount(user._id)}
+                        >
+                          {user.is_delete ? CHECKMARK : BLOCK}
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
 
@@ -153,7 +144,6 @@ export default function Dashboard() {
                 >
                   Previous
                 </button>
-
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   style={buttonStyle}

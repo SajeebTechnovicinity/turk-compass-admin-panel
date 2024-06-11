@@ -1,6 +1,6 @@
 
 "use client";
-import { EDIT, EYE } from "@/app/assets/icons";
+import { BLOCK, CHECKMARK, EDIT, EYE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 export default function Dashboard() {
     const [businessPosts, setBusinessPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-
 
     async function deleteaccount(id){
         const response = await axiosClient.get(`user-profile/business/active-inactive?id=${id}`);
@@ -22,8 +21,7 @@ export default function Dashboard() {
                     icon: 'error',
                     // confirmButtonText: 'Cool'
                 })
-            }
-            else if (response.data.success==true) {
+            } else if (response.data.success==true) {
                 Swal.fire({
                     title: 'success',
                     text: response.data.message,
@@ -31,7 +29,6 @@ export default function Dashboard() {
                 })
             }
         }
-
 
     const buttonStyle = {
         padding: '8px 16px',
@@ -64,8 +61,6 @@ export default function Dashboard() {
       };
 
     useEffect(() => {
-
-
       fetchData();
     }, [currentPage]); // Empty dependency array means it runs only once on mount
 
@@ -127,7 +122,6 @@ export default function Dashboard() {
                         <Link
                                 href={{
                                     pathname: "/business-post/create",
-
                                 }}
                                 className='db-button'
                             >
@@ -166,7 +160,7 @@ export default function Dashboard() {
                                                     pathname: "/business-post/details",
                                                     query: { id: post._id },
                                                 }}
-                                                className='act-btn act-btn-succes'
+                                                className='act-btn act-btn-info'
                                             >
                                             {EYE}
                                         </Link>
@@ -179,7 +173,7 @@ export default function Dashboard() {
                                             >
                                             {EDIT}
                                         </Link>
-                                        <button className="btn danger" onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ?"Active":"Inactive"}</button>
+                                        <button className="act-btn act-btn-danger" onClick={()=>{deleteaccount(post._id)}}>{post.is_delete ? CHECKMARK:BLOCK}</button>
 
                                       </div>
                                   </td>
@@ -189,8 +183,6 @@ export default function Dashboard() {
 
                             </tbody>
                         </table>
-
-
 
                         <div className="pagination" style={{ textAlign:'center' }}>
                             <button

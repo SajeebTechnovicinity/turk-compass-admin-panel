@@ -35,3 +35,26 @@
 	font-size: 13px;
 	cursor: pointer;
 }
+
+.has-del{
+	position: relative;
+}
+
+.has-del .btn-del{
+	position: absolute;
+    background-color: var(--bran-color);
+    height: 100%;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 16px;
+    border-radius: 0 6px 6px 0;
+    z-index: 9999;
+}
+
+.has-del .btn-del svg{
+	width: 12px;
+	height: auto;
+}
