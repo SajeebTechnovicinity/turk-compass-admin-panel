@@ -194,6 +194,15 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
+          <NavGroup title="Contacts" href="/contact/list" icon={USER}>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Contact List"
+                href="/contact/list"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
 
           {/* <NavGroup title='Business Post setting' href='/business-post/list' icon={PRODUCT}>
                         <ul className='nav__sub-list dropdown-body'>
