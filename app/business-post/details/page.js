@@ -51,7 +51,7 @@ export default function Form() {
             try {
                 const [categoryRes, subCategoryRes, countryRes, stateRes, cityRes,tagRes] = await Promise.all([
                     axiosClient.get("/category/list"),
-                    axiosClient.get("/subcategory/list/"),
+                    axiosClient.get("/subcategory/list?limit=100"),
                     axiosClient.get("/country/list/"),
                     axiosClient.get("/state/list/"),
                     axiosClient.get("/city/list/"),

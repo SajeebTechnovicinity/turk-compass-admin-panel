@@ -49,7 +49,7 @@ export default function Form() {
             try {
                 const [categoryRes, subCategoryRes, countryRes, stateRes, cityRes,tagRes] = await Promise.all([
                     axiosClient.get("/category/list?type=business"),
-                    axiosClient.get("/subcategory/list/"),
+                    axiosClient.get("/subcategory/list?limit=100"),
                     axiosClient.get("/country/list/"),
                     axiosClient.get("/state/list/"),
                     axiosClient.get("/city/list/"),
@@ -74,7 +74,7 @@ export default function Form() {
         try {
             //const objectId = mongoose.Types.ObjectId(id);
             const { data } = await axiosClient.get(`business-post/id-wise-details/?id=${id}`);
-            console.log(data.businessProfile);
+            console.log(data.businessProfile.sub_category);
             setCategory(data.businessProfile.category);
             setSubCategory(data.businessProfile.sub_category);
             setSelectedState(data.businessProfile.state);
