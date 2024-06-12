@@ -57,11 +57,12 @@ export default function Form() {
                 ]);
 
                 if (categoryRes.data.success) setCategories(categoryRes.data.categories);
-                if (subCategoryRes.data.success) setSubCategories(subCategoryRes.data.subCategories);
+                //if (subCategoryRes.data.success) setSubCategories(subCategoryRes.data.subCategories);
                 if (countryRes.data.success) setCountries(countryRes.data.countries);
                 if (stateRes.data.success) setStates(stateRes.data.states);
                 if (cityRes.data.success) setCities(cityRes.data.citys);
                 if (tagRes.data.success) setTagList(tagRes.data.tags);
+               
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -69,6 +70,21 @@ export default function Form() {
 
         fetchData();
     }, []);
+
+    const fetchSubCategory = async (categoryId) => {
+        console.log('Fetching category', categoryId);
+        if (categoryId) {
+            try {
+                setCategory(categoryId);
+                const cityRes = await axiosClient.get(`/subcategory/list?category=${categoryId}`);
+                console.log("Category wise SubCategory");
+                console.log(cityRes);
+                if (cityRes.data.success) setSubCategories(cityRes.data.subCategories);
+            } catch (error) {
+                console.error('Error fetching cities:', error);
+            }
+        }
+    };
 
     const fetchData = async () => {
         try {
@@ -96,6 +112,7 @@ export default function Form() {
             console.log("Exempt");
             console.log(data.businessProfile.is_exempt);
             console.log(data.businessProfile.city);
+            fetchSubCategory(data.businessProfile.category);
             // setSelec(data.result.name);
             // setCategoryArName(data.result.ar_name);
             // setSlug(data.result.slug);
@@ -334,7 +351,7 @@ export default function Form() {
                                             name="category"
                                             required
                                             value={category}
-                                            onChange={(e) => setCategory(e.target.value)}
+                                            onChange={(e) => {setCategory(e.target.value); fetchSubCategory(e.target.value)}}
                                         >
                                             <option value="">Select One</option>
                                             {categories.map((category, index) => (
