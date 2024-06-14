@@ -56,6 +56,7 @@ export const config = {
         '/user',
         '/user/user-list',
         '/user/user-list/details',
-        '/'
+        '/',
+        '/event/list',
     ]
 };

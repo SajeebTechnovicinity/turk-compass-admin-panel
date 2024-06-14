@@ -151,6 +151,22 @@ export default function Sidebar() {
             </ul>
           </NavGroup>
 
+
+          <NavGroup
+            title="Events"
+            href="/event/list"
+            icon={USER_ALT}
+          >
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="List"
+                href="/event/list"
+                cssClass="nav__sub-link"
+              />
+              
+            </ul>
+          </NavGroup>
+
           <NavGroup title="Settings" href="/appinfo" icon={SETTINGS}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
