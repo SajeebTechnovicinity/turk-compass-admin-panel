@@ -167,6 +167,25 @@ export default function Sidebar() {
             </ul>
           </NavGroup>
 
+          <NavGroup
+            title="Faq"
+            href="/faq/list"
+            icon={SQUIRE_BOX}
+          >
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="List"
+                href="/faq/list"
+                cssClass="nav__sub-link"
+              />
+              <NavItem
+                title="create"
+                href="/faq/create"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
+
           <NavGroup title="Settings" href="/appinfo" icon={SETTINGS}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
