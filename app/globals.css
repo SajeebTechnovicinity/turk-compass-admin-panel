@@ -328,6 +328,7 @@ input[type="number"]::-webkit-outer-spin-button {
   position: sticky;
   top: 60px;
   transition: 0.3s;
+  padding-bottom: 52px;
 }
 
 .nav-panel {
