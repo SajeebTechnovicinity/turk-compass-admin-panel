@@ -105,7 +105,7 @@ export default function Dashboard() {
                   <th>Company</th>
                   <th>City</th>
                   <th>Start Date & Time</th>
-                  <th>Start Date & Time</th>
+                  <th>End Date & Time</th>
                   <th>Payment Status</th>
                   <th>Payment Amount</th>
                   <th>Created At</th>
@@ -122,7 +122,7 @@ export default function Dashboard() {
                       <td>{post.city_name}</td>
                       <td>{post.start_date}</td>
                       <td>{post.end_date}</td>
-                      <td>{post.payment_status ? "Completed" : "Not Completed"}</td>
+                      <td>{post.is_payment_complete ? "Completed" : "Not Completed"}</td>
                       <td>{post.payment_amount}</td>
                       <td>{post.createdAt}</td>
                       {/* <td className='status'>Active</td>
