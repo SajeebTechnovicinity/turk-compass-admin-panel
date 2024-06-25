@@ -85,7 +85,6 @@ export default function Dashboard() {
           Create
         </Link>
       </div>
-
       <div className="dashboard-main-content-wrap">
         <div className="dashboard-main-content">
           <div className="dashboard-table-wrap flex-spb">
@@ -108,7 +107,9 @@ export default function Dashboard() {
                     <td>{user.email}</td>
                     <td>{user.package_type}</td>
                     <td className="status">
-                      {user.status ? "inactive" : "active"}
+               
+                      {user.is_delete==true ? "Deleted" : user.status==0 || user.is_email_verified!=1 ? "Inactive" : "Active"}
+                      {/* {user.is_delete==true ? "Deleted" : " "} */}
                     </td>
                     <td>
                       <div className="act-btns">
@@ -126,7 +127,7 @@ export default function Dashboard() {
                           className="act-btn act-btn-info"
                           onClick={() => deleteAccount(user._id)}
                         >
-                          {user.status ? CHECKMARK : BLOCK}
+                          {user.status==0 ? CHECKMARK : BLOCK}
                         </button>
                       </div>
                     </td>
