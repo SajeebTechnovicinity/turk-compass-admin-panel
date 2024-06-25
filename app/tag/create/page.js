@@ -7,6 +7,7 @@ import "../../form/style.css";
 export default function Dashboard() {
     const [industryList, setindustry] = useState([]);
     const [categories, setcategories] = useState([]);
+
     const [category, setCategory] = useState();
     const [title, setTitle] = useState();
     const [image, setImage] = useState();
@@ -30,7 +31,8 @@ export default function Dashboard() {
     const submit = async(event) => {
         event.preventDefault();
         var data={
-            "name":title
+            "name":title,
+            "category":category
         }
 
         const response = await axiosClient.post('/tag/create', data);
@@ -52,6 +54,9 @@ export default function Dashboard() {
             })
     }
 }
+
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -89,6 +94,27 @@ export default function Dashboard() {
                                     <h5 className='mb-0 h6'>Tag Create</h5>
                                 </div>
                                 <div className='card-body'>
+                                <div className='form-group row'>
+                                        <label className='col-md-3 col-from-label'>
+                                            Category <span className='text-danger'>*</span>
+                                        </label>
+                                        <div className='col-md-8'>
+                                        <select
+                                            className="form-control"
+                                            name="category"
+                                            required
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}
+                                        >
+                                            <option value="">Select One</option>
+                                            {categories && categories.map((category, index) => (
+                                                <option key={index} value={category._id}>
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        </div>
+                                    </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
                                             Name <span className='text-danger'>*</span>

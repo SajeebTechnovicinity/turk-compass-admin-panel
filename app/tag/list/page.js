@@ -52,6 +52,7 @@ export default function Dashboard() {
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>                                
+                                    <th>Category</th>                                
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -61,6 +62,7 @@ export default function Dashboard() {
                                   return <tr key={post._id}>
                                   <td>{index+1}</td>
                                   <td>{post.name}</td>
+                                  <td>{post.category?post.category.name:'-'}</td>
                             
                                   {/* <td className='status'>{post.status}</td> */}
                                   <td>
@@ -70,7 +72,7 @@ export default function Dashboard() {
 
                                           <Link   href={{
                                     pathname: "/tag/edit",
-                                    query: { id:post._id, name:post.name},
+                                    query: { id:post._id,name:post.name,category:post.category?post.category._id:''},
                                     
                                 }} className='act-btn act-btn-succes'>{EDIT}</Link>
                                           {/* <a href='#' className='act-btn act-btn-danger'>{DELETE}</a> */}

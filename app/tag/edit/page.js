@@ -9,7 +9,8 @@ export default function Dashboard() {
     const searchParames = useSearchParams();
     const id = searchParames.get("id");
 
-    const [category, setCategory] = useState();
+    const [category, setCategory] = useState(searchParames.get("category"));
+    const [categories, setcategories] = useState([]);
     const [title, setTitle] = useState(searchParames.get("name"));
     const [image, setImage] = useState();
     const handleCoverImage = (e) => {
@@ -32,6 +33,7 @@ export default function Dashboard() {
         var data={
             "id":id,
             "name":title,
+            "category":category,
             "image":image
         }
 
@@ -54,21 +56,21 @@ export default function Dashboard() {
     }
 }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axiosClient.get("/tag/list");
-                const responseData = response.data; // Rename data variable for clarity
-                if (responseData.success === true) {
-                    setcategories(responseData.categories);
-                }
-            } catch (error) {
-                console.error('Error fetching business posts:', error);
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axiosClient.get("/category/list");
+            const responseData = response.data; // Rename data variable for clarity
+            if (responseData.success === true) {
+                setcategories(responseData.categories);
             }
-        };
+        } catch (error) {
+            console.error('Error fetching business posts:', error);
+        }
+    };
 
-        fetchData();
-    }, []); // Empty dependency array means it runs only once on mount
+    fetchData();
+}, []); // Empty dependency array means it runs only once on mount
     return (
         <div className='dashboard-content'>
             <div className='dashboard-content__topbar topbar flex-ctr'>
@@ -90,6 +92,27 @@ export default function Dashboard() {
                                     <h5 className='mb-0 h6'>Tag Edit</h5>
                                 </div>
                                 <div className='card-body'>
+                                <div className='form-group row'>
+                                        <label className='col-md-3 col-from-label'>
+                                            Category <span className='text-danger'>*</span>
+                                        </label>
+                                        <div className='col-md-8'>
+                                        <select
+                                            className="form-control"
+                                            name="category"
+                                            required
+                                            value={category}
+                                            onChange={(e) => setCategory(e.target.value)}
+                                        >
+                                            <option value="">Select One</option>
+                                            {categories && categories.map((category, index) => (
+                                                <option key={index} value={category._id}>
+                                                    {category.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        </div>
+                                    </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
                                             Name <span className='text-danger'>*</span>

@@ -12,7 +12,7 @@ export default function Dashboard() {
   async function deleteAccount(id) {
     try {
       const response = await axiosClient.get(
-        `user-profile/general/active-inactive?id=${id}`
+        `user-profile/general/status-active-inactive?id=${id}`
       );
       fetchData(); // Fetch updated data after account status change
 
@@ -108,7 +108,7 @@ export default function Dashboard() {
                     <td>{user.email}</td>
                     <td>{user.package_type}</td>
                     <td className="status">
-                      {user.is_delete ? "inactive" : "active"}
+                      {user.status ? "inactive" : "active"}
                     </td>
                     <td>
                       <div className="act-btns">
@@ -126,7 +126,7 @@ export default function Dashboard() {
                           className="act-btn act-btn-info"
                           onClick={() => deleteAccount(user._id)}
                         >
-                          {user.is_delete ? CHECKMARK : BLOCK}
+                          {user.status ? CHECKMARK : BLOCK}
                         </button>
                       </div>
                     </td>
