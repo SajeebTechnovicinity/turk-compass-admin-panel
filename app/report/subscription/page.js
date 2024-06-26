@@ -106,7 +106,7 @@ export default function Dashboard() {
                                                 value={endDate}
                                                 onChange={(e) => setEndDate(e.target.value)}
                                             />
-                                                  <button type="submit" className="btn btn-primary" onClick={search}>Save</button>
+                                                  <button type="submit" className="btn btn-primary" onClick={search}>Search</button>
                                         </div>
                                   
                                     </div>
