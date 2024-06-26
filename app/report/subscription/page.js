@@ -1,12 +1,13 @@
 "use client";
-import { DELETE } from "@/app/assets/icons";
 import axiosClient from "@/app/axiosClient";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export default function Dashboard() {
     const [industryList, setindustry] = useState([]);
+    const [startDate, setStartDate] = useState('2024-06-23');
+    const [endDate, setEndDate] = useState("2024-06-27");
+    const [paymentList, setList] = useState([]);
 
     async function deleteaccount(id){
         const response = await axiosClient.get(`/app-info/petition-delete?id=${id}`);
@@ -29,6 +30,28 @@ export default function Dashboard() {
             }
         }
 
+        const reportdata = async () => {
+            try {
+                const data = {
+                    startDate: startDate,
+                    endDate: endDate,
+                    type:"subscription"
+                };
+              const response = await axiosClient.post("/payment/payment-report",data);
+              const responseData = response.data; // Rename data variable for clarity
+
+              if (responseData.success === true) {
+                setList(responseData.payments);
+              }
+            } catch (error) {
+              console.error('Error fetching business posts:', error);
+            }
+          };
+
+        const search = async () => {
+            reportdata();
+          };
+
         const fetchData = async () => {
             try {
               const response = await axiosClient.get("/app-info/petition/petitionList");
@@ -43,6 +66,7 @@ export default function Dashboard() {
           };
     useEffect(() => {
       fetchData();
+      reportdata();
     }, []); // Empty dependency array means it runs only once on mount
     return (
         <div className='dashboard-content'>
@@ -54,47 +78,63 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className='dashboard-content__title-bar title-bar flex-ctr-spb'>
-                <h3 className='title'>Petition List</h3>
-
-                <Link
-                                href={{
-                                    pathname: "/petition/create",
-                                }}
-                                className='db-button'
-                            >
-                                Create
-                        </Link>
+                <h3 className='title'>Subscription Report</h3>
             </div>
+
+          
             <div className='dashboard-main-content-wrap'>
                 <div className='dashboard-main-content'>
+                <div className='form-card'>   
+                                <div className='card-body'>
+                                    <div className='form-group row'>
+                                        <div className='col-md-6'>
+                                        <input
+                                                type='date'
+                                                className='form-control'
+                                                name='business_name'
+                                                placeholder='Enter your title'
+                                                required
+                                                value={startDate}
+                                                onChange={(e) => setStartDate(e.target.value)}
+                                            />-
+                                            <input
+                                                type='date'
+                                                className='form-control'
+                                                name='business_name'
+                                                placeholder='Enter your title'
+                                                required
+                                                value={endDate}
+                                                onChange={(e) => setEndDate(e.target.value)}
+                                            />
+                                                  <button type="submit" className="btn btn-primary" onClick={search}>Save</button>
+                                        </div>
+                                  
+                                    </div>
+                                </div>
+                            </div>
+                            <br></br>
                     <div className='dashboard-table-wrap flex-spb'>
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
-                                    <th>Link</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Payment</th>
+                                    <th>User Name</th>
+                                    <th>Payment ID</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
                               {
-                                industryList.map( (post,index)=>{
+                                paymentList && paymentList.map( (post,index)=>{
                                   return <tr key={post._id}>
                                   <td>{index+1}</td>
-                                  <td>{post.title}</td>
-                                  <td>{post.description}</td>
-                                  <td> <img style={{"height":"100px"}} src={post.image}></img></td>
-                                  <td>{post.link}</td>
-                                  <td>{post.status==1?'active':"inactive"}</td>
-                                  <td>
-                                    <div className="act-btns">
-                                    <button className="act-btn-danger act-btn" onClick={()=>{deleteaccount(post._id)}}>{DELETE}</button>
-                                    </div>
-                                  </td>
+                                  <td>SUBSCRIPTION</td>
+                                  <td>{post.user_id.userName}</td>
+                                  <td>{post.payment_id}</td>
+                                  <td>{post.amount}</td>
+                                  <td>{ post.date}</td>
+                
                               </tr>
                                 })
                               }
