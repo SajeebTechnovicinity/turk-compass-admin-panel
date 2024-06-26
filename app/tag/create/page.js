@@ -10,6 +10,7 @@ export default function Dashboard() {
 
     const [category, setCategory] = useState();
     const [title, setTitle] = useState();
+    const [titleTr, setTitleTr] = useState();
     const [image, setImage] = useState();
     const fileInputRef = useRef(null);
     const handleCoverImage = (e) => {
@@ -32,6 +33,7 @@ export default function Dashboard() {
         event.preventDefault();
         var data={
             "name":title,
+            "name_tr":titleTr,
             "category":category
         }
 
@@ -46,6 +48,7 @@ export default function Dashboard() {
             })
         } else if (response.data.success==true) {
             setTitle('');
+            setTitleTr('');
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
@@ -117,17 +120,34 @@ export default function Dashboard() {
                                     </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
-                                            Name <span className='text-danger'>*</span>
+                                            Name (English) <span className='text-danger'>*</span>
                                         </label>
                                         <div className='col-md-8'>
                                             <input
                                                 type='text'
                                                 className='form-control'
                                                 name='business_name'
-                                                placeholder='Enter your tag name'
+                                                placeholder='Enter your tag name in english'
                                                 required
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className='form-group row'>
+                                        <label className='col-md-3 col-from-label'>
+                                            Name (Turkish) <span className='text-danger'>*</span>
+                                        </label>
+                                        <div className='col-md-8'>
+                                            <input
+                                                type='text'
+                                                className='form-control'
+                                                name='business_name'
+                                                placeholder='Enter your tag name in turkish'
+                                                required
+                                                value={titleTr}
+                                                onChange={(e) => setTitleTr(e.target.value)}
                                             />
                                         </div>
                                     </div>

@@ -12,6 +12,7 @@ export default function Dashboard() {
     const [category, setCategory] = useState(searchParames.get("category"));
     const [categories, setcategories] = useState([]);
     const [title, setTitle] = useState(searchParames.get("name"));
+    const [titleTr, setTitleTr] = useState(searchParames.get("name_tr"));
     const [image, setImage] = useState();
     const handleCoverImage = (e) => {
         console.log(e);
@@ -33,6 +34,7 @@ export default function Dashboard() {
         var data={
             "id":id,
             "name":title,
+            "name_tr":titleTr,
             "category":category,
             "image":image
         }
@@ -115,17 +117,34 @@ useEffect(() => {
                                     </div>
                                     <div className='form-group row'>
                                         <label className='col-md-3 col-from-label'>
-                                            Name <span className='text-danger'>*</span>
+                                            Name (English) <span className='text-danger'>*</span>
                                         </label>
                                         <div className='col-md-8'>
                                             <input
                                                 type='text'
                                                 className='form-control'
                                                 name='business_name'
-                                                placeholder='Enter your tag name'
+                                                placeholder='Enter your tag name in english'
                                                 required
                                                 value={title}
                                                 onChange={(e) => setTitle(e.target.value)}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className='form-group row'>
+                                        <label className='col-md-3 col-from-label'>
+                                            Name (Turkish) <span className='text-danger'>*</span>
+                                        </label>
+                                        <div className='col-md-8'>
+                                            <input
+                                                type='text'
+                                                className='form-control'
+                                                name='business_name'
+                                                placeholder='Enter your tag name in turkish'
+                                                required
+                                                value={titleTr}
+                                                onChange={(e) => setTitleTr(e.target.value)}
                                             />
                                         </div>
                                     </div>

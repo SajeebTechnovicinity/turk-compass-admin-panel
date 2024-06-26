@@ -641,7 +641,7 @@ export default function Form() {
                                     </label>
                                     <div className="col-md-8">
                                         <div className="file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                           <input type="file" name="image"  required className="selected-files"  ref={inputFile}
+                                           <input type="file" name="image" className="selected-files"  ref={inputFile}
                                         onChange={handleImage}/>
                                         </div>
                                     </div>
@@ -652,7 +652,7 @@ export default function Form() {
                                     </label>
                                     <div className="col-md-8">
                                         <div className="file-wrap" data-toggle="aizuploader" data-type="image" data-multiple="true">
-                                          <input type="file" name="cover_image"  required className="selected-files" ref={inputFile2}
+                                          <input type="file" name="cover_image"   className="selected-files" ref={inputFile2}
                                         onChange={handleCoverImage}/>
                                         </div>
                                     </div>
