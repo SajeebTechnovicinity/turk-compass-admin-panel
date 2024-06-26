@@ -151,7 +151,6 @@ export default function Sidebar() {
             </ul>
           </NavGroup>
 
-
           <NavGroup
             title="Events"
             href="/event/list"
@@ -163,7 +162,6 @@ export default function Sidebar() {
                 href="/event/list"
                 cssClass="nav__sub-link"
               />
-              
             </ul>
           </NavGroup>
 
@@ -195,6 +193,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
+          
           <NavGroup title="Banner" href="/appinfo" icon={IMAGE}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
@@ -213,6 +212,7 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
+
           <NavGroup title="Petition" href="/appinfo" icon={FILE}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
@@ -229,6 +229,26 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
+
+
+          <NavGroup title="Financial Report" href="/appinfo" icon={FILE}>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Event Purchase Report"
+                href="/report/event"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Subscription Report"
+                  href="/report/subscription"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
+
+
           <NavGroup title="Contacts" href="/contact/list" icon={USER}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem

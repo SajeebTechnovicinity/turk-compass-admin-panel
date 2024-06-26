@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from "react";
 export default function Profile() {
@@ -37,11 +38,18 @@ export default function Profile() {
                 </span>
             </div>
             <ul className='profile__dropdown dropdown-body'>
-                <li>
-                    <a className='profile__dropdown-link' href='#'>
-                        Profile
-                    </a>
-                </li>
+
+          
+                  <Link
+                          href={{
+                            pathname: "/profile/create",
+                        
+                          }}
+                          className="act-btn act-btn-succes"
+                        >
+                         Profile
+                        </Link>
+              
                 <li>
                     <a className='profile__dropdown-link' href='/login'>
                         Log-out
