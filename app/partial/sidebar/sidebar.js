@@ -133,6 +133,21 @@ export default function Sidebar() {
           </NavGroup>
 
           <NavGroup
+            title="Business Claim"
+            href="/business-claim/list"
+            icon={SQUIRE_BOX}
+          >
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="List"
+                href="/business-claim/list"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
+
+
+          <NavGroup
             title="Member of Perlament"
             href="/member-of-perlament/list"
             icon={USER_ALT}
