@@ -240,7 +240,7 @@ export default function Dashboard() {
                                                         name='business_name'
                                                         
                                                         readOnly
-                                                        value={businessProfile && businessProfile.category.name}
+                                                        value={businessProfile?.category?.name}
                                                         
                                                     />
                                                 </div>
@@ -257,7 +257,7 @@ export default function Dashboard() {
                                                         name='business_name'
                                                         
                                                         readOnly
-                                                        value={businessProfile && businessProfile.sub_category.name}
+                                                        value={businessProfile?.sub_category?.name}
                                                         
                                                     />
                                                 </div>
@@ -291,7 +291,7 @@ export default function Dashboard() {
                                                         name='business_name'
                                                        
                                                         readOnly
-                                                        value={businessProfile && businessProfile.state.name}
+                                                        value={businessProfile?.state?.name}
                                                         
                                                     />
                                                 </div>
@@ -308,7 +308,7 @@ export default function Dashboard() {
                                                         name='business_name'
                                                        
                                                         readOnly
-                                                        value={businessProfile && businessProfile.city.name}
+                                                        value={businessProfile?.city?.name}
                                                         
                                                     />
                                                 </div>
