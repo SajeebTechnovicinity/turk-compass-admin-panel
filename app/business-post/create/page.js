@@ -92,6 +92,20 @@ export default function Form() {
         }
     };
 
+    const fetchTag = async (categoryId) => {
+        console.log('Fetching category', categoryId);
+        if (categoryId) {
+            try {
+                setCategory(categoryId);
+                const cityRes = await axiosClient.get(`/tag/list?category=${categoryId}`);
+                console.log(cityRes);
+                if (cityRes.data.success) setTagList(cityRes.data.tags);
+            } catch (error) {
+                console.error('Error fetching cities:', error);
+            }
+        }
+    };
+
     useEffect(() => {
     }, [category]);
 
@@ -326,7 +340,7 @@ export default function Form() {
                                             name="category"
                                             required
                                             value={category}
-                                            onChange={(e) => {setCategory(e.target.value); fetchSubCategory(e.target.value)}}
+                                            onChange={(e) => {setCategory(e.target.value); fetchSubCategory(e.target.value); fetchTag(e.target.value) }}
                                         >
                                             <option value="">Select One</option>
                                             {categories.map((category, index) => (
