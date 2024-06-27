@@ -1,21 +1,28 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 export default function Profile() {
     const pathname = usePathname();
     const [profileOpen, setProfileOpen] = useState(false);
-    function onProfileClick(){
+    function onProfileClick() {
         setProfileOpen(!profileOpen);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setProfileOpen(false);
-    }, [pathname])
+    }, [pathname]);
 
     return (
-        <div className={`header__profile profile dropdown ${profileOpen ? 'dropdown-active' : ''}`}>
-            <div className='profile__trigger dropdown__trigger' onClick={onProfileClick}>
+        <div
+            className={`header__profile profile dropdown ${
+                profileOpen ? "dropdown-active" : ""
+            }`}
+        >
+            <div
+                className='profile__trigger dropdown__trigger'
+                onClick={onProfileClick}
+            >
                 <span className='profile__img'>
                     {/* <img src='imgs/user-img.png' alt='profile-image' /> */}
                 </span>
@@ -38,22 +45,20 @@ export default function Profile() {
                 </span>
             </div>
             <ul className='profile__dropdown dropdown-body'>
-
-          
-                  <Link
-                          href={{
-                            pathname: "/profile/create",
-                        
-                          }}
-                          className="act-btn act-btn-succes"
-                        >
-                         Profile
-                        </Link>
-              
                 <li>
-                    <a className='profile__dropdown-link' href='/login'>
+                    <Link
+                        href={{
+                            pathname: "/profile/create",
+                        }}
+                        className='profile__dropdown-link'
+                    >
+                        Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link className='profile__dropdown-link' href='/login'>
                         Log-out
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>
