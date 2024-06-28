@@ -9,6 +9,26 @@ export default function Dashboard() {
   const [businessPosts, setBusinessPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+   async function approve(id) {
+    const response = await axiosClient.get(`business-claim/approve?id=${id}`);
+    fetchData();
+
+    if (response.data.success == false) {
+      Swal.fire({
+        title: "error",
+        text: response.data.message,
+        icon: "error",
+        // confirmButtonText: 'Cool'
+      });
+    } else if (response.data.success == true) {
+      Swal.fire({
+        title: "success",
+        text: response.data.message,
+        icon: "success",
+      });
+    }
+  }
+
   async function deleteaccount(id) {
     const response = await axiosClient.get(
       `user-profile/business/active-inactive?id=${id}`

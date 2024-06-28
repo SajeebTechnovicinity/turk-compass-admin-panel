@@ -66,19 +66,19 @@ export default function Form() {
         fetchStates();
     }, [selectedCountry]);
 
-    useEffect(() => {
-        const fetchCities = async () => {
-            if (selectedState) {
-                try {
-                    const cityRes = await axiosClient.get(`/city/list/${selectedState}`);
-                    if (cityRes.data.success) setCities(cityRes.data.citys);
-                } catch (error) {
-                    console.error('Error fetching cities:', error);
-                }
+    const fetchCities = async (stateID) => {
+        console.log(stateID);
+        if (selectedState) {
+            try {
+                const cityRes = await axiosClient.get(`/city/list/?state=${stateID}`);
+                if (cityRes.data.success) setCities(cityRes.data.citys);
+            } catch (error) {
+                console.error('Error fetching cities:', error);
             }
-        };
+        }
+    };
 
-        fetchCities();
+    useEffect(() => {
     }, [selectedState]);
 
     // const convertToBase64 = (file) => {
@@ -299,7 +299,7 @@ export default function Form() {
                                             name="state"
                                             required
                                             value={selectedState}
-                                            onChange={(e) => setSelectedState(e.target.value)}
+                                            onChange={(e) => {setSelectedState(e.target.value) ;fetchCities(e.target.value)}}
                                         >
                                             <option value="">Select One</option>
                                             {states.map((state, index) => (
