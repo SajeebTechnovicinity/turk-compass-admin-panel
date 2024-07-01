@@ -1523,6 +1523,7 @@ div .db-button:hover{
 
 .date-search label{
   width: 220px;
+  margin-bottom: 0;
 }
 
 .date-search span{
@@ -1540,7 +1541,7 @@ div .db-button:hover{
 }
 
 .date-search button{
-  background-color: var(--bran-color);
+  background-color: #333333;
   height: 36px;
   padding: 5px 20px;
   border: 0;

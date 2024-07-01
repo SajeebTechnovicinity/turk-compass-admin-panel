@@ -114,7 +114,7 @@ export default function AppInfo() {  // Changed 'appInfo' to 'AppInfo'
                   </div>
                 </div>
 
-                <div className="form-group mb-0 text-right">
+                <div className="btn-submit mt-40">
                   <button type="submit" className="btn btn-primary">
                     Save
                   </button>
