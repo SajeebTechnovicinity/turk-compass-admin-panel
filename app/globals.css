@@ -1515,6 +1515,40 @@ div .db-button:hover{
   background-color: #4d6486;
 }
 
+.date-search{
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.date-search label{
+  width: 220px;
+  margin-bottom: 0;
+}
+
+.date-search span{
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.date-search input{
+  height: 36px;
+  padding: 5px 15px;
+  border: 1px solid #dddddd;
+  width: 100%;
+  font-size: 16px;
+}
+
+.date-search button{
+  background-color: #333333;
+  height: 36px;
+  padding: 5px 20px;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+}
+
 /* Grd System */
 
 .row {

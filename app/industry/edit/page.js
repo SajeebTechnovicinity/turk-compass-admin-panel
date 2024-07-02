@@ -12,9 +12,7 @@ export default function Dashboard() {
     const [title, setTitle] = useState(searchParames.get("name"));
     const [image, setImage] = useState(null);
 
-
     useEffect(()=>{
-        
     },[id])
 
     const handleCoverImage = (e) => {
@@ -30,9 +28,7 @@ export default function Dashboard() {
 
             // Read the file as a data URL (base64)
             reader.readAsDataURL(file);
-        }
-        else
-        {
+        } else {
             setImage(null);
         }
     };
@@ -46,6 +42,7 @@ export default function Dashboard() {
             "icone":image,
             "id":id
         }
+
         const response = await axiosClient.post('/job/industry-update', data);
         console.log("response", response);
         if(response.data.success==false){
@@ -55,8 +52,7 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
@@ -65,6 +61,7 @@ export default function Dashboard() {
             })
     }
 }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -131,14 +128,12 @@ export default function Dashboard() {
                                         </div>
                                     </div>
 
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 
                                 </div>
                             </div>
-
-
 
                         </form>
                     </div>

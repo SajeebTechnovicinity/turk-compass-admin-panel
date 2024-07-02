@@ -11,7 +11,7 @@ export default function Dashboard() {
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [image, setImage] = useState();
-    const fileInputRef = useRef(null); 
+    const fileInputRef = useRef(null);
     const handleCoverImage = (e) => {
         console.log(e);
         const file = e.target.files[0];
@@ -34,6 +34,7 @@ export default function Dashboard() {
             "title":title,
             "description":description
         }
+
         const response = await axiosClient.post('/faq/create', data);
         console.log("response", response);
         if(response.data.success==false){
@@ -43,22 +44,22 @@ export default function Dashboard() {
                 icon: 'error',
                 // confirmButtonText: 'Cool'
             })
-        }
-        else if (response.data.success==true) {
+        } else if (response.data.success==true) {
             setTitle('');
             setDescription('');
             if (fileInputRef.current) {
                 fileInputRef.current.value = ''; // Reset the file input field
             }
+
             Swal.fire({
                 title: 'success',
                 text: response.data.message,
                 icon: 'success',
                 // confirmButtonText: 'Cool'
             })
-
     }
 }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -129,14 +130,12 @@ export default function Dashboard() {
                                         </div>
                                     </div>
 
-                                    <div className="form-group mb-0 text-right">
+                                    <div className="btn-submit mt-40">
                                         <button type="submit" className="btn btn-primary">Save</button>
                                     </div>
 
                                 </div>
                             </div>
-
-
 
                         </form>
                     </div>
