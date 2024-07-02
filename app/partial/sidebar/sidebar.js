@@ -261,6 +261,13 @@ export default function Sidebar() {
                 cssClass="nav__sub-link"
               />
             </ul>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Banner Purchase Report"
+                href="/report/banner"
+                cssClass="nav__sub-link"
+              />
+            </ul>
           </NavGroup>
 
 
