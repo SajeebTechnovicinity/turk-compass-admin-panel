@@ -464,7 +464,7 @@ export default function Form() {
                                             value={hill_office_telephone}
                                             onChange={(e) => setHill_office_telephone(e.target.value)}
                                             placeholder='Enter your hill office telephone'
-                                            required
+                                    
                                         />
                                     </div>
                                 </div>
@@ -481,7 +481,7 @@ export default function Form() {
                                             value={hill_office_fax}
                                             onChange={(e) => setHill_office_fax(e.target.value)}
                                             placeholder='Enter your hill office fax'
-                                            required
+                                   
                                         />
                                     </div>
                                 </div>
@@ -497,7 +497,7 @@ export default function Form() {
                                             name='hill_office_fax'
                                             value={constituency_office_main_office}
                                             onChange={(e) => setConstituency_office_main_office(e.target.value)}
-                                            placeholder='Enter your hill office fax'
+                                            placeholder='Constituency office main office'
                                             required
                                         />
                                     </div>
@@ -515,7 +515,7 @@ export default function Form() {
                                             value={constituency_telephone}
                                             onChange={(e) => setConstituency_telephone(e.target.value)}
                                             placeholder='Enter your Constituency telephone'
-                                            required
+                                        
                                         />
                                     </div>
                                 </div>
@@ -532,7 +532,7 @@ export default function Form() {
                                             value={constituency_fax}
                                             onChange={(e) => setConstituency_fax(e.target.value)}
                                             placeholder='Enter your constituency fax'
-                                            required
+                                        
                                         />
                                     </div>
                                 </div>
