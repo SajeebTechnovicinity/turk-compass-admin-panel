@@ -86,7 +86,7 @@ export default function Dashboard() {
                       <td>{res.note}</td>
                       {/* <td> <img style={{"height":"100px"}} src={post.image}></img></td>
                                   <td>{post.status==1?'active':"inactive"}</td> */}
-                      <td>{res.status == 1 ? "active" : "inactive"}</td>
+                      <td>{res.is_canceled == 0 ? "Active" : "Inactive"}</td>
                     </tr>
                   );
                 })}

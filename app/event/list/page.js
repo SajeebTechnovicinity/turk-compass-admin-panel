@@ -45,6 +45,24 @@ export default function Dashboard() {
     fontSize: "16px",
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+  };
+  
+  const calculateDuration = (startDateString, endDateString) => {
+    const startDate = new Date(startDateString);
+    const endDate = new Date(endDateString);
+    const duration = endDate - startDate; // duration in milliseconds
+  
+    const days = Math.floor(duration / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((duration % (1000 * 60)) / 1000);
+  
+    return `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+  };
+
   // Pagination click handler
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -120,8 +138,8 @@ export default function Dashboard() {
                       <td>{post.title}</td>
                       <td>{post.company}</td>
                       <td>{post.city_name}</td>
-                      <td>{post.start_date}</td>
-                      <td>{post.end_date}</td>
+                      <td>{formatDate(post.start_date)}</td>
+                      <td>{formatDate(post.end_date)}</td>
                       <td>{post.is_payment_complete ? "Completed" : "Not Completed"}</td>
                       <td>{post.payment_amount}</td>
                       <td>{post.createdAt}</td>

@@ -5,6 +5,7 @@ import { DELETE } from "../assets/icons";
 import axiosClient from "../axiosClient";
 import "../form/style.css";
 import "./style.css";
+import Swal from "sweetalert2";
 
 export default function AppInfo() {
     const [consulateDetails, setConsulateDetails] = useState("");
@@ -82,6 +83,17 @@ export default function AppInfo() {
     const handleLogoImage = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) { // 5 MB in bytes
+                Swal.fire({
+                    title: 'Error',
+                    text: 'The uploaded logo exceeds the maximum allowed size of 5MB. Please choose a smaller file',
+                    icon: 'error',
+                });
+                // if (fileInputRef.current) {
+                //     fileInputRef.current.value = ''; // Reset the file input field
+                // }
+                return;
+            }
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImage(reader.result);
@@ -93,6 +105,17 @@ export default function AppInfo() {
     const handleCoverImage = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) { // 5 MB in bytes
+                Swal.fire({
+                    title: 'Error',
+                    text: 'The uploaded cover image exceeds the maximum allowed size of 5MB. Please choose a smaller file',
+                    icon: 'error',
+                });
+                // if (fileInputRef.current) {
+                //     fileInputRef.current.value = ''; // Reset the file input field
+                // }
+                return;
+            }
             const reader = new FileReader();
             reader.onloadend = () => {
                 setConsulateCoverImg(reader.result);

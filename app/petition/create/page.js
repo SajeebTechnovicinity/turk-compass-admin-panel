@@ -15,6 +15,18 @@ export default function Dashboard() {
   const handleCoverImage = (e) => {
     const file = e.target.files[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        // 5 MB in bytes
+        Swal.fire({
+          title: "Error",
+          text: "The uploaded image exceeds the maximum allowed size of 5MB. Please choose a smaller file",
+          icon: "error",
+        });
+        // if (fileInputRef.current) {
+        //   fileInputRef.current.value = ""; // Reset the file input field
+        // }
+        return;
+      }
       const reader = new FileReader();
       reader.onloadend = () => {
         // Once the FileReader has read the file, set the base64 data
@@ -97,7 +109,7 @@ export default function Dashboard() {
                   </div>
                   <div className="form-group row">
                     <label className="col-md-3 col-from-label">
-                    Description
+                      Description
                     </label>
                     <div className="col-md-8">
                       <input
@@ -131,9 +143,7 @@ export default function Dashboard() {
                       Cover Image
                     </label>
                     <div className="col-md-8">
-                      <div
-                        className="file-wrap"
-                      >
+                      <div className="file-wrap">
                         <input
                           type="file"
                           name="cover_image"

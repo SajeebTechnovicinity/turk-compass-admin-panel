@@ -14,6 +14,17 @@ export default function Dashboard() {
         console.log(e);
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 5 * 1024 * 1024) { // 5 MB in bytes
+                Swal.fire({
+                    title: 'Error',
+                    text: 'The uploaded image exceeds the maximum allowed size of 5MB. Please choose a smaller file',
+                    icon: 'error',
+                });
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = ''; // Reset the file input field
+                }
+                return;
+            }
             const reader = new FileReader();
             console.log("hello");
             reader.onloadend = () => {
