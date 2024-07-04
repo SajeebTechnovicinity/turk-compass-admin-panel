@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 export default function Dashboard() {
     const [industryList, setindustry] = useState([]);
-    const [startDate, setStartDate] = useState("2024-06-23");
-    const [endDate, setEndDate] = useState("2024-06-27");
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
     const [paymentList, setList] = useState([]);
 
     async function deleteaccount(id) {
@@ -152,10 +152,10 @@ export default function Dashboard() {
                                         return (
                                             <tr key={post._id}>
                                                 <td>{index + 1}</td>
-                                                <td>Event</td>
+                                                <td>Banner</td>
                                                 <td>{post.user_id && post.user_id.userName}</td>
                                                 <td>{post.payment_id}</td>
-                                                <td>{post.amount}</td>
+                                                <td>{post.amount/100}</td>
                                                 <td>{post.date}</td>
                                             </tr>
                                         );

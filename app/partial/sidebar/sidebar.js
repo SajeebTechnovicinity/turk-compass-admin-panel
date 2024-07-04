@@ -218,6 +218,18 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
+
+
+          <NavGroup title="Ads" href="/ads/list" icon={IMAGE}>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Ads List"
+                href="/ads/list"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
+
           <NavGroup title="Consulate" href="/appinfo" icon={PRODUCT}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem

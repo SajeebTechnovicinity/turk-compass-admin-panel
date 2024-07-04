@@ -61,6 +61,15 @@ export default function Form() {
     transition: "background-color 0.3s ease",
   };
 
+  const [expandedMessages, setExpandedMessages] = useState({});
+
+  const toggleMessageVisibility = (postId) => {
+    setExpandedMessages((prevState) => ({
+      ...prevState,
+      [postId]: !prevState[postId],
+    }));
+  };
+
   async function approve(id) {
     const response = await axiosClient.get(`business-claim/approve?id=${id}`);
     fetchData3();
@@ -715,6 +724,7 @@ export default function Form() {
               <th>Contact Name</th>
               <th>Contact Phone</th>
               <th>Contact Email</th>
+              <th>Message</th>
               <th>Supporting Document</th>
               <th>Created At</th>
               <th>Status</th>
@@ -722,42 +732,69 @@ export default function Form() {
             </tr>
           </thead>
           <tbody>
-            {businessPosts.map((post, index) => {
-              return (
-                <tr key={post._id}>
-                  <td>{index + 1}</td>
-                  <td>{post.user.userName}</td>
-                  <td>{post.business_name}</td>
-                  <td>{post.business_phone}</td>
-                  <td>{post.contact_name}</td>
-                  <td>{post.contact_phone}</td>
-                  <td>{post.contact_email}</td>
-                  <td>
-                    {" "}
-                    <a href={post.supporting_document} target="__blank" download>
-                      Preview
-                    </a>
-                  </td>
-                  <td>{post.createdAt}</td>
-                  <td className="status">
-                    {post.status === 0 ? "Pending" : "Approved"}
-                  </td>
-                  <td>
-                    <div className="act-btns">
-                      <button
-                        className="act-btn act-btn-danger"
-                        onClick={() => {
-                          approve(post._id);
-                        }}
-                      >
-                        {post.status === 0 ? CHECKMARK : BLOCK}
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
+                {businessPosts.map((post, index) => {
+                  const isMessageExpanded = expandedMessages[post._id];
+                  const messageExceedsLimit = post.message.length > 30;
+
+                  return (
+                    <tr key={post._id}>
+                      <td>{index + 1}</td>
+                      <td>{post.user.userName}</td>
+                      <td>{post.business_name}</td>
+                      <td>{post.business_phone}</td>
+                      <td>{post.contact_name}</td>
+                      <td>{post.contact_phone}</td>
+                      <td>{post.contact_email}</td>
+                      <td>
+                        {isMessageExpanded
+                          ? post.message
+                          : `${post.message.slice(0, 30)} `}
+                        {messageExceedsLimit && (
+                          <button
+                            onClick={() => toggleMessageVisibility(post._id)}
+                          >
+                            {isMessageExpanded ? "Show less" : "Show more"}
+                          </button>
+                        )}
+                      </td>
+                      <td>
+                        <a
+                          href={post.supporting_document}
+                          target="__blank"
+                          download
+                        >
+                          Preview
+                        </a>
+                      </td>
+                      <td>{post.createdAt}</td>
+                      <td className="status">
+                        {post.status === 0 ? "Pending" : "Approved"}
+                      </td>
+                      <td>
+                      <div className="act-btns">
+                          <button
+                            className="act-btn act-btn-danger"
+                            onClick={() => {
+                              approve(post._id);
+                            }}
+                          >
+                            {post.status === 0 ? CHECKMARK : BLOCK}
+                          </button>
+
+                          <button
+                            className="act-btn act-btn-danger"
+                            onClick={() => {
+                              reject(post._id);
+                            }}
+                          >
+                            { BLOCK}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
         </table>
 
         <div className="pagination" style={{ textAlign: "center" }}>

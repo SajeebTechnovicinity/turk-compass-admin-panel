@@ -24,6 +24,7 @@ export default function AppInfo() {
     const [privacy, setPrivacy] = useState();
     const [is_google_email, setIs_google_email] = useState();
     const [eventPrice, setEventPrice] = useState();
+    const [adsPrice, setAdsPrice] = useState();
 
     const submit = async (event) => {
         event.preventDefault();
@@ -32,7 +33,8 @@ export default function AppInfo() {
             terms_condition: condition,
             privacy_policy: privacy,
             is_google_email:is_google_email,
-            amount:eventPrice
+            amount:eventPrice,
+            ads_price: adsPrice,
         };
 
         const response = await axiosClient.post(
@@ -70,6 +72,7 @@ export default function AppInfo() {
             setPrivacy(data ? data.privacy_policy : "");
             setIs_google_email(data? data.is_google_email : "");
             setEventPrice(data? data.amount : "");
+            setAdsPrice(data? data.ads_price : "");
         };
         fetchData();
     }, []);
@@ -150,6 +153,23 @@ export default function AppInfo() {
                                             required
                                             value={eventPrice}
                                             onChange={(e) => setEventPrice(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className='form-group row'>
+                                    <label className='col-md-3 col-from-label'>
+                                        Ads Price <span className='text-danger'>*</span>
+                                    </label>
+                                    <div className='col-md-8'>
+                                        <input
+                                            type='number'
+                                            className='form-control'
+                                            name='ads_price'
+                                            placeholder='Enter price'
+                                            required
+                                            value={adsPrice}
+                                            onChange={(e) => setAdsPrice(e.target.value)}
                                         />
                                     </div>
                                 </div>

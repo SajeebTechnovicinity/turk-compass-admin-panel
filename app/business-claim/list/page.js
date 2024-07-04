@@ -9,8 +9,37 @@ export default function Dashboard() {
   const [businessPosts, setBusinessPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-   async function approve(id) {
+  const [expandedMessages, setExpandedMessages] = useState({});
+
+  const toggleMessageVisibility = (postId) => {
+    setExpandedMessages((prevState) => ({
+      ...prevState,
+      [postId]: !prevState[postId],
+    }));
+  };
+
+  async function approve(id) {
     const response = await axiosClient.get(`business-claim/approve?id=${id}`);
+    fetchData();
+
+    if (response.data.success == false) {
+      Swal.fire({
+        title: "error",
+        text: response.data.message,
+        icon: "error",
+        // confirmButtonText: 'Cool'
+      });
+    } else if (response.data.success == true) {
+      Swal.fire({
+        title: "success",
+        text: response.data.message,
+        icon: "success",
+      });
+    }
+  }
+
+  async function reject(id) {
+    const response = await axiosClient.get(`business-claim/reject?id=${id}`);
     fetchData();
 
     if (response.data.success == false) {
@@ -163,6 +192,7 @@ export default function Dashboard() {
                   <th>Contact Name</th>
                   <th>Contact Phone</th>
                   <th>Contact Email</th>
+                  <th>Message</th>
                   <th>Supporting Document</th>
                   <th>Created At</th>
                   <th>Status</th>
@@ -171,6 +201,9 @@ export default function Dashboard() {
               </thead>
               <tbody>
                 {businessPosts.map((post, index) => {
+                  const isMessageExpanded = expandedMessages[post._id];
+                  const messageExceedsLimit = post.message.length > 30;
+
                   return (
                     <tr key={post._id}>
                       <td>{index + 1}</td>
@@ -181,7 +214,18 @@ export default function Dashboard() {
                       <td>{post.contact_phone}</td>
                       <td>{post.contact_email}</td>
                       <td>
-                        {" "}
+                        {isMessageExpanded
+                          ? post.message
+                          : `${post.message.slice(0, 30)} `}
+                        {messageExceedsLimit && (
+                          <button
+                            onClick={() => toggleMessageVisibility(post._id)}
+                          >
+                            {isMessageExpanded ? "Show less" : "Show more"}
+                          </button>
+                        )}
+                      </td>
+                      <td>
                         <a
                           href={post.supporting_document}
                           target="__blank"
@@ -195,7 +239,7 @@ export default function Dashboard() {
                         {post.status === 0 ? "Pending" : "Approved"}
                       </td>
                       <td>
-                        <div className="act-btns">
+                      <div className="act-btns">
                           <button
                             className="act-btn act-btn-danger"
                             onClick={() => {
@@ -203,6 +247,15 @@ export default function Dashboard() {
                             }}
                           >
                             {post.status === 0 ? CHECKMARK : BLOCK}
+                          </button>
+
+                          <button
+                            className="act-btn act-btn-danger"
+                            onClick={() => {
+                              reject(post._id);
+                            }}
+                          >
+                            { BLOCK}
                           </button>
                         </div>
                       </td>

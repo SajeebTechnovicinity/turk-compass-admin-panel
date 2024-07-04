@@ -47,7 +47,7 @@ export default function Dashboard() {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    return date.toLocaleDateString();
   };
   
   const calculateDuration = (startDateString, endDateString) => {
