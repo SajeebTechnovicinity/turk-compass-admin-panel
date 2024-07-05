@@ -121,6 +121,22 @@ export default function Form() {
         }
     };
 
+
+    const fetchCities = async (stateID) => {
+        console.log(stateID);
+        if (selectedState) {
+          try {
+            const cityRes = await axiosClient.get(`/city/list/?state=${stateID}`);
+            if (cityRes.data.success) setCities(cityRes.data.citys);
+          } catch (error) {
+            console.error("Error fetching cities:", error);
+          }
+        }
+      };
+    
+      useEffect(() => {}, [selectedState]);
+    
+
     const handleTagChange = (e) => {
         const options = e.target.options;
         const selectedTags = [];
@@ -436,7 +452,7 @@ export default function Form() {
                                             name="state"
                                             required
                                             value={selectedState}
-                                            onChange={(e) => setSelectedState(e.target.value)}
+                                            onChange={(e) => {setSelectedState(e.target.value);  fetchCities(e.target.value);}}
                                         >
                                             <option value="">Select One</option>
                                             {states.map((state, index) => (
@@ -554,7 +570,6 @@ export default function Form() {
                                             className='form-control'
                                             name='contact_email'
                                             value={contactEmail}
-                                            required
                                             onChange={(e) => setContactEmail(e.target.value)}
                                             placeholder='Enter your contact email'
                                         />
@@ -590,7 +605,7 @@ export default function Form() {
                                             value={contactWebsite}
                                             onChange={(e) => setContactWebsite(e.target.value)}
                                             placeholder='Enter your website'
-                                            required
+                                        
                                         />
                                     </div>
                                 </div>

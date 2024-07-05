@@ -646,7 +646,6 @@ export default function Form() {
                       className="form-control"
                       name="contact_email"
                       value={contactEmail}
-                      required
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder="Enter your contact email"
                     />
@@ -682,7 +681,6 @@ export default function Form() {
                       value={contactWebsite}
                       onChange={(e) => setContactWebsite(e.target.value)}
                       placeholder="Enter your website"
-                      required
                     />
                   </div>
                 </div>

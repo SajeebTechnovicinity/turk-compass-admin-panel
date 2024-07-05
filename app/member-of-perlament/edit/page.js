@@ -37,6 +37,18 @@ export default function Form() {
     const [imageBase64, setImageBase64] = useState(null);
     const [coverImageBase64, setCoverImageBase64] = useState(null);
 
+    const fetchCities = async (stateID) => {
+        console.log(stateID);
+        if (selectedState) {
+          try {
+            const cityRes = await axiosClient.get(`/city/list/?state=${stateID}`);
+            if (cityRes.data.success) setCities(cityRes.data.citys);
+          } catch (error) {
+            console.error("Error fetching cities:", error);
+          }
+        }
+      };
+
     const fetchData = async () => {
         try {
             //const objectId = mongoose.Types.ObjectId(id);
@@ -348,7 +360,7 @@ export default function Form() {
                                             name="state"
                                             required
                                             value={selectedState}
-                                            onChange={(e) => setSelectedState(e.target.value)}
+                                            onChange={(e) => {setSelectedState(e.target.value); fetchCities(e.target.value)}}
                                         >
                                             <option value="">Select One</option>
                                             {states.map((state, index) => (
