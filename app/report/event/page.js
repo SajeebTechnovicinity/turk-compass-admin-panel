@@ -153,7 +153,7 @@ export default function Dashboard() {
                                             <tr key={post._id}>
                                                 <td>{index + 1}</td>
                                                 <td>Event</td>
-                                                <td>{post.user_id.userName}</td>
+                                                <td>{post.user_id ? post.user_id.userName : null}</td>
                                                 <td>{post.payment_id}</td>
                                                 <td>{post.amount}</td>
                                                 <td>{post.date}</td>

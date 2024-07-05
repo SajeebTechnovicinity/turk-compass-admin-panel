@@ -520,7 +520,7 @@ export default function Dashboard() {
                                                  State: {jobProfile?jobProfile.state && jobProfile.state.name:''} <br></br> <br></br>
                                                 </div>
                                             </div>
-                                            <div className='form-group row'>
+                                            {/* <div className='form-group row'>
                                                 <label className='col-md-3 col-from-label'>
                                                  Phone <span className='text-danger'></span>
                                                 </label>
@@ -530,7 +530,7 @@ export default function Dashboard() {
                                                 {jobProfile?jobProfile.email && jobProfile.email:''} 
                                                 {jobProfile?jobProfile.summary && jobProfile.summary:''} 
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className='form-group row'>
                                                 <label className='col-md-3 col-from-label'>
                                                  Name <span className='text-danger'></span>
