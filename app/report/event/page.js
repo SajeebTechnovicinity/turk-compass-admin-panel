@@ -139,7 +139,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Payment</th>
                                     <th>User Name</th>
                                     <th>Payment ID</th>
@@ -151,7 +151,7 @@ export default function Dashboard() {
                                     paymentList.map((post, index) => {
                                         return (
                                             <tr key={post._id}>
-                                                <td>{index + 1}</td>
+                                                {/* <td>{index + 1}</td> */}
                                                 <td>Event</td>
                                                 <td>{post.user_id ? post.user_id.userName : null}</td>
                                                 <td>{post.payment_id}</td>

@@ -239,7 +239,9 @@ export default function Form() {
             const reader = new FileReader();
             console.log("hello");
             reader.onloadend = () => {
+
             // Once the FileReader has read the file, set the base64 data
+            console.log(reader.result);
             setCoverImageBase64(reader.result);
             //setImage(reader.result);
             };
@@ -637,7 +639,7 @@ export default function Form() {
                                             value={contactAddress}
                                             onChange={(e) => setContactAddress(e.target.value)}
                                             placeholder='Enter your contact address'
-                                            required
+        
                                         />
                                     </div>
                                 </div>

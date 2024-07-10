@@ -332,6 +332,7 @@ export default function Form() {
         setIsReservationAvailable(1);
         setImageBase64(null);
         setCoverImageBase64(null);
+        setExempt("");
         if (inputFile.current) {
           inputFile.current.value = ""; // Reset the file input field
         }
@@ -490,6 +491,7 @@ export default function Form() {
                       className="form-control"
                       name="city"
                       required
+                      value={selectedCity}
                       onChange={(e) => setSelectedCity(e.target.value)}
                     >
                       <option value="">Select One</option>
@@ -712,7 +714,6 @@ export default function Form() {
                       value={contactAddress}
                       onChange={(e) => setContactAddress(e.target.value)}
                       placeholder="Enter your contact address"
-                      required
                     />
                   </div>
                 </div>
@@ -771,6 +772,7 @@ export default function Form() {
                       className="form-control"
                       name="is_exempt"
                       required
+                      value={exempt}
                       onChange={(e) => setExempt(e.target.value)}
                     >
                       <option value="">Select One</option>

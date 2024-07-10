@@ -50,7 +50,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Name</th>                                
                                     <th>Image</th>
                                     <th>Status</th>
@@ -61,7 +61,7 @@ export default function Dashboard() {
                               {
                                 subCategoryList.map( (post,index)=>{
                                   return <tr key={post._id}>
-                                  <td>{index+1}</td>
+                                  {/* <td>{index+1}</td> */}
                                   <td>{post.name}</td>
                                   <td> <img  src={post.image} style={{ height: '100px' }}></img></td>
                                   <td>{post.status==1?'active':"inactive"}</td>

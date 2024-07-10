@@ -69,7 +69,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Country</th>
                                     <th>State</th>
                                     <th>Name</th>
@@ -80,7 +80,7 @@ export default function Dashboard() {
                               {
                                 cityList && cityList.map( (city,index)=>{
                                   return <tr key={city._id}>
-                                  <td>{index+1}</td>
+                                  {/* <td>{index+1}</td> */}
                                   <td>{city.country && city.country.name}</td>
                                   <td>{city.state && city.state.name}</td>
                                   <td>{city.name}</td>

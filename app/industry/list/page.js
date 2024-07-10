@@ -48,7 +48,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Title</th>                                
                                     <th>Image</th>
                                     <th>Status</th>
@@ -59,7 +59,7 @@ export default function Dashboard() {
                               {
                                 industryList.map( (post,index)=>{
                                   return <tr key={post._id}>
-                                  <td>{index+1}</td>
+                                  {/* <td>{index+1}</td> */}
                                   <td>{post.title}</td>
                                   <td> <img style={{"height":"100px"}} src={post.image}></img></td>
                                   <td>{post.status==1?'active':"inactive"}</td>

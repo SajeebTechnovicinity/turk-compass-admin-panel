@@ -91,7 +91,7 @@ export default function Dashboard() {
             <table className="dashboard-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>Name</th>
                   <th>Email</th>
                   <th>Package Type</th>
@@ -102,7 +102,7 @@ export default function Dashboard() {
               <tbody>
                 {userList.map((user, index) => (
                   <tr key={user._id}>
-                    <td>{index + 1}</td>
+                    {/* <td>{index + 1}</td> */}
                     <td>{user.userName}</td>
                     <td>{user.email}</td>
                     <td>{user.package_type}</td>

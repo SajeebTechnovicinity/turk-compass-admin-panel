@@ -105,7 +105,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Member of Perlamant Name</th>
                                     <th>Political Affiliation</th>
                                     <th>Constituency</th>
@@ -118,7 +118,7 @@ export default function Dashboard() {
                               {
                                 memberPerlaments.map( (post)=>{
                                   return <tr key={post._id}>
-                                  <td>{post._id}</td>
+                                  {/* <td>{post._id}</td> */}
                                   <td>{post.name}</td>
                                   <td>{post.political_affiliation}</td>
                                   <td>{post.constituency}</td>

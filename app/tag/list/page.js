@@ -50,7 +50,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Name (English)</th>  
                                     <th>Name (Turkish)</th>                                  
                                     <th>Category</th>                                
@@ -61,7 +61,7 @@ export default function Dashboard() {
                               {
                                 tagList.map( (post,index)=>{
                                   return <tr key={post._id}>
-                                  <td>{index+1}</td>
+                                  {/* <td>{index+1}</td> */}
                                   <td>{post.name}</td>
                                   <td>{post.name_tr}</td>
                                   <td>{post.category?post.category.name:'-'}</td>

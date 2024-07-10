@@ -73,7 +73,7 @@ export default function Dashboard() {
             <table className="dashboard-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>User Name</th>
                   <th>Ads</th>
                   <th>Created Date</th>
@@ -101,7 +101,7 @@ export default function Dashboard() {
 
                   return (
                     <tr key={post._id}>
-                      <td>{index + 1}</td>
+                      {/* <td>{index + 1}</td> */}
                       <td>{post.user_id ? post.user_id.userName : ""}</td>
                       <td>
                         <img

@@ -71,7 +71,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Title</th>                                
                                     <th>Description</th>
                                     {/* <th>Status</th> */}
@@ -82,7 +82,7 @@ export default function Dashboard() {
                               {
                                 categoryList.map( (post,index)=>{
                                   return <tr key={post._id}>
-                                  <td>{index+1}</td>
+                                  {/* <td>{index+1}</td> */}
                                   <td>{post.title}</td>
                                  <td>{post.description}</td>
                             

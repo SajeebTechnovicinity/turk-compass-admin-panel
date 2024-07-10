@@ -134,7 +134,7 @@ export default function Dashboard() {
                         <table className='dashboard-table'>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Business Post Name</th>
                                     <th>Address</th>
                                     <th>Phone</th>
@@ -147,7 +147,7 @@ export default function Dashboard() {
                               {
                                 businessPosts.map( (post)=>{
                                   return <tr key={post._id}>
-                                  <td>{post._id}</td>
+                                  {/* <td>{post._id}</td> */}
                                   <td>{post.business_name}</td>
                                   <td>{post.address}</td>
                                   <td>{post.contact_phone}</td>

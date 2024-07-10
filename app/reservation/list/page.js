@@ -63,7 +63,7 @@ export default function Dashboard() {
             <table className="dashboard-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>Created By</th>
                   <th>Business Post</th>
                   <th>Number of Person</th>
@@ -75,7 +75,7 @@ export default function Dashboard() {
                 {reservation.map((res, index) => {
                   return (
                     <tr key={res._id}>
-                      <td>{index + 1}</td>
+                      {/* <td>{index + 1}</td> */}
                       <td>{res.user ? res.user.userName : ""}</td>
                       <td>
                         {res.business_post

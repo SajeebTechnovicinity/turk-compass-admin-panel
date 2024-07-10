@@ -62,7 +62,7 @@ export default function Dashboard() {
             <table className="dashboard-table">
               <thead>
                 <tr>
-                  <th>ID</th>
+                  {/* <th>ID</th> */}
                   <th>Company</th>
                   <th>Title</th>
                   <th>Skill</th>
@@ -75,7 +75,7 @@ export default function Dashboard() {
                 {jobList.map((job, index) => {
                   return (
                     <tr key={job._id}>
-                      <td>{index + 1}</td>
+                      {/* <td>{index + 1}</td> */}
                       <td>
                         {job.company_info
                           ? job.company_info[0].business_name

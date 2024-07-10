@@ -76,7 +76,7 @@ export default function Dashboard() {
                             <thead>
                                 <tr>
 
-                                    <th>ID</th>
+                                    {/* <th>ID</th> */}
                                     <th>Country</th>
                                     <th>Name</th>
                                     <th>Status</th>
@@ -86,7 +86,7 @@ export default function Dashboard() {
                               {
                                 stateList.map( (state,index)=>{
                                   return <tr key={state._id}>
-                                  <td>{index+1}</td>
+                                  {/* <td>{index+1}</td> */}
                                   <td>{state.country.name}</td>
                                   <td>{state.name}</td>
                                   <td>{state.status==1?'active':"inactive"}</td>
