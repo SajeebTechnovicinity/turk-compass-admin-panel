@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
     const [subCategoryList, setSubCategory] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axiosClient.get("/subcategory/list");
+          const response = await axiosClient.get(`/subcategory/list?page=${currentPage}`);
           const responseData = response.data; // Rename data variable for clarity
 
           if (responseData.success === true) {
@@ -21,7 +23,29 @@ export default function Dashboard() {
       };
   
       fetchData();
-    }, []); // Empty dependency array means it runs only once on mount
+    }, [currentPage]); // Empty dependency array means it runs only once on mount
+   
+    const buttonStyle = {
+        padding: '8px 16px',
+        margin: '0 5px',
+        backgroundColor: 'var(--primary-color)',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        transition: 'background-color 0.3s ease'
+    };
+
+    const infoStyle = {
+        margin: '0 10px',
+        fontSize: '16px'
+    };
+
+     // Pagination click handler
+     const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+   
     return (
         <div className='dashboard-content'>
             <div className='dashboard-content__topbar topbar flex-ctr'>
@@ -86,6 +110,23 @@ export default function Dashboard() {
 
                             </tbody>
                         </table>
+
+                         <div className="pagination" style={{ textAlign:'center' }}>
+                            <button
+                                onClick={() => handlePageChange(currentPage - 1)}
+                                disabled={currentPage === 1}
+                                style={buttonStyle}
+                            >
+                                Previous
+                            </button>
+
+                            <button
+                                onClick={() => handlePageChange(currentPage + 1)}
+                                style={buttonStyle}
+                            >
+                                Next
+                            </button>
+                        </div>
 
                       
                     </div>

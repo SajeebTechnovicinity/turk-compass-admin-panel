@@ -463,7 +463,7 @@ export default function Form() {
                       value={contactWebsite}
                       onChange={(e) => setContactWebsite(e.target.value)}
                       placeholder="Enter your website"
-                      required
+                      
                     />
                   </div>
                 </div>
