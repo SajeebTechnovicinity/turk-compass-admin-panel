@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { DELETE } from "../assets/icons";
 import axiosClient from "../axiosClient";
 import "../form/style.css";
 import "./style.css";
-import Swal from "sweetalert2";
 
 export default function AppInfo() {
     const [consulateDetails, setConsulateDetails] = useState("");
@@ -75,6 +75,7 @@ export default function AppInfo() {
                 phone: "",
                 fax: "",
                 email: "",
+                web:"",
                 opening_info: [{ opening_info: "" }],
             },
         ]);
@@ -149,6 +150,9 @@ export default function AppInfo() {
             consulate_cover_img: consulate_cover_img,
             branch_info: addressList,
         };
+
+        console.log(data);
+
 
         const response = await axiosClient.post(
             "/consultate/consultate-create",
@@ -274,6 +278,7 @@ export default function AppInfo() {
                                                     "phone",
                                                     "fax",
                                                     "email",
+                                                    "web",
                                                 ].map((field, idx) => (
                                                     <div
                                                         key={idx}
