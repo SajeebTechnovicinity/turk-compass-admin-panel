@@ -36,6 +36,15 @@ export default function Sidebar() {
               />
             </ul>
           </NavGroup>
+          <NavGroup title="Business Compare List" href="/business-list-google" icon={SETTINGS}>
+            <ul className="nav__sub-list dropdown-body">
+              <NavItem
+                title="Business Compare List"
+                href="/business-list-google"
+                cssClass="nav__sub-link"
+              />
+            </ul>
+          </NavGroup>
           <NavGroup title="Location Setting" href="/appinfo" icon={SETTINGS}>
             <ul className="nav__sub-list dropdown-body">
               <NavItem
