@@ -7,6 +7,7 @@ export default function Dashboard() {
   const [businessList, setBusinessList] = useState([]);
   const [turkBusiness, setTurkBusiness] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [placesData, setPlacesData] = useState({}); // For storing places data
 
   const buttonStyle = {
     padding: "8px 16px",
@@ -19,20 +20,19 @@ export default function Dashboard() {
     transition: "background-color 0.3s ease",
   };
 
-  useEffect(() => {
-    const fetchNearbyPlaces = async () => {
-      try {
-        const response = await fetch("/api/places");
-        const data = await response.json();
-        setBusinessList(data.results);
-        console.log("Nearby Places:", data.results);
-      } catch (error) {
-        console.error("Error fetching places:", error);
-      }
-    };
-
-    fetchNearbyPlaces();
-  }, []);
+  // Fetch nearby places for a specific business
+  const fetchNearbyPlaces = async (businessName, businessId) => {
+    try {
+      const response = await fetch(`/api/places?business_name=${businessName}`);
+      const data = await response.json();
+      setPlacesData((prevData) => ({
+        ...prevData,
+        [businessId]: data.results, // Store results by businessId
+      }));
+    } catch (error) {
+      console.error("Error fetching places:", error);
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -43,6 +43,11 @@ export default function Dashboard() {
       if (responseData.success) {
         setTurkBusiness(responseData.businessPosts);
         console.log("Turk Business:", responseData.businessPosts);
+
+        // Fetch nearby places for each business
+        responseData.businessPosts.forEach((business) => {
+          fetchNearbyPlaces(business.business_name, business._id);
+        });
       }
     } catch (error) {
       console.error("Error fetching business posts:", error);
@@ -55,6 +60,30 @@ export default function Dashboard() {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const updateBusinessAddress = async (businessId, newAddress, action) => {
+    try {
+      const response = await axiosClient.post(
+        `/business-post/update-address/?id=${businessId}`,
+        { address: newAddress }
+      );
+      const responseData = response.data;
+      if (responseData.success) {
+        fetchData(); // Refresh data after update
+        Swal.fire({
+          title: action === "ignore" ? "Ignored" : "Address Updated",
+          text:
+            action === "ignore"
+              ? "Business was ignored."
+              : "Address updated successfully.",
+          icon: action === "ignore" ? "info" : "success",
+        });
+      }
+      console.log("Update response:", responseData);
+    } catch (error) {
+      console.error("Error updating business post:", error);
+    }
   };
 
   return (
@@ -81,78 +110,52 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {turkBusiness.map((business, index) => (
-                  <tr key={index}>
+                {turkBusiness.map((business) => (
+                  <tr key={business._id}>
                     <td>{business.business_name}</td>
                     <td>{business.address}</td>
                     <td>
-                      {businessList
-                        .filter(
-                          (googleBusiness) =>
-                            googleBusiness.name === business.business_name
-                        )
-                        .map((googleBusiness, gIndex) => (
-                          <div key={gIndex}>
-                            <p>{googleBusiness.formatted_address}
-                            <button
-                              style={buttonStyle}
-                              onClick={async () => {
-                                try {
-                                  const response = await axiosClient.post(
-                                    `/business-post/update-address/?id=${business._id}`,
-                                    {
-                                      address: business.address,
-                                    }
-                                  );
-                                  const responseData = response.data;
-                                  if (responseData.success) {
-                                    fetchData(); // Refresh data after update
-                                    Swal.fire({
-                                      title: "success",
-                                      text: "Ignored Successfully",
-                                      icon: "error",
-                                      // confirmButtonText: 'Cool'
-                                    });
+                      {placesData[business._id] ? (
+                        placesData[business._id]
+                          .filter(
+                            (googleBusiness) =>
+                              googleBusiness.name === business.business_name
+                          ) // Filter matching business names
+                          .map((googleBusiness, gIndex) => (
+                            <div key={gIndex}>
+                              <p>{googleBusiness.name}</p>
+                              <p>
+                                {googleBusiness.formatted_address}
+                                <button
+                                  style={buttonStyle}
+                                  onClick={() =>
+                                    updateBusinessAddress(
+                                      business._id,
+                                      business.address,
+                                      "ignore"
+                                    )
                                   }
-                                  console.log("Update response:", responseData);
-                                } catch (error) {
-                                  console.error("Error updating business post:", error);
-                                }
-                              }}
-                            >
-                              Ignore
-                            </button>
-                            <button
-                              style={buttonStyle}
-                              onClick={async () => {
-                                try {
-                                  const response = await axiosClient.post(
-                                    `/business-post/update-address/?id=${business._id}`,
-                                    {
-                                      address: googleBusiness.formatted_address,
-                                    }
-                                  );
-                                  const responseData = response.data;
-                                  if (responseData.success) {
-                                    fetchData(); // Refresh data after update
-                                    Swal.fire({
-                                      title: "success",
-                                      text: "Address Updated Successfully",
-                                      icon: "error",
-                                      // confirmButtonText: 'Cool'
-                                    });
+                                >
+                                  Ignore
+                                </button>
+                                <button
+                                  style={buttonStyle}
+                                  onClick={() =>
+                                    updateBusinessAddress(
+                                      business._id,
+                                      googleBusiness.formatted_address,
+                                      "update"
+                                    )
                                   }
-                                  console.log("Update response:", responseData);
-                                } catch (error) {
-                                  console.error("Error updating business post:", error);
-                                }
-                              }}
-                            >
-                              Update Address
-                            </button>
-                            </p>
-                          </div>
-                        ))}
+                                >
+                                  Update Address
+                                </button>
+                              </p>
+                            </div>
+                          ))
+                      ) : (
+                        <p>Matching with Google Business...</p>
+                      )}
                     </td>
                   </tr>
                 ))}
