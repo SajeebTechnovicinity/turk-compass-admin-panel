@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
+  const apiKey = 'AIzaSyDn9b_X9vSp431Z29L4PkzBuhJEfbP0eYY';
   if (!apiKey) {
     return NextResponse.json({ error: 'Google API key is missing' }, { status: 500 });
   }
